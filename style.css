@@ -1,150 +1,236 @@
+:root{
+	/* font sizes */
+	--lg: 32px; /*large font*/
+	--md: 16px; /* medium font*/
+	--sub: 12px; /*sub text */
+	--sm: 8px;  /* small font*/
+	--vsm: 4px; /* very small font */
+	--icon: 25px;
+	
+	/*color sheme*/
+	--main-colour: black;
+	--accent-colour: white;
+	--theme: linear-gradient(45deg, #feda75, #fa7e1e, #d62976, #962fbf, #4f5bd5);
+}
+
+
 @font-face {
 	font-family: 'Grand Hotel';
-	src: url('./fonts/grandhotel-regular-webfont.woff2') format('woff2'),
+	src: url("./fonts/grandhotel-regular-webfont.woff2") format('woff2'),
 		url('./fonts/grandhotel-regular-webfont.woff') format('woff');
 	font-weight: normal;
 	font-style: normal;
 	
 }
 
-* {
+body{
+	height: 100%;
 	margin: 0;
 	padding: 0;
+	background-color: black;
 	color: white;
 	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Grand Hotel";
 }
 
-button {
-	border: 0;
-}
+ p{
+ 	font: inherit;
+ 	margin: 0;
+ }
+ 
+ .username{
+ 	font-weight: 600;
+ }
 
-body {
-	background-color: black;
-	overflow: hidden;
-	width: 100vw;
-}
-
-#header {
-	padding: 3px 10px 10px;
+.head{
 	display: flex;
+	padding: var(--vsm) var(--md);
+	justify-content: space-between;
 	align-items: center;
-	max-height: 50px;
+	height: 54px;
 }
 
-#header>h1 {
+.head-icon{
+	display: flex;
+	gap: var(--md);
+	padding-right: var(--vsm);
+}
+
+.head-icon svg[data-lucide="plus"]{
+	border: 2px solid white;
+	border-radius: var(--sm);
+	box-sizing: border-box;
+}
+
+.head > h2{
 	font-family: "Grand Hotel";
-	font-size: 30px;
-	/*letter-spacing: 1px;*/
+	font-size: var(--lg);
 	font-weight: 400;
+	margin: 0;
 }
 
-#header>.header-icons {
+.story-bar{
 	display: flex;
-	gap: 10px;
-	position: relative;
-	right: -50%;
-}
-
-.header-icons>* {
-	width: 28px;
-	height: 28px;
-}
-
-.body {
-	height: 84.5vh;
-	overflow-x: hidden;
-	overflow-y: auto;
-}
-
-.story-bar {
-	display: flex;
-	gap: 20px;
-	padding: 0px 20px;
+	padding: var(--sm) var(--md);
 	overflow-x: auto;
+	gap: var(--md);
 }
 
-.status {
-	min-width: 23%;
-	height: 60%;
+.story{
+	flex-shrink: 0;
+	box-sizing: border-box;
+	width: 25%;
+}
+
+.story-pic{
+	display: inline-flex;
+	background: var(--theme);
+	width: 72px;
 	border-radius: 50%;
+	max-width: 150px;
+	position: relative;
+	padding: var(--vsm);
+	box-sizing: border-box;
+}
+
+.story-pic > img{
+	background-color: black;
+	border-radius: 50%;
+	padding: var(--vsm);
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	box-sizing: border-box;
+}
+
+.story-pic > svg{
+	position: absolute;
+	bottom: 10%;
+	right: 10%;
+	z-index: 1;
+	background-color: white;
+	color: black;
+	stroke-width: 1;
+	border-radius: 50%;
+	height: var(--md);
+	width: var(--md);
+}
+
+.story > p{
 	text-align: center;
-	font-size: 12px;
+	padding: var(--sm);
+	font-size: var(--sub);
+	opacity: .7;
+}
+
+.main{
+	height: calc(100vh - 110px);
+	overflow-y: auto;
+	padding-bottom: var(--lg);
+}
+
+.post{
+	font-size: 14px;
 	display: flex;
 	flex-direction: column;
-	gap: 8px;
+	gap: var(--sm);
 }
 
-.status>p {
-	color: rgba(255, 255, 255, .6);
-}
-
-.status img {
-	border-radius: 50%;
-	width: 100%;
-	height: 100%;
-}
-
-.post {
-	padding: 10px 0;
-}
-
-.post-img {
-	width: 100%;
-	max-height: 400px;
-}
-
-.post-icons {
+.post-head{
 	display: flex;
-	padding: 10px 15px;
-	gap: 13px;
-}
-
-.post-icons > * {
-	width: 25px;
-	height: 25px;
-}
-
-.bookmark{
-	position: relative;
-	right: -57%;
-}
-
-.post-details{
-	padding: 15px;
-}
-.footer-icons{
-	position: absolute;
-	bottom: 0%;
-	width: 100%;
-	overflow: hidden;
-	display: flex;
-	justify-content: space-evenly;
+	gap: var(--md);
+	padding: 0 var(--md);
+	padding-left: var(--sm);
 	align-items: center;
-	padding: 7px 0;
-	background: black;
-	border-top: 1px solid rgba(255, 255, 255, .4);
+	line-height: 1.3;
 }
 
-.profile-btn{
-	height: 5vh;
-	max-width: 10%;
-	border-radius: 50%;
-	border: 2px solid whitesmoke;
-	background: black;
+
+
+.post-owner-details > .extra{
+	font-size: var(--sub);
+	letter-spacing: .1px;
 }
 
-.profile-btn > img{
+.post-owner-pic{
+	display: inline-flex;
+	width: var(--lg);
+	height: var(--lg);
+	max-width: 50px;
+	max-height: 50px;
+	padding: 2px;
+	background: var(--theme);
 	border-radius: 50%;
-	height: 100%;
+	box-sizing: border-box;
+}
+
+.post-owner-pic > img{
+	background: black;
+	border-radius: 50%;
 	width: 100%;
+	height: 100%;
 }
 
-.footer-icons > *{
-	font-size: 32px;
-	width: 15%;
+.post-head svg{
+	margin-left: auto;
+	padding: var(--sm);
 }
 
-.reels {
-	height: 30px;
-	width: 30px;
+.post > img{
+	object-fit: contain;
+	height: 500px;
+	width: auto;
+}
+
+.post > .icons{
+	display: flex;
+	gap: var(--md);
+	padding: var(--sm) var(--md);
+}
+
+.icons > svg[data-lucide="bookmark"]{
+	margin-left: auto;
+}
+
+.icons > svg[data-lucide="message-circle"]{
+	transform: rotateY(180deg);
+}
+
+.post > .likes{
+	padding: 0 var(--md);
+	font-weight: 600;
+}
+
+.post > .post-details{
+	letter-spacing: .1px;
+	padding: var(--vsm) var(--md);
+}
+
+.footer{
+	box-sizing: border-box;
+	height: 56px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: var(--sm) var(--md);
+	border-top: .5px solid rgba(255, 255, 255, .5);
+}
+
+.footer > img{
+	height: var(--icon);
+	width: var(--icon);
+	border-radius: 50%;
+	box-sizing: border-box;
+}
+
+.footer svg{
+	width: var(--icon);
+	height: var(--icon);
+	padding: var(--sm);
+}
+
+.footer iconify-icon{
+	font-size: var(--icon);
+	width: 1em;
+	height: 1em;
+	padding: var(--sm);
 }
