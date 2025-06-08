@@ -1,18 +1,25 @@
-:root{
+:root {
 	/* font sizes */
-	--lg: 32px; /*large font*/
-	--md: 16px; /* medium font*/
-	--sub: 12px; /*sub text */
-	--sm: 8px;  /* small font*/
-	--vsm: 4px; /* very small font */
+	--vlg: 48px;
+	/*very large*/
+	--lg: 32px;
+	/*large font*/
+	--md: 16px;
+	/* medium font*/
+	--sub: 14px;
+	/*sub text */
+	--sm: 8px;
+	/* small font*/
+	--vsm: 4px;
+	/* very small font */
 	--icon: 25px;
 	
 	/*color sheme*/
 	--main-colour: black;
 	--accent-colour: white;
+	--btn-color: rgb(76, 104, 230);
 	--theme: linear-gradient(45deg, #feda75, #fa7e1e, #d62976, #962fbf, #4f5bd5);
 }
-
 
 @font-face {
 	font-family: 'Grand Hotel';
@@ -23,7 +30,7 @@
 	
 }
 
-body{
+body {
 	overflow: hidden;
 	margin: 0;
 	padding: 0;
@@ -32,16 +39,41 @@ body{
 	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Grand Hotel";
 }
 
- p{
- 	font: inherit;
- 	margin: 0;
- }
- 
- .username{
- 	font-weight: 600;
- }
+p {
+	font: inherit;
+	margin: 0;
+}
 
-.head{
+iconify-icon {
+	font-size: var(--icon);
+	width: 1em;
+	height: 1em;
+	padding: var(--sm);
+}
+
+a {
+	color: var(--btn-color);
+	text-decoration: none;
+	font: inherit;
+}
+
+input {
+	background: rgba(255, 255, 255, 0);
+	border: 0;
+	color: inherit;
+}
+
+input:focus {
+	font: inherit;
+	outline: 0;
+}
+
+/*home page*/
+.username {
+	font-weight: 600;
+}
+
+.head {
 	display: flex;
 	padding: var(--vsm) var(--md);
 	justify-content: space-between;
@@ -50,39 +82,39 @@ body{
 	box-sizing: border-box;
 }
 
-.head-icon{
+.head-icon {
 	display: flex;
 	gap: var(--md);
 	padding-right: var(--vsm);
 }
 
-.head-icon svg[data-lucide="plus"]{
+.head-icon svg[data-lucide="plus"] {
 	border: 2px solid white;
 	border-radius: var(--sm);
 	box-sizing: border-box;
 }
 
-.head > h2{
+.head>h2 {
 	font-family: "Grand Hotel";
 	font-size: var(--lg);
 	font-weight: 400;
 	margin: 0;
 }
 
-.story-bar{
+.story-bar {
 	display: flex;
 	padding: var(--sm) var(--md);
 	overflow-x: auto;
 	gap: var(--md);
 }
 
-.story{
+.story {
 	flex-shrink: 0;
 	box-sizing: border-box;
 	width: 25%;
 }
 
-.story-pic{
+.story-pic {
 	display: inline-flex;
 	background: var(--theme);
 	width: 72px;
@@ -93,7 +125,7 @@ body{
 	box-sizing: border-box;
 }
 
-.story-pic > img{
+.story-pic>img {
 	background-color: black;
 	border-radius: 50%;
 	padding: var(--vsm);
@@ -103,7 +135,7 @@ body{
 	box-sizing: border-box;
 }
 
-.story-pic > svg{
+.story-pic>svg {
 	position: absolute;
 	bottom: 10%;
 	right: 10%;
@@ -116,27 +148,27 @@ body{
 	width: var(--md);
 }
 
-.story > p{
+.story>p {
 	text-align: center;
 	padding: var(--sm);
 	font-size: var(--sub);
 	opacity: .7;
 }
 
-.main{
+.main {
 	height: calc(100dvh - 135px);
 	overflow-y: auto;
 	padding-bottom: var(--lg);
 }
 
-.post{
-	font-size: 14px;
+.post {
+	font-size: var(--sub);
 	display: flex;
 	flex-direction: column;
 	gap: var(--sm);
 }
 
-.post-head{
+.post-head {
 	display: flex;
 	gap: var(--md);
 	padding: 0 var(--md);
@@ -147,12 +179,12 @@ body{
 
 
 
-.post-owner-details > .extra{
+.post-owner-details>.extra {
 	font-size: var(--sub);
 	letter-spacing: .1px;
 }
 
-.post-owner-pic{
+.post-owner-pic {
 	display: inline-flex;
 	width: var(--lg);
 	height: var(--lg);
@@ -164,49 +196,49 @@ body{
 	box-sizing: border-box;
 }
 
-.post-owner-pic > img{
+.post-owner-pic>img {
 	background: black;
 	border-radius: 50%;
 	width: 100%;
 	height: 100%;
 }
 
-.post-head svg{
+.post-head svg {
 	margin-left: auto;
 	padding: var(--sm);
 }
 
-.post > img{
+.post>img {
 	object-fit: contain;
 	height: 500px;
 	width: auto;
 }
 
-.post > .icons{
+.post>.icons {
 	display: flex;
 	gap: var(--md);
 	padding: var(--sm) var(--md);
 }
 
-.icons > svg[data-lucide="bookmark"]{
+.icons>svg[data-lucide="bookmark"] {
 	margin-left: auto;
 }
 
-.icons > svg[data-lucide="message-circle"]{
+.icons>svg[data-lucide="message-circle"] {
 	transform: rotateY(180deg);
 }
 
-.post > .likes{
+.post>.likes {
 	padding: 0 var(--md);
 	font-weight: 600;
 }
 
-.post > .post-details{
+.post>.post-details {
 	letter-spacing: .1px;
 	padding: var(--vsm) var(--md);
 }
 
-.footer{
+.footer {
 	box-sizing: border-box;
 	height: 56px;
 	display: flex;
@@ -216,22 +248,131 @@ body{
 	border-top: .5px solid rgba(255, 255, 255, .5);
 }
 
-.footer > img{
+.footer>img {
 	height: var(--icon);
 	width: var(--icon);
 	border-radius: 50%;
 	box-sizing: border-box;
 }
 
-.footer svg{
+.footer svg {
 	width: var(--icon);
 	height: var(--icon);
 	padding: var(--sm);
 }
 
-.footer iconify-icon{
+
+
+/* Login page */
+
+.login {
+	display: flex;
+	flex-direction: column;
+	gap: var(--md);
+	align-items: center;
+	justify-content: center;
+	padding: var(--lg);
+	padding-top: var(--md);
+}
+
+.login>.language {
+	opacity: .7;
+	font-size: var(--sub);
+}
+
+.login>h1 {
+	font-family: "Grand Hotel";
+	font-size: var(--vlg);
+	margin: var(--md) 0 var(--md);
+	padding: var(--sm) 0 var(--vsm);
+	font-weight: 400;
+	letter-spacing: .2px;
+}
+
+.login>.social-login {
+	font-family: inherit;
+	font-weight: 600;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: var(--sm);
+	border-radius: var(--sm);
+	padding: var(--vsm);
+	background: #ED5B3ABA;
+	color: white;
+	border: 0;
+}
+
+.login>.social-login>iconify-icon {
+	padding: 0;
 	font-size: var(--icon);
-	width: 1em;
-	height: 1em;
+}
+
+.login>.or {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	width: 100%;
+	font-weight: 600;
+	opacity: .8;
 	padding: var(--sm);
+	font-size: var(--sub);
+}
+
+.or::before,
+.or::after {
+	content: "";
+	flex: 1;
+	border-bottom: 1px solid rgba(255, 255, 255, .3);
+	margin: 0 var(--sub);
+}
+
+.login>form {
+	display: flex;
+	flex-direction: column;
+	gap: var(--sm);
+}
+
+.login>form>.input-field {
+	border: 1px solid rgba(255, 255, 255, .3);
+	border-radius: var(--sm);
+	background: rgba(255, 255, 255, .1);
+	padding: var(--sm);
+	position: relative;
+	width: 100%;
+}
+
+.login > form > .
+
+.login>form>.reset-link {
+	align-self: flex-end;
+	padding: var(--sub) 0 var(--md);
+	font-size: var(--sub);
+	letter-spacing: .2px;
+}
+
+.login>form>.submit-btn {
+	font: inherit;
+	font-size: var(--sub);
+	font-weight: 600;
+	padding: var(--sm);
+	border-radius: var(--sm);
+	border: 0;
+	background: var(--btn-color);
+	color: white;
+	cursor: pointer;
+}
+
+.login>.signup-link {
+	margin: var(--md) 0;
+	opacity: .8;
+	font-weight: 300;
+	font-size: var(--sub);
+}
+
+.login > .signup-link > a{
+	font-weight: 600;
+	opacity: 1;
 }
