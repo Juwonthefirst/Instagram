@@ -20,7 +20,7 @@ form.append(
     inputField('text', 'credentials', 'Phone number, username, or email'),
     inputField('password', 'password', 'Password')
 )
-form.innerHTML +='<a class="reset-link" href="/">Forgot password?</a>'
+form.innerHTML +='<a class="reset-link" data-link href="/">Forgot password?</a>'
 const loginBtn = document.createElement('button')
 loginBtn.type = 'submit'
 loginBtn.className = 'submit-btn'
