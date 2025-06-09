@@ -1,5 +1,4 @@
 import inputField from '../components/Input.js'
-import loadGoogleScript from '../components/google-script.js'
 import Server from '../fetch.js'
 
 const server = Server()
