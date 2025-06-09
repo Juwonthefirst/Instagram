@@ -79,6 +79,7 @@ export default function Server(backendUrl = 'https://beep-me-api.onrender.com/ap
         },
         
         async googleLogin(response) {
+            alert(response.credential)
             const data = await fetch('https://beep-me-api.onrender.com/api/auth/social/google/', {
                 method: 'POST',
                 headers: {
