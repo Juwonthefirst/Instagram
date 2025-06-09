@@ -1,6 +1,5 @@
 import loginPage from './pages/login-page.js';
 //import signupPage from './pages/signupPage.js';
-console.log('error')
 import home from './pages/home-page.js'
 import notFound from './pages/not-found-page.js'
 
@@ -10,11 +9,25 @@ const routes = {
 }
 
 const router = function(){
-	const route = location.hash.slice(1) || '/'
+	const route = window.location.pathname || '/'
 	const page = routes[route] || notFound
 	page()
 	lucide.createIcons()
 }
 
-window.addEventListener('hashchange', router)
+function navigateTo(url) {
+	history.pushState(null, '', url)
+	router()
+}
+
+document.addEventListener('click', (event) => {
+	if (event.target.matches('[data-link]')) {
+		event.preventDefault()
+		navigateTo(event.target.href)
+	}
+})
+
+window.addEventListener('popstate', router)
 window.addEventListener('load', router)
+/*window.addEventListener('hashchange', router)
+window.addEventListener('load', router)*/

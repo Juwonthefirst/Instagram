@@ -14,11 +14,13 @@ googleLoginBtn.addEventListener('click', () => {
 
 loginDiv.appendChild(googleLoginBtn)
 loginDiv.innerHTML += '<p class="or">OR</p>'
-loginDiv.append(
+const form = document.createElement('form')
+form.noValidate = true 
+form.append(
     inputField('text', 'credentials', 'Phone number, username, or email'),
     inputField('password', 'password', 'Password')
 )
-loginDiv.innerHTML +='<a class="reset-link" href="#">Forgot password?</a>'
+form.innerHTML +='<a class="reset-link" href="/#/">Forgot password?</a>'
 const loginBtn = document.createElement('button')
 loginBtn.type = 'submit'
 loginBtn.className = 'submit-btn'
@@ -27,8 +29,8 @@ loginBtn.addEventListener('click', (event) => {
     event.preventDefault()
 })
 
-loginDiv.appendChild(loginBtn)
-
+form.appendChild(loginBtn)
+loginDiv.appendChild(form)
 
 export default function login() {
     const body = document.body
