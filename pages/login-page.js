@@ -30,12 +30,11 @@ const passwordField = inputField('password', 'password', 'Password')
 form.append(credentialsField, passwordField)
 form.addEventListener('submit', async (event) => {
     event.preventDefault()
-    alert('submitted')
     const credentials = credentialsField.firstElementChild.value
     const password = passwordField.firstElementChild.value
     if (credentials && password) {
         const data = { password }
-            (credentials.includes('@')) ? data.email = credentials : data.username = credentials
+        (credentials.includes('@')) ? data.email = credentials : data.username = credentials;
         const response = await server.login(data)
         if (response.ok) {
             let home = document.createElement('a')
@@ -76,7 +75,7 @@ window.onload = () => {
         cancel_on_tap_outside: false,
     });
     google.accounts.id.prompt()
-    google.accounts.id.renderButton(googleLoginBtn, {size: 'large', theme: 'outline'})
+    google.accounts.id.renderButton(googleLoginBtn, { size: 'large', theme: 'outline' })
     
 }
 

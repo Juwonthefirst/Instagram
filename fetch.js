@@ -92,7 +92,6 @@ export default function Server(backendUrl = 'https://beep-me-api.onrender.com/ap
             localStorage.setItem("access_token", json.access)
             localStorage.setItem("refresh_token", json.refresh)
             console.log(json)
-            alert(json.user.username)
         }
     }
 }
