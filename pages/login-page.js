@@ -71,13 +71,21 @@ loginDiv.appendChild(signupLink);
 window.onload = () => {
     google.accounts.id.initialize({
         client_id: '333616956580-ehlrhiisjvgupkm594kettrev856vdtu.apps.googleusercontent.com',
-        callback: (response) => {alert(response)},
+        callback: (response) => { alert(response) },
         ux_mode: 'popup',
         auto_select: true,
         cancel_on_tap_outside: false,
     });
     google.accounts.id.prompt()
-    google.accounts.id.renderButton(googleLoginBtn, {theme: 'outline', size: 'large'})
+    googleLoginBtn.addEventListener('click', () => {
+        google.accounts.id.initialize({
+            client_id: '333616956580-ehlrhiisjvgupkm594kettrev856vdtu.apps.googleusercontent.com',
+            callback: (response) => { alert(response) },
+            ux_mode: 'redirect',
+        });
+        google.accounts.id.prompt()
+    })
+    
 }
 
 export default function login() {
