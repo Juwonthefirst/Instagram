@@ -23,6 +23,7 @@ function navigateTo(url) {
 document.addEventListener('click', (event) => {
 	if (event.target.matches('[data-link]')) {
 		event.preventDefault()
+		console.log('link clicked')
 		navigateTo(event.target.href)
 	}
 })
