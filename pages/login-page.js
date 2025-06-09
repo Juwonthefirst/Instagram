@@ -73,11 +73,11 @@ window.onload = () => {
         client_id: '333616956580-ehlrhiisjvgupkm594kettrev856vdtu.apps.googleusercontent.com',
         callback: (response) => {alert(response)},
         ux_mode: 'popup',
-        auto_select: true, // auto sign-in if user previously approved
-        cancel_on_tap_outside: false, // optional
+        auto_select: true,
+        cancel_on_tap_outside: false,
     });
+    google.accounts.id.prompts()
     google.accounts.id.renderButton(googleLoginBtn, {theme: 'outline', size: 'large'})
-    google.accounts.id.prompt()
 }
 
 export default function login() {
