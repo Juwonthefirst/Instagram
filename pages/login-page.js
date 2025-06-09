@@ -1,4 +1,5 @@
 import inputField from '../components/Input.js'
+import loadGoogleScript from '../components/google-script.js'
 import Server from '../fetch.js'
 
 const server = Server()
@@ -65,23 +66,18 @@ form.appendChild(loginBtn)
 const signupLink = document.createElement('p')
 signupLink.className = 'signup-link'
 signupLink.innerHTML = 'Don\'t have an account? <a data-link href="">Sign up</a>'
-loginDiv.appendChild(signupLink)
+loginDiv.appendChild(signupLink);
 
-
-google.accounts.initialize({
-    client_id: '333616956580-ehlrhiisjvgupkm594kettrev856vdtu.apps.googleusercontent.com',
-    callback: server.googleLogin,
-    auto_select: false
-})
-
-googleLoginBtn.addEventListener('click', () => {
-    google.accounts.id.prompt()
-    google.accounts.id.renderButton(document.createElement('div'), {
-        theme: 'outline',
-        size: 'large'
-    })
-    google.accounts.id.request()
-})
+window.onload = () => {
+    google.accounts.id.initialize({
+        client_id: '333616956580-ehlrhiisjvgupkm594kettrev856vdtu.apps.googleusercontent.com',
+        callback: server.login,
+        auto_select: true, // auto sign-in if user previously approved
+        cancel_on_tap_outside: false, // optional
+    });
+    
+    googleLoginBtn.addEventListener('click', () => {google.accounts.id.prompt()})
+}
 
 export default function login() {
     const body = document.body
