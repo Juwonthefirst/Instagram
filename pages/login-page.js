@@ -77,7 +77,7 @@ window.onload = () => {
         cancel_on_tap_outside: false,
     });
     google.accounts.id.prompt()
-    google.accounts.id.renderButton(googleLoginBtn, {size: 'small', theme: 'outline'})
+    google.accounts.id.renderButton(googleLoginBtn, {size: 'large', theme: 'outline'})
     
 }
 
