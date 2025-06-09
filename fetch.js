@@ -77,6 +77,7 @@ export default function Server(backendUrl = 'https://beep-me-api.onrender.com/ap
             localStorage.setItem("access_token", data.access)
             localStorage.setItem("refresh_token", data.refresh)
         },
+        
         async googleLogin(response) {
             const data = await fetch('https://beep-me-api.onrender.com/api/auth/social/google/', {
                 method: 'POST',
