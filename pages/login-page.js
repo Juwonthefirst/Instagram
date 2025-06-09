@@ -75,8 +75,8 @@ window.onload = () => {
         auto_select: true, // auto sign-in if user previously approved
         cancel_on_tap_outside: false, // optional
     });
-    
-    googleLoginBtn.addEventListener('click', () => {google.accounts.id.prompt()})
+    google.accounts.id.renderButton(googleLoginBtn, {theme: 'outline', size: 'large'})
+    google.accounts.id.prompt()
 }
 
 export default function login() {
