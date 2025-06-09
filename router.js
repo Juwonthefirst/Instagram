@@ -1,10 +1,12 @@
-/*import loginPage from './pages/loginPage.js';
-import signupPage from './pages/signupPage.js';*/
+import loginPage from './pages/login-page.js';
+//import signupPage from './pages/signupPage.js';
+console.log('error')
 import home from './pages/home-page.js'
 import notFound from './pages/not-found-page.js'
 
-/*const routes = {
-	'/': home
+const routes = {
+	'/': home,
+	'/login': loginPage
 }
 
 const router = function(){
@@ -15,4 +17,4 @@ const router = function(){
 }
 
 window.addEventListener('hashchange', router)
-window.addEventListener('load', router)*/
+window.addEventListener('load', router)

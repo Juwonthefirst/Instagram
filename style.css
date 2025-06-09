@@ -60,11 +60,12 @@ a {
 input {
 	background: rgba(255, 255, 255, 0);
 	border: 0;
+	font: inherit;
 	color: inherit;
+	width: 100%;
 }
 
 input:focus {
-	font: inherit;
 	outline: 0;
 }
 
@@ -333,18 +334,37 @@ input:focus {
 	display: flex;
 	flex-direction: column;
 	gap: var(--sm);
+	width: 100%;
 }
 
 .login>form>.input-field {
+	font-size: var(--md);
 	border: 1px solid rgba(255, 255, 255, .3);
-	border-radius: var(--sm);
+	border-radius: var(--vsm);
 	background: rgba(255, 255, 255, .1);
-	padding: var(--sm);
 	position: relative;
 	width: 100%;
 }
 
-.login > form > .
+.login > form > .input-field > label{
+	font: inherit;
+	position: absolute;
+	top: var(--sub);
+	left: var(--sm);
+	opacity: .7;
+	transition: all .1s linear;
+	pointer-events: none;
+}
+
+.login > form > .input-field > input{
+	padding: var(--md) var(--sm) var(--sm);
+}
+
+.login > form > .input-field > input:focus + label, 
+.login > form > .input-field > input:not(:placeholder-shown) + label{
+	top: 0;
+	font-size: var(--sub);
+}
 
 .login>form>.reset-link {
 	align-self: flex-end;
