@@ -77,14 +77,7 @@ window.onload = () => {
         cancel_on_tap_outside: false,
     });
     google.accounts.id.prompt()
-    googleLoginBtn.addEventListener('click', () => {
-        google.accounts.id.initialize({
-            client_id: '333616956580-ehlrhiisjvgupkm594kettrev856vdtu.apps.googleusercontent.com',
-            callback: (response) => { alert(response) },
-            ux_mode: 'redirect',
-        });
-        google.accounts.id.prompt()
-    })
+    google.accounts.id.renderButton(googleLoginBtn, {size: 'small', theme: 'outline'})
     
 }
 
