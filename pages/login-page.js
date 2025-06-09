@@ -76,7 +76,7 @@ window.onload = () => {
         auto_select: true,
         cancel_on_tap_outside: false,
     });
-    google.accounts.id.prompts()
+    google.accounts.id.prompt()
     google.accounts.id.renderButton(googleLoginBtn, {theme: 'outline', size: 'large'})
 }
 
