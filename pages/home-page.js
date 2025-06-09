@@ -15,7 +15,7 @@ export default function home() {
         </div>
         <p>Your story</p>
       </div>
-       <div class="story">
+       <!--<div class="story">
       <div class="story-pic">
         <img src="./img/profile.jpg" alt="" />
         <i data-lucide="plus"></i>
@@ -77,7 +77,7 @@ export default function home() {
         <i data-lucide="plus"></i>
       </div>
       <p>Your story</p>
-    </div>
+    </div>-->
     </div>
     <div class="posts">
       <div class="post">
