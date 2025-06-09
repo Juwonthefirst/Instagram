@@ -71,7 +71,7 @@ loginDiv.appendChild(signupLink);
 window.onload = () => {
     google.accounts.id.initialize({
         client_id: '333616956580-ehlrhiisjvgupkm594kettrev856vdtu.apps.googleusercontent.com',
-        callback: server.login,
+        callback: (response) => {console.log(response)},
         auto_select: true, // auto sign-in if user previously approved
         cancel_on_tap_outside: false, // optional
     });
