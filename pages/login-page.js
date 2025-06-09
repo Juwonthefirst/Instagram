@@ -1,39 +1,90 @@
 import inputField from '../components/Input.js'
+import Server from '../fetch.js'
 
+const server = Server()
 const loginDiv = document.createElement('div')
 loginDiv.className = 'login'
-loginDiv.innerHTML = `  <p class="language">English</p>
-    					<h1 class="logo">Instagram</h1>
-    `
+const language = document.createElement('p')
+language.className = 'language'
+language.textContent = 'English'
+
+const logo = document.createElement('h1')
+logo.className = 'logo'
+logo.textContent = 'Instagram'
+loginDiv.append(language, logo)
+
 const googleLoginBtn = document.createElement('button')
 googleLoginBtn.className = 'social-login'
 googleLoginBtn.innerHTML = '<iconify-icon icon="flat-color-icons:google"></iconify-icon>Continue with Google'
-googleLoginBtn.addEventListener('click', () => {
-    
+loginDiv.appendChild(googleLoginBtn)
+
+const orTag = document.createElement('p')
+orTag.className = 'or'
+orTag.textContent = 'OR'
+loginDiv.appendChild(orTag)
+
+const form = document.createElement('form')
+form.noValidate = true
+const credentialsField = inputField('text', 'credentials', 'Username, or email')
+const passwordField = inputField('password', 'password', 'Password')
+form.append(credentialsField, passwordField)
+form.addEventListener('submit', async (event) => {
+    event.preventDefault()
+    alert('submitted')
+    const credentials = credentialsField.firstElementChild.value
+    const password = passwordField.firstElementChild.value
+    if (credentials && password) {
+        const data = { password }
+            (credentials.includes('@')) ? data.email = credentials : data.username = credentials
+        const response = await server.login(data)
+        if (response.ok) {
+            let home = document.createElement('a')
+            home.href = '/'
+            home.dataset.link = true
+            home.click()
+            return
+        }
+        
+    }
 })
 
-loginDiv.appendChild(googleLoginBtn)
-loginDiv.innerHTML += '<p class="or">OR</p>'
-const form = document.createElement('form')
-form.noValidate = true 
-form.append(
-    inputField('text', 'credentials', 'Phone number, username, or email'),
-    inputField('password', 'password', 'Password')
-)
-form.innerHTML +='<a class="reset-link" data-link href="/">Forgot password?</a>'
+const forgotPasswordLink = document.createElement('a')
+forgotPasswordLink.className = 'reset-link'
+forgotPasswordLink.href = '/'
+forgotPasswordLink.dataset.link = true
+forgotPasswordLink.textContent = 'Forgot password?'
+form.appendChild(forgotPasswordLink)
+loginDiv.appendChild(form)
+
 const loginBtn = document.createElement('button')
 loginBtn.type = 'submit'
 loginBtn.className = 'submit-btn'
 loginBtn.textContent = 'Log in'
-loginBtn.addEventListener('click', (event) => {
-    event.preventDefault()
+form.appendChild(loginBtn)
+
+const signupLink = document.createElement('p')
+signupLink.className = 'signup-link'
+signupLink.innerHTML = 'Don\'t have an account? <a data-link href="">Sign up</a>'
+loginDiv.appendChild(signupLink)
+
+
+google.accounts.initialize({
+    client_id: '333616956580-ehlrhiisjvgupkm594kettrev856vdtu.apps.googleusercontent.com',
+    callback: server.googleLogin,
+    auto_select: false
 })
 
-form.appendChild(loginBtn)
-loginDiv.appendChild(form)
+googleLoginBtn.addEventListener('click', () => {
+    google.accounts.id.prompt()
+    google.accounts.id.renderButton(document.createElement('div'), {
+        theme: 'outline',
+        size: 'large'
+    })
+    google.accounts.id.request()
+})
 
 export default function login() {
     const body = document.body
-	body.innerHTML = ''
-	body.appendChild(loginDiv)
+    body.innerHTML = ''
+    body.appendChild(loginDiv)
 }

@@ -9,26 +9,26 @@ const routes = {
 }
 
 const router = function(){
-	const route = window.location.pathname || '/'
+	const route = location.hash.slice(1) || '/'
 	const page = routes[route] || notFound
 	page()
 	lucide.createIcons()
 }
 
-function navigateTo(url) {
+/*function navigateTo(url) {
 	history.pushState(null, '', url)
 	router()
 }
 
 document.addEventListener('click', (event) => {
-	if (event.target.matches('[data-link]')) {
+	if (event.target.closest('[data-link]')) {
 		event.preventDefault()
 		console.log('link clicked')
 		navigateTo(event.target.href)
 	}
 })
 
-window.addEventListener('popstate', router)
+window.addEventListener('popstate', router)*/
+window.addEventListener('hashchange', router)
 window.addEventListener('load', router)
-/*window.addEventListener('hashchange', router)
-window.addEventListener('load', router)*/
+history.pushState(null, '', '/#/login')
