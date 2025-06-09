@@ -7,7 +7,7 @@ export default function Server(backendUrl = 'https://beep-me-api.onrender.com/ap
     })
     
     return {
-        async login({username = '', email = '', password = ''}) {
+        async login({ username = '', email = '', password = '' }) {
             const response = await fetch(`${backendUrl}/auth/login/`, {
                 method: 'POST',
                 headers: header,
@@ -24,8 +24,8 @@ export default function Server(backendUrl = 'https://beep-me-api.onrender.com/ap
             return response
         },
         
-        async signup({username, email, password}){
-            const response = await fetch(`${backendUrl}/auth/registration/`,{
+        async signup({ username, email, password }) {
+            const response = await fetch(`${backendUrl}/auth/registration/`, {
                 method: 'POST',
                 headers: header,
                 body: JSON.stringify({
@@ -39,7 +39,7 @@ export default function Server(backendUrl = 'https://beep-me-api.onrender.com/ap
             return await response.json()
         },
         
-        async resendVerificationLink(email){
+        async resendVerificationLink(email) {
             const response = await fetch(`${backendUrl}/auth/registration/resend-email/`, {
                 method: 'POST',
                 headers: header,
@@ -48,12 +48,12 @@ export default function Server(backendUrl = 'https://beep-me-api.onrender.com/ap
                 })
             })
             const data = response.json()
-            if (data.response == 'ok'){
+            if (data.response == 'ok') {
                 
             }
         },
         
-        async changePassword(password){
+        async changePassword(password) {
             const response = await fetch(`${backendUrl}/auth/password/change/`, {
                 method: 'POST',
                 header: headerWithAuthorization,
@@ -64,19 +64,33 @@ export default function Server(backendUrl = 'https://beep-me-api.onrender.com/ap
             })
         },
         
-        async tokenRefresh(){
-            const response = await fetch(`${backendUrl}/auth/token/refresh/`,{
+        async tokenRefresh() {
+            const response = await fetch(`${backendUrl}/auth/token/refresh/`, {
                 method: 'POST',
                 headers: header,
                 body: JSON.stringify({
                     refresh: localStorage.getItem('refresh_token')
                 })
             })
-         
+            
             const data = await response.json()
             localStorage.setItem("access_token", data.access)
             localStorage.setItem("refresh_token", data.refresh)
         },
-        
+        async googleLogin(response) {
+            const data = await fetch('https://beep-me-api.onrender.com/api/auth/social/google/', {
+                method: 'POST',
+                headers: {
+                    "Content-Type": 'application/json'
+                },
+                body: JSON.stringify({
+                    token: response.credential
+                })
+            })
+            const json = await data.json()
+            localStorage.setItem("access_token", json.access)
+            localStorage.setItem("refresh_token", json.refresh)
+            console.log(json)
+        }
     }
 }

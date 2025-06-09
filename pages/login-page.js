@@ -71,7 +71,7 @@ loginDiv.appendChild(signupLink);
 window.onload = () => {
     google.accounts.id.initialize({
         client_id: '333616956580-ehlrhiisjvgupkm594kettrev856vdtu.apps.googleusercontent.com',
-        callback: (response) => { alert(response) },
+        callback: server.googleLogin,
         ux_mode: 'popup',
         auto_select: true,
         cancel_on_tap_outside: false,
