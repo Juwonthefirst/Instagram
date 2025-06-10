@@ -30,15 +30,15 @@ const passwordField = inputField('password', 'password', 'Password')
 form.append(credentialsField, passwordField)
 form.addEventListener('submit', async (event) => {
     event.preventDefault()
-    const credentials = credentialsField.firstElementChild.value
-    const password = passwordField.firstElementChild.value
+    const credentials = credentialsField.firstElementChild.value.trim()
+    const password = passwordField.firstElementChild.value.trim()
     if (credentials && password) {
-        const data = { password }
+        const data = { password: password };
         (credentials.includes('@')) ? data.email = credentials : data.username = credentials;
         const response = await server.login(data)
         if (response.ok) {
             let home = document.createElement('a')
-            home.href = '/'
+            home.href = '/#/'
             home.dataset.link = true
             home.click()
             return
