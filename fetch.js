@@ -20,7 +20,7 @@ export default function Server(backendUrl = 'https://beep-me-api.onrender.com/ap
             const data = await response.json()
             localStorage.setItem("access_token", data.access)
             localStorage.setItem("refresh_token", data.refresh)
-            localStorage.setItem("user", data.user)
+            localStorage.setItem("user", JSON.stringify(data.user))
             return response
         },
         
