@@ -38,7 +38,7 @@ form.addEventListener('submit', async (event) => {
         const response = await server.login(data)
         if (response.ok) {
             let home = document.createElement('a')
-            home.href = '/#/'
+            home.href = '/'
             home.dataset.link = true
             home.click()
             return

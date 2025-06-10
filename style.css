@@ -366,6 +366,7 @@ input:focus, button:focus {
 .login > form > .input-field > input:not(:placeholder-shown) + label{
 	top: 0;
 	font-size: 12px;
+	padding-bottom: var(--vsm);
 }
 
 .login>form>.reset-link {
