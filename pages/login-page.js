@@ -29,22 +29,22 @@ const credentialsField = inputField('text', 'credentials', 'Username, or email')
 const passwordField = inputField('password', 'password', 'Password')
 form.append(credentialsField, passwordField)
 form.addEventListener('submit', async (event) => {
-    event.preventDefault()
-    const credentials = credentialsField.firstElementChild.value.trim()
-    const password = passwordField.firstElementChild.value.trim()
-    if (credentials && password) {
-        const data = { password: password };
-        (credentials.includes('@')) ? data.email = credentials : data.username = credentials;
-        const response = await server.login(data)
-        if (response.ok) {
-            let home = document.createElement('a')
-            home.href = '/'
-            home.dataset.link = true
-            home.click()
-            return
-        }
-        
-    }
+	event.preventDefault()
+	const credentials = credentialsField.firstElementChild.value.trim()
+	const password = passwordField.firstElementChild.value.trim()
+	if (credentials && password) {
+		const data = { password: password };
+		(credentials.includes('@')) ? data.email = credentials: data.username = credentials;
+		const response = await server.login(data)
+		if (response.ok) {
+			let home = document.createElement('a')
+			home.href = '/'
+			home.dataset.link = true
+			home.click()
+			return
+		}
+		
+	}
 })
 
 const forgotPasswordLink = document.createElement('a')
@@ -67,20 +67,29 @@ signupLink.innerHTML = 'Don\'t have an account? <a data-link href="">Sign up</a>
 loginDiv.appendChild(signupLink);
 
 window.onload = () => {
-    google.accounts.id.initialize({
-        client_id: '333616956580-ehlrhiisjvgupkm594kettrev856vdtu.apps.googleusercontent.com',
-        callback: server.googleLogin,
-        ux_mode: 'popup',
-        auto_select: true,
-        cancel_on_tap_outside: false,
-    });
-    google.accounts.id.prompt()
-    google.accounts.id.renderButton(googleLoginBtn, { size: 'large', theme: 'outline' })
-    
+	google.accounts.id.initialize({
+		client_id: '333616956580-ehlrhiisjvgupkm594kettrev856vdtu.apps.googleusercontent.com',
+		callback: (token) => {
+			const response = server.googleLogin(token)
+			if (response.ok) {
+				let home = document.createElement('a')
+				home.href = '/'
+				home.dataset.link = true
+				home.click()
+				return
+			}
+		},
+		ux_mode: 'popup',
+		auto_select: true,
+		cancel_on_tap_outside: false,
+	});
+	google.accounts.id.prompt()
+	google.accounts.id.renderButton(googleLoginBtn, { size: 'large', theme: 'outline' })
+	
 }
 
 export default function login() {
-    const body = document.body
-    body.innerHTML = ''
-    body.appendChild(loginDiv)
+	const body = document.body
+	body.innerHTML = ''
+	body.appendChild(loginDiv)
 }
