@@ -1,5 +1,6 @@
 import inputField from '../components/Input.js'
 import Server from '../fetch.js'
+import { router } from '../router.js';
 
 const server = Server()
 const loginDiv = document.createElement('div')
@@ -37,11 +38,7 @@ form.addEventListener('submit', async (event) => {
 		(credentials.includes('@')) ? data.email = credentials: data.username = credentials;
 		const response = await server.login(data)
 		if (response.ok) {
-			let home = document.createElement('a')
-			home.href = '/'
-			home.dataset.link = true
-			home.click()
-			return
+		    router.navigateTo('/')
 		}
 		
 	}
@@ -66,18 +63,13 @@ signupLink.className = 'signup-link'
 signupLink.innerHTML = 'Don\'t have an account? <a data-link href="">Sign up</a>'
 loginDiv.appendChild(signupLink);
 
-window.onload = () => {
+export default function login() {
+	window.onload = () => {
 	google.accounts.id.initialize({
 		client_id: '333616956580-ehlrhiisjvgupkm594kettrev856vdtu.apps.googleusercontent.com',
 		callback: (token) => {
-			const response = server.googleLogin(token)
-			if (response.ok) {
-				let home = document.createElement('a')
-				home.href = '/'
-				home.dataset.link = true
-				home.click()
-				return
-			}
+			const response = await server.googleLogin(token)
+			if (response.ok) { navigateTo('/') }
 		},
 		ux_mode: 'popup',
 		auto_select: true,
@@ -87,8 +79,6 @@ window.onload = () => {
 	google.accounts.id.renderButton(googleLoginBtn, { size: 'large', theme: 'outline' })
 	
 }
-
-export default function login() {
 	const body = document.body
 	body.innerHTML = ''
 	body.appendChild(loginDiv)
