@@ -67,7 +67,7 @@ export default function login() {
 	window.onload = () => {
 	google.accounts.id.initialize({
 		client_id: '333616956580-ehlrhiisjvgupkm594kettrev856vdtu.apps.googleusercontent.com',
-		callback: (token) => {
+		callback: async (token) => {
 			const response = await server.googleLogin(token)
 			if (response.ok) { router.navigateTo('/')}
 		},
