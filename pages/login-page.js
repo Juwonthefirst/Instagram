@@ -46,8 +46,7 @@ form.addEventListener('submit', async (event) => {
 
 const forgotPasswordLink = document.createElement('a')
 forgotPasswordLink.className = 'reset-link'
-forgotPasswordLink.href = '/'
-forgotPasswordLink.dataset.link = true
+
 forgotPasswordLink.textContent = 'Forgot password?'
 form.appendChild(forgotPasswordLink)
 loginDiv.appendChild(form)
@@ -60,6 +59,11 @@ form.appendChild(loginBtn)
 
 const signupLink = document.createElement('p')
 signupLink.className = 'signup-link'
+signupLink.addEventListener('click', (event) => {
+	//event.preventDefault()
+	router.navigateTo('/signup')
+	
+})
 signupLink.innerHTML = 'Don\'t have an account? <a data-link href="">Sign up</a>'
 loginDiv.appendChild(signupLink);
 

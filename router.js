@@ -1,9 +1,8 @@
-//import signupPage from './pages/signupPage.js';
 
 const routes = {
 	'/': () => import( './pages/home-page.js'),
 	'/login': () => import( './pages/login-page.js'),
-	
+	'/signup': () => import('./pages/signup-page.js')
 }
 
 
