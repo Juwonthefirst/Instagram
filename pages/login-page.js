@@ -69,7 +69,7 @@ export default function login() {
 		client_id: '333616956580-ehlrhiisjvgupkm594kettrev856vdtu.apps.googleusercontent.com',
 		callback: (token) => {
 			const response = await server.googleLogin(token)
-			if (response.ok) { navigateTo('/') }
+			if (response.ok) { router.navigateTo('/')}
 		},
 		ux_mode: 'popup',
 		auto_select: true,
