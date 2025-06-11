@@ -18,6 +18,7 @@
 	--main-colour: black;
 	--accent-colour: white;
 	--btn-color: rgb(76, 104, 230);
+	--link-color: rgb(90, 140, 255);
 	--theme: inear-gradient(45deg, #feda75, #fa7e1e, #d62976, #962fbf, #4f5bd5);
 }
 
@@ -52,7 +53,7 @@ iconify-icon {
 }
 
 a {
-	color: var(--btn-color);
+	color: var(--link-color);
 	text-decoration: none;
 	font: inherit;
 }
@@ -212,7 +213,7 @@ input:focus, button:focus {
 
 .post>img {
 	object-fit: contain;
-	height: 500px;
+	height: 400px;
 	width: auto;
 }
 
@@ -353,27 +354,32 @@ input:focus, button:focus {
 	position: absolute;
 	top: var(--sub);
 	left: var(--sm);
-	opacity: .7;
+	opacity: .65;
 	transition: all .1s linear;
 	pointer-events: none;
 }
 
 .login > form > .input-field > input{
 	padding: var(--sm);
+	padding-top: var(--md);
+}
+
+.login > form > .input-field:focus-within{
+    border-color: var(--link-color);
 }
 
 .login > form > .input-field > input:focus + label, 
 .login > form > .input-field > input:not(:placeholder-shown) + label{
-	top: 0;
-	font-size: 12px;
-	padding-bottom: var(--vsm);
+	top: 2px;
+	font-size: 10px;
 }
 
 .login>form>.reset-link {
 	align-self: flex-end;
-	padding: var(--sub) 0 var(--md);
+	padding: var(--sm) 0 var(--md);
+	margin-bottom: var(--sm);
 	font-size: var(--sub);
-	letter-spacing: .2px;
+	letter-spacing: .3px;
 }
 
 .login>form>.submit-btn {
@@ -389,7 +395,7 @@ input:focus, button:focus {
 }
 
 .login>.signup-link {
-	margin: var(--md) 0;
+	margin: var(--sub) 0;
 	opacity: .8;
 	font-weight: 300;
 	font-size: var(--sub);

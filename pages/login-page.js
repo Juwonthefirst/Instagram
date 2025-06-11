@@ -63,7 +63,7 @@ signupLink.className = 'signup-link'
 signupLink.innerHTML = 'Don\'t have an account? <a data-link href="">Sign up</a>'
 loginDiv.appendChild(signupLink);
 
-(() => {
+/*(() => {
 	google.accounts.id.initialize({
 		client_id: '333616956580-ehlrhiisjvgupkm594kettrev856vdtu.apps.googleusercontent.com',
 		callback: async (token) => {
@@ -75,10 +75,10 @@ loginDiv.appendChild(signupLink);
 		cancel_on_tap_outside: false,
 	});
 	google.accounts.id.renderButton(googleLoginBtn, { size: 'large', theme: 'outline' })
-})()
+})()*/
 
 export default function login() {
-	google.accounts.id.prompt()
+	//google.accounts.id.prompt()
 	const body = document.body
 	body.innerHTML = ''
 	body.appendChild(loginDiv)
