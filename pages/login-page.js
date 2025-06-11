@@ -1,4 +1,4 @@
-import inputField from '../components/Input.js'
+import { inputField, passwordField } from '../components/Input.js'
 import Server from '../fetch.js'
 import { router } from '../router.js';
 
@@ -26,13 +26,13 @@ loginDiv.appendChild(orTag)
 
 const form = document.createElement('form')
 form.noValidate = true
-const credentialsField = inputField('text', 'credentials', 'Username, or email')
-const passwordField = inputField('password', 'password', 'Password')
-form.append(credentialsField, passwordField)
+const credentialsField = inputField('text', 'credentials', 'Username or email')
+const passField = passwordField('password', 'Password')
+form.append(credentialsField, passField)
 form.addEventListener('submit', async (event) => {
 	event.preventDefault()
 	const credentials = credentialsField.firstElementChild.value.trim()
-	const password = passwordField.firstElementChild.value.trim()
+	const password = passField.firstElementChild.value.trim()
 	if (credentials && password) {
 		const data = { password: password };
 		(credentials.includes('@')) ? data.email = credentials: data.username = credentials;
