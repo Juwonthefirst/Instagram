@@ -16,7 +16,11 @@ loginDiv.append(language, logo)
 
 const googleLoginBtn = document.createElement('button')
 googleLoginBtn.className = 'social-login'
-//googleLoginBtn.innerHTML = '<iconify-icon icon="flat-color-icons:google"></iconify-icon>Continue with Google'
+const icon = document.createElement('iconify-icon')
+icon.icon = 'flat-color-icons:google'
+googleLoginBtn.appendChild(icon)
+//googleLoginBtn.innerHTML = '<iconify-icon icon=""></iconify-icon>'
+googleLoginBtn.innerText += 'Continue with Google'
 loginDiv.appendChild(googleLoginBtn)
 
 const orTag = document.createElement('p')
@@ -95,21 +99,21 @@ form.addEventListener('input', () => loginBtn.disabled = !form.checkValidity())
 })()*/
 
 
-window.onload = function() {
-	client = google.accounts.oauth2.initCodeClient({
-		client_id: '333616956580-ehlrhiisjvgupkm594kettrev856vdtu.apps.googleusercontent.com',
-		scope: 'email profile openid',
-		redirect_uri: 'postmessage',
-		ux_mode: 'popup',
-		code_challenge_method: 'S256',
-		callback: async (code) => {
-			const response = await server.googleLoginByCode(code)
-			if (response.ok) { router.navigateTo('/') }
-		},
-		
-	})
-	googleLoginBtn.addEventListener('click', client.requestCode)
-}
+
+let client = google.accounts.oauth2.initCodeClient({
+	client_id: '333616956580-ehlrhiisjvgupkm594kettrev856vdtu.apps.googleusercontent.com',
+	scope: 'email profile openid',
+	redirect_uri: 'postmessage',
+	ux_mode: 'popup',
+	code_challenge_method: 'S256',
+	callback: async (code) => {
+		const response = await server.googleLoginByCode(code)
+		if (response.ok) { router.navigateTo('/') }
+	}
+})
+console.log(googleLoginBtn)
+googleLoginBtn.addEventListener('click', client.requestCode)
+
 
 export default function login() {
 	//google.accounts.id.prompt()
