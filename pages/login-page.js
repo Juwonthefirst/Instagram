@@ -99,21 +99,21 @@ form.addEventListener('input', () => loginBtn.disabled = !form.checkValidity())
 })()*/
 
 
-
-let client = google.accounts.oauth2.initCodeClient({
-	client_id: '333616956580-ehlrhiisjvgupkm594kettrev856vdtu.apps.googleusercontent.com',
-	scope: 'email profile openid',
-	redirect_uri: 'postmessage',
-	ux_mode: 'popup',
-	code_challenge_method: 'S256',
-	callback: async (code) => {
-		const response = await server.googleLoginByCode(code)
-		if (response.ok) { router.navigateTo('/') }
-	}
-})
-console.log(googleLoginBtn)
-googleLoginBtn.addEventListener('click', client.requestCode)
-
+window.onload = function() {
+	let client = google.accounts.oauth2.initCodeClient({
+		client_id: '333616956580-ehlrhiisjvgupkm594kettrev856vdtu.apps.googleusercontent.com',
+		scope: 'email profile openid',
+		redirect_uri: 'postmessage',
+		ux_mode: 'popup',
+		code_challenge_method: 'S256',
+		callback: async (code) => {
+			const response = await server.googleLoginByCode(code)
+			if (response.ok) { router.navigateTo('/') }
+		}
+	})
+	console.log(googleLoginBtn)
+	googleLoginBtn.addEventListener('click', () => {client.requestCode()})
+}
 
 export default function login() {
 	//google.accounts.id.prompt()
