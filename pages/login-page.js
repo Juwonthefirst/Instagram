@@ -3,11 +3,12 @@ import Server from '../fetch.js'
 import { router } from '../router.js';
 
 const server = Server()
+const google_client_id = '333616956580-ehlrhiisjvgupkm594kettrev856vdtu.apps.googleusercontent.com'
 let client
 
 (() => {
 	client = google.accounts.oauth2.initCodeClient({
-		client_id: '333616956580-ehlrhiisjvgupkm594kettrev856vdtu.apps.googleusercontent.com',
+		client_id: google_client_id,
 		scope: 'email profile openid',
 		redirect_uri: 'postmessage',
 		ux_mode: 'popup',
@@ -22,7 +23,7 @@ let client
 
 (() => {
 	google.accounts.id.initialize({
-		client_id: '333616956580-ehlrhiisjvgupkm594kettrev856vdtu.apps.googleusercontent.com',
+		client_id: google_client_id,
 		callback: async (token) => {
 			const response = await server.googleLoginByID(token)
 			if (response.ok) { router.navigateTo('/')}
@@ -114,11 +115,9 @@ form.addEventListener('submit', async (event) => {
 })
 form.addEventListener('input', () => loginBtn.disabled = !form.checkValidity())
 
-/**/
-
 
 export default function login() {
-	//google.accounts.id.prompt()
+	google.accounts.id.prompt()
 	const body = document.body
 	body.innerHTML = ''
 	body.appendChild(loginDiv)
