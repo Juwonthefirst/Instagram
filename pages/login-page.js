@@ -5,7 +5,7 @@ import { router } from '../router.js';
 const server = Server()
 let client
 
-window.onload = function() {
+(() => {
 	client = google.accounts.oauth2.initCodeClient({
 		client_id: '333616956580-ehlrhiisjvgupkm594kettrev856vdtu.apps.googleusercontent.com',
 		scope: 'email profile openid',
@@ -17,7 +17,20 @@ window.onload = function() {
 			if (response.ok) { router.navigateTo('/') }
 		}
 	})
-}
+})()
+
+(() => {
+	google.accounts.id.initialize({
+		client_id: '333616956580-ehlrhiisjvgupkm594kettrev856vdtu.apps.googleusercontent.com',
+		callback: async (token) => {
+			const response = await server.googleLoginByID(token)
+			if (response.ok) { router.navigateTo('/')}
+		},
+		auto_select: true,
+		cancel_on_tap_outside: false,
+	});
+})()
+
 
 const loginDiv = document.createElement('div')
 loginDiv.className = 'login'
@@ -32,11 +45,7 @@ loginDiv.append(language, logo)
 
 const googleLoginBtn = document.createElement('button')
 googleLoginBtn.className = 'social-login'
-const icon = document.createElement('iconify-icon')
-icon.icon = 'flat-color-icons:google'
-googleLoginBtn.appendChild(icon)
-//googleLoginBtn.innerHTML = '<iconify-icon icon=""></iconify-icon>'
-googleLoginBtn.innerText += 'Continue with Google'
+googleLoginBtn.innerHTML = '<iconify-icon icon="flat-color-icons:google"></iconify-icon>Continue with Google'
 googleLoginBtn.addEventListener('click', () => {client.requestCode()})
 loginDiv.appendChild(googleLoginBtn)
 
@@ -103,17 +112,7 @@ form.addEventListener('submit', async (event) => {
 })
 form.addEventListener('input', () => loginBtn.disabled = !form.checkValidity())
 
-/*(() => {
-	google.accounts.id.initialize({
-		client_id: '333616956580-ehlrhiisjvgupkm594kettrev856vdtu.apps.googleusercontent.com',
-		callback: async (token) => {
-			const response = await server.googleLoginByID(token)
-			if (response.ok) { router.navigateTo('/')}
-		},
-		auto_select: true,
-		cancel_on_tap_outside: false,
-	});
-})()*/
+/**/
 
 
 export default function login() {
