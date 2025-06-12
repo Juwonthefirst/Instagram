@@ -34,6 +34,7 @@ let client
 
 const loginDiv = document.createElement('div')
 loginDiv.className = 'login'
+
 const language = document.createElement('p')
 language.className = 'language'
 language.textContent = 'English'
