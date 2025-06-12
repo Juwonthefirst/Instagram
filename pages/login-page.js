@@ -13,11 +13,12 @@ let client
 		ux_mode: 'popup',
 		code_challenge_method: 'S256',
 		callback: async (code) => {
+			console.log(code)
 			const response = await server.googleLoginByCode(code)
 			if (response.ok) { router.navigateTo('/') }
 		}
 	})
-})()
+})();
 
 (() => {
 	google.accounts.id.initialize({
