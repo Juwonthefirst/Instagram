@@ -347,6 +347,7 @@ input:focus, button:focus {
 	position: relative;
 	display: flex;
 	width: 100%;
+	transition: all .2s linear;
 }
 
 .login > form > .input-field > label{
@@ -409,7 +410,7 @@ input:focus, button:focus {
 }
 
 .login>form>.submit-btn:disabled{
-    opacity: .7;
+    opacity: .6;
 }
 
 .login>form>.submit-btn > iconify-icon{
@@ -423,9 +424,9 @@ input:focus, button:focus {
 	color: red;
 	font-size: var(--sub);
 	width: 80%;
-	word-break: break-all;
 	line-height: var(--md);
 	letter-spacing: .3px;
+	text-align: center;
 }
 
 .login>.signup-link {

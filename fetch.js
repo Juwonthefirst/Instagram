@@ -8,20 +8,26 @@ export default function Server(backendUrl = 'https://beep-me-api.onrender.com/ap
     
     return {
         async login({ username = '', email = '', password = '' }) {
-            const response = await fetch(`${backendUrl}/auth/login/`, {
-                method: 'POST',
-                headers: header,
-                body: JSON.stringify({
-                    username,
-                    email,
-                    password
+            try {
+                const response = await fetch(`${backendUrl}/auth/login/`, {
+                    method: 'POST',
+                    headers: header,
+                    body: JSON.stringify({
+                        username,
+                        email,
+                        password
+                    })
                 })
-            })
-            const data = await response.json()
-            localStorage.setItem("access_token", data.access)
-            localStorage.setItem("refresh_token", data.refresh)
-            localStorage.setItem("user", JSON.stringify(data.user))
-            return ( response, data )
+                const data = await response.json()
+                if (!response.ok) {
+                    throw Error(data.non_field_errors[0])
+                }
+                return data
+            }
+            catch (e) {
+                return{error: e.message}
+            }
+            
         },
         
         async signup({ username, email, password }) {

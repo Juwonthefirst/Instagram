@@ -29,23 +29,6 @@ form.noValidate = true
 const credentialsField = inputField('text', 'credentials', 'Username or email')
 const passField = passwordField('password', 'Password')
 form.append(credentialsField, passField)
-form.addEventListener('submit', async (event) => {
-	event.preventDefault()
-	const credentials = credentialsField.firstElementChild.value.trim()
-	const password = passField.firstElementChild.value.trim()
-	if (credentials && password) {
-		loginBtn.disabled = true
-		const data = { password: password };
-		(credentials.includes('@')) ? data.email = credentials: data.username = credentials;
-		loginBtn.innerHTML = '<iconify-icon icon="line-md:loading-loop"></iconify-icon>'
-		const response = await server.login(data)
-		if (response.ok) { router.navigateTo('/') }
-		loginBtn.innerHTML = 'Log in'
-		loginBtn.disabled = false
-		credentialsField.firstElementChild.value = ''
-		passField.firstElementChild.value = ''
-	}
-})
 
 const forgotPasswordLink = document.createElement('a')
 forgotPasswordLink.className = 'reset-link'
@@ -57,6 +40,7 @@ const loginBtn = document.createElement('button')
 loginBtn.type = 'submit'
 loginBtn.className = 'submit-btn'
 loginBtn.textContent = 'Log in'
+loginBtn.disabled = true
 form.appendChild(loginBtn)
 
 const errorTag = document.createElement('p')
@@ -71,6 +55,32 @@ signupLink.addEventListener('click', (event) => {
 })
 signupLink.innerHTML = 'Don\'t have an account? <a data-link href="">Sign up</a>'
 loginDiv.appendChild(signupLink);
+
+form.addEventListener('submit', async (event) => {
+	event.preventDefault()
+	const credentials = credentialsField.firstElementChild.value.trim()
+	const password = passField.firstElementChild.value.trim()
+	if (credentials && password) {
+		loginBtn.disabled = true
+		const data = { password: password };
+		(credentials.includes('@')) ? data.email = credentials: data.username = credentials;
+		loginBtn.innerHTML = '<iconify-icon icon="line-md:loading-loop"></iconify-icon>'
+		const response = await server.login(data)
+		if (response.error) {
+			errorTag.style.display = 'flex'
+			errorTag.textContent = response.error
+		}
+		else {
+			sessionStorage.setItem('access', response.access)
+			router.navigateTo('/')
+			credentialsField.firstElementChild.value = ''
+			passField.firstElementChild.value = ''
+		}
+		loginBtn.innerHTML = 'Log in'
+		loginBtn.disabled = false
+	}
+})
+form.addEventListener('input', () => loginBtn.disabled = !form.checkValidity())
 
 /*(() => {
 	google.accounts.id.initialize({
