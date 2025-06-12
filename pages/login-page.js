@@ -3,6 +3,22 @@ import Server from '../fetch.js'
 import { router } from '../router.js';
 
 const server = Server()
+let client
+
+window.onload = function() {
+	client = google.accounts.oauth2.initCodeClient({
+		client_id: '333616956580-ehlrhiisjvgupkm594kettrev856vdtu.apps.googleusercontent.com',
+		scope: 'email profile openid',
+		redirect_uri: 'postmessage',
+		ux_mode: 'popup',
+		code_challenge_method: 'S256',
+		callback: async (code) => {
+			const response = await server.googleLoginByCode(code)
+			if (response.ok) { router.navigateTo('/') }
+		}
+	})
+}
+
 const loginDiv = document.createElement('div')
 loginDiv.className = 'login'
 const language = document.createElement('p')
@@ -21,6 +37,7 @@ icon.icon = 'flat-color-icons:google'
 googleLoginBtn.appendChild(icon)
 //googleLoginBtn.innerHTML = '<iconify-icon icon=""></iconify-icon>'
 googleLoginBtn.innerText += 'Continue with Google'
+googleLoginBtn.addEventListener('click', () => {client.requestCode()})
 loginDiv.appendChild(googleLoginBtn)
 
 const orTag = document.createElement('p')
@@ -98,22 +115,6 @@ form.addEventListener('input', () => loginBtn.disabled = !form.checkValidity())
 	});
 })()*/
 
-
-window.onload = function() {
-	let client = google.accounts.oauth2.initCodeClient({
-		client_id: '333616956580-ehlrhiisjvgupkm594kettrev856vdtu.apps.googleusercontent.com',
-		scope: 'email profile openid',
-		redirect_uri: 'postmessage',
-		ux_mode: 'popup',
-		code_challenge_method: 'S256',
-		callback: async (code) => {
-			const response = await server.googleLoginByCode(code)
-			if (response.ok) { router.navigateTo('/') }
-		}
-	})
-	console.log(googleLoginBtn)
-	googleLoginBtn.addEventListener('click', () => {client.requestCode()})
-}
 
 export default function login() {
 	//google.accounts.id.prompt()
