@@ -381,8 +381,12 @@ input:focus, button:focus {
 	top: 2px;
 	font-size: 10px;
 }
+.login > form > .input-field > input:not(:placeholder-shown) + label + .password-icon,
+.login > form > .input-field:focus-within > .password-icon{
+    visibility: visible !important;
+}
 
-.login>form>.reset-link {
+.login > form > .reset-link {
 	align-self: flex-end;
 	padding: var(--sm) 0 var(--md);
 	margin-bottom: var(--sm);
@@ -400,6 +404,28 @@ input:focus, button:focus {
 	background: var(--btn-color);
 	color: white;
 	cursor: pointer;
+	text-align: center;
+	box-sizing: border-box;
+}
+
+.login>form>.submit-btn:disabled{
+    opacity: .7;
+}
+
+.login>form>.submit-btn > iconify-icon{
+	font-size: var(--icon);
+	margin: calc( var(--sm) * -1);
+	padding: 0;
+}
+
+.login > .error{
+    display: none;
+	color: red;
+	font-size: var(--sub);
+	width: 80%;
+	word-break: break-all;
+	line-height: var(--md);
+	letter-spacing: .3px;
 }
 
 .login>.signup-link {

@@ -26,7 +26,8 @@ const passwordField = function (id, title){
 	const label = document.createElement('label')
 	label.for = id
 	label.textContent = title
-	const icon = iconTag('eye-closed', 'password-icon')
+	let icon = iconTag('eye-closed', 'password-icon')
+	icon.style.visibility = 'hidden'
 	icon.addEventListener('click', () => {
 		if(icon.firstElementChild.dataset.lucide === 'eye'){
 			icon.firstElementChild.dataset.lucide = 'eye-closed'

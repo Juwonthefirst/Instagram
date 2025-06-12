@@ -34,19 +34,21 @@ form.addEventListener('submit', async (event) => {
 	const credentials = credentialsField.firstElementChild.value.trim()
 	const password = passField.firstElementChild.value.trim()
 	if (credentials && password) {
+		loginBtn.disabled = true
 		const data = { password: password };
 		(credentials.includes('@')) ? data.email = credentials: data.username = credentials;
+		loginBtn.innerHTML = '<iconify-icon icon="line-md:loading-loop"></iconify-icon>'
 		const response = await server.login(data)
-		if (response.ok) {
-		    router.navigateTo('/')
-		}
-		
+		if (response.ok) { router.navigateTo('/') }
+		loginBtn.innerHTML = 'Log in'
+		loginBtn.disabled = false
+		credentialsField.firstElementChild.value = ''
+		passField.firstElementChild.value = ''
 	}
 })
 
 const forgotPasswordLink = document.createElement('a')
 forgotPasswordLink.className = 'reset-link'
-
 forgotPasswordLink.textContent = 'Forgot password?'
 form.appendChild(forgotPasswordLink)
 loginDiv.appendChild(form)
@@ -57,12 +59,15 @@ loginBtn.className = 'submit-btn'
 loginBtn.textContent = 'Log in'
 form.appendChild(loginBtn)
 
+const errorTag = document.createElement('p')
+errorTag.className = 'error'
+loginDiv.appendChild(errorTag)
+
 const signupLink = document.createElement('p')
 signupLink.className = 'signup-link'
 signupLink.addEventListener('click', (event) => {
-	//event.preventDefault()
+	event.preventDefault()
 	router.navigateTo('/signup')
-	
 })
 signupLink.innerHTML = 'Don\'t have an account? <a data-link href="">Sign up</a>'
 loginDiv.appendChild(signupLink);

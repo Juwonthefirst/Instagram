@@ -21,7 +21,7 @@ export default function Server(backendUrl = 'https://beep-me-api.onrender.com/ap
             localStorage.setItem("access_token", data.access)
             localStorage.setItem("refresh_token", data.refresh)
             localStorage.setItem("user", JSON.stringify(data.user))
-            return response
+            return ( response, data )
         },
         
         async signup({ username, email, password }) {
