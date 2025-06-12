@@ -16,7 +16,7 @@ loginDiv.append(language, logo)
 
 const googleLoginBtn = document.createElement('button')
 googleLoginBtn.className = 'social-login'
-googleLoginBtn.innerHTML = '<iconify-icon icon="flat-color-icons:google"></iconify-icon>Continue with Google'
+//googleLoginBtn.innerHTML = '<iconify-icon icon="flat-color-icons:google"></iconify-icon>Continue with Google'
 loginDiv.appendChild(googleLoginBtn)
 
 const orTag = document.createElement('p')
