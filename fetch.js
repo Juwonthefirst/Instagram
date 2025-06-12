@@ -84,19 +84,33 @@ export default function Server(backendUrl = 'https://beep-me-api.onrender.com/ap
             localStorage.setItem("refresh_token", data.refresh)
         },
         
-        async googleLogin(token) {
-            const response = await fetch('https://beep-me-api.onrender.com/api/auth/social/google/', {
+        async googleLoginByID(googleTokenObject) {
+            const response = await fetch('https://beep-me-api.onrender.com/api/auth/social/google/ID', {
                 method: 'POST',
                 headers: {
                     "Content-Type": 'application/json'
                 },
                 body: JSON.stringify({
-                    token: token.credential
+                    token: googleTokenObject.credential
                 })
             })
             const json = await response.json()
             localStorage.setItem("access_token", json.access)
             localStorage.setItem("refresh_token", json.refresh)
+            return response
+        },
+        async googleLoginByCode(googleTokenObject) {
+            const response = await fetch(`${backendUrl}/auth/social/google/code`, {
+                method: 'POST',
+                headers: {
+                    "Content-Type": 'application/json'
+                },
+                body: JSON.stringify({
+                    code: googleTokenObject.code
+                })
+            })
+            const json = await response.json()
+            localStorage.setItem("access_token", json.access)
             return response
         }
     }
