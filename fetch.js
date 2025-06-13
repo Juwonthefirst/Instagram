@@ -25,6 +25,7 @@ class Server {
         try {
             const response = await fetch(`${backendUrl}/auth/login/`, {
                 method: 'POST',
+                credentials: 'include',
                 headers: this.getHeader(),
                 body: JSON.stringify({
                     username,
