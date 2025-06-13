@@ -2,21 +2,22 @@ const getCookie = (name) => `; ${document.cookie}`.split(`; ${name}=`).pop().spl
 const access_token_lifetime = 60 * 30 * 1000
 const backendUrl = 'https://beep-me-api.onrender.com/api'
 
-
+console.log(document.cookie)
+console.log(getCookie('crsftoken'))
 class Server {
     
     constructor() {
         this.access_token = null
     }
     
-    autoRefreshAccessToken(){
+    autoRefreshAccessToken() {
         this.tokenRefresh()
         setInterval(() => this.tokenRefresh(), access_token_lifetime)
     }
     
-    getHeader({ auth = false, cred = false} = {}) { 
-        const header = new Headers({'Content-Type': 'application/json'})
-        if(auth) header.append('Authorization', `Bearer ${this.access_token}`)
+    getHeader({ auth = false, cred = false } = {}) {
+        const header = new Headers({ 'Content-Type': 'application/json' })
+        if (auth) header.append('Authorization', `Bearer ${this.access_token}`)
         if (cred) header.append('X-CSRFToken', getCookie('csrftoken'))
         return header
     }
