@@ -14,7 +14,7 @@ class Server {
         setInterval(() => this.tokenRefresh(), access_token_lifetime)
     }
     
-    getHeader({ auth = false, cred = false}) { 
+    getHeader({ auth = false, cred = false} = {}) { 
         const header = new Headers({'Content-Type': 'application/json'})
         if(auth) header.append('Authorization', `Bearer ${this.access_token}`)
         if (cred) header.append('X-CSRFToken', getCookie('csrftoken'))
