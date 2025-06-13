@@ -1,3 +1,6 @@
+const getCookie = (name) => `; ${document.cookie}`.split(`; ${name}=`).pop().split(';')[0] || ''
+
+
 export default function Server(backendUrl = 'https://beep-me-api.onrender.com/api') {
     
     const header = new Headers({ 'Content-Type': 'application/json' })
@@ -5,7 +8,11 @@ export default function Server(backendUrl = 'https://beep-me-api.onrender.com/ap
         'Content-Type': 'application/json',
         "Authorization": `Bearer ${localStorage.getItem('access_token')}`
     })
-    
+    const headerWithCredentials = new Headers({
+        'Content-Type': 'application/json',
+        'X-CSRFToken': getCookie('csrftoken')
+    })
+    console.log(getCookie('csrftoken'))
     return {
         async login({ username = '', email = '', password = '' }) {
             try {
@@ -72,11 +79,9 @@ export default function Server(backendUrl = 'https://beep-me-api.onrender.com/ap
         
         async tokenRefresh() {
             const response = await fetch(`${backendUrl}/auth/token/refresh/`, {
-                method: 'POST',
-                headers: header,
-                body: JSON.stringify({
-                    refresh: localStorage.getItem('refresh_token')
-                })
+                method: 'GET',
+                headers: headerWithCredentials,
+                credentials: 'include'
             })
             
             const data = await response.json()
@@ -85,7 +90,7 @@ export default function Server(backendUrl = 'https://beep-me-api.onrender.com/ap
         },
         
         async googleLoginByID(googleTokenObject) {
-            const response = await fetch('https://beep-me-api.onrender.com/api/auth/social/google/ID', {
+            const response = await fetch('https://beep-me-api.onrender.com/api/auth/social/google/ID/', {
                 method: 'POST',
                 headers: {
                     "Content-Type": 'application/json'
@@ -100,7 +105,7 @@ export default function Server(backendUrl = 'https://beep-me-api.onrender.com/ap
             return response
         },
         async googleLoginByCode(googleTokenObject) {
-            const response = await fetch(`${backendUrl}/auth/social/google/code`, {
+            const response = await fetch(`${backendUrl}/auth/social/google/code/`, {
                 method: 'POST',
                 headers: {
                     "Content-Type": 'application/json'
