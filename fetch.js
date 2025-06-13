@@ -88,8 +88,8 @@ class Server {
     async tokenRefresh() {
         const response = await fetch(`${backendUrl}/auth/token/refresh/`, {
             method: 'POST',
+            credentials: 'include',
             headers: this.getHeader({ cred: true }),
-            credentials: 'include'
         })
         
         const data = await response.json()

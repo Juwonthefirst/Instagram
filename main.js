@@ -1,7 +1,7 @@
 import { router } from './router.js'
-import server from './fetch.js'
 
-server.autoRefreshAccessToken()
+
+
 console.log(document.cookie)
 
 window.addEventListener('popstate', router.route)

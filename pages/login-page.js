@@ -2,7 +2,6 @@ import { inputField, passwordField } from '../components/Input.js'
 import server from '../fetch.js'
 import { router } from '../router.js';
 
-
 const google_client_id = '333616956580-ehlrhiisjvgupkm594kettrev856vdtu.apps.googleusercontent.com'
 let client
 
@@ -106,6 +105,7 @@ form.addEventListener('submit', async (event) => {
 		else {
 			sessionStorage.setItem('access', response.access)
 			router.navigateTo('/')
+			server.autoRefreshAccessToken()
 			credentialsField.firstElementChild.value = ''
 			passField.firstElementChild.value = ''
 		}
