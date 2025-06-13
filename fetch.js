@@ -1,6 +1,6 @@
 const getCookie = (name) => `; ${document.cookie}`.split(`; ${name}=`).pop().split(';')[0] || ''
 const access_token_lifetime = 60 * 30 * 1000
-const backendUrl = 'https://beep-me-api.onrender.com/auth/'
+const backendUrl = 'https://beep-me-api.onrender.com/api'
 
 
 class Server {
@@ -86,7 +86,7 @@ class Server {
     
     async tokenRefresh() {
         const response = await fetch(`${backendUrl}/auth/token/refresh/`, {
-            method: 'GET',
+            method: 'POST',
             headers: this.getHeader({ cred: true }),
             credentials: 'include'
         })
@@ -97,7 +97,7 @@ class Server {
     }
     
     async googleLoginByID(googleTokenObject) {
-        const response = await fetch('https://beep-me-api.onrender.com/api/auth/social/google/ID/', {
+        const response = await fetch(`${backendUrl}/auth/social/google/ID/`, {
             method: 'POST',
             headers: this.getHeader(),
             body: JSON.stringify({
