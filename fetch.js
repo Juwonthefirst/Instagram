@@ -2,7 +2,7 @@ const getCookie = (name) => `; ${document.cookie}`.split(`; ${name}=`).pop().spl
 const access_token_lifetime = 60 * 30 * 1000
 const backendUrl = 'https://beep-me-api.onrender.com/api'
 
-
+console.log(getCookie('csrftoken'))
 class Server {
     
     constructor() {
