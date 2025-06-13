@@ -17,7 +17,7 @@ class Server {
     getHeader({ auth = false, cred = false } = {}) {
         const header = new Headers({ 'Content-Type': 'application/json' })
         if (auth) header.append('Authorization', `Bearer ${this.access_token}`)
-        if (cred) header.append('X-CSRFToken', 'help me')
+        if (cred) header.append('X-CSRFToken', getCookie('csrftoken'))
         return header
     }
     
