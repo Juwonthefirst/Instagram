@@ -1,8 +1,8 @@
 import { inputField, passwordField } from '../components/Input.js'
-import Server from '../fetch.js'
+import server from '../fetch.js'
 import { router } from '../router.js';
 
-const server = Server()
+
 const google_client_id = '333616956580-ehlrhiisjvgupkm594kettrev856vdtu.apps.googleusercontent.com'
 let client
 
