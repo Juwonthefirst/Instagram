@@ -71,7 +71,7 @@ const onLoginError = (data) => {
 const onLoginSuccess = () => {
 	router.navigateTo('/')
 	server.get_csrf()
-	server.autoRefreshAccessToken((response) => onRefreshError(response, router))
+	server.startAutoRefreshAccessToken((response) => onRefreshError(response, router))
 }
 
 form.addEventListener('submit', async (event) => {
