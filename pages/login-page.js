@@ -83,7 +83,7 @@ form.addEventListener('input', () => loginBtn.disabled = !form.checkValidity());
 
 export default function login() {
 	google.accounts.id.prompt()
-	const main = document.querySelector('#main')
+	const main = document.querySelector('.main')
 	main.innerHTML = ''
 	main.appendChild(loginDiv)
 }
