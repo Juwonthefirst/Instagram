@@ -125,7 +125,7 @@ class Server {
         const data = await this.#baseFetch({
             path: 'auth/social/google/code/',
             method: 'POST',
-            body: { token: googleTokenObject.code },
+            body: { code: googleTokenObject.code },
             onError,
             onSuccess
         })
