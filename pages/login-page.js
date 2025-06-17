@@ -96,7 +96,7 @@ form.addEventListener('submit', async (event) => {
 		loginBtn.disabled = false
 	}
 })
-form.addEventListener('input', () => loginBtn.disabled = !form.checkValidity())
+form.addEventListener('input', () => loginBtn.disabled = !form.checkValidity());
 
 (() => {
 	client = google.accounts.oauth2.initCodeClient({
@@ -128,7 +128,7 @@ form.addEventListener('input', () => loginBtn.disabled = !form.checkValidity())
 		auto_select: true,
 		cancel_on_tap_outside: false,
 	});
-})()
+})();
 
 export default function login() {
 	google.accounts.id.prompt()
