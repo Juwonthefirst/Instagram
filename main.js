@@ -5,7 +5,7 @@ import { onRefreshError, onLoginSuccess, onLoginError } from './helper.js';
 const google_client_id = '333616956580-ehlrhiisjvgupkm594kettrev856vdtu.apps.googleusercontent.com'
 
 window.beepMe = {};
-(() => {
+window.onload = (() => {
 	window.beepMe.googleClient = google.accounts.oauth2.initCodeClient({
 		client_id: google_client_id,
 		scope: 'email profile openid',
@@ -20,7 +20,7 @@ window.beepMe = {};
 			})
 		}
 	})
-})();
+})
 
 (() => {
 	google.accounts.id.initialize({
