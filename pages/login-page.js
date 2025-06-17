@@ -82,16 +82,15 @@ form.addEventListener('submit', async (event) => {
 		
 		loginBtn.disabled = true
 		const data = { password: password };
-		(credentials.includes('@')) ? data.email = credentials: data.username = credentials;
+		data.onSuccess = () => {
+			onLoginSuccess()
+			credentialsField.firstElementChild.value = ''
+			passField.firstElementChild.value = ''
+		};
+		data.onError = onLoginError;
+		(credentials.includes('@')) ? data.email = credentials : data.username = credentials;
 		loginBtn.innerHTML = '<iconify-icon icon="line-md:loading-loop"></iconify-icon>'
-		const response = await server.login(data,
-			() => {
-				onLoginSuccess()
-				credentialsField.firstElementChild.value = ''
-				passField.firstElementChild.value = ''
-			},
-			onLoginError
-		)
+		const response = await server.login(data)
 		loginBtn.innerHTML = 'Log in'
 		loginBtn.disabled = false
 	}
