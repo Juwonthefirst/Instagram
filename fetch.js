@@ -1,126 +1,146 @@
-const getCookie = (name) => `; ${document.cookie}`.split(`; ${name}=`).pop().split(';')[0] || ''
 const access_token_lifetime = 60 * 30 * 1000
-const backendUrl = 'https://beep-me-api.onrender.com/api'
+const backendUrl = 'https://beep-me-api.onrender.com/api/'
 
-console.log(getCookie('csrftoken'))
 class Server {
     
     constructor() {
         this.access_token = null
+        this.csrf_token = null
     }
     
-    autoRefreshAccessToken() {
-        this.tokenRefresh()
-        setInterval(() => this.tokenRefresh(), access_token_lifetime)
+    async #baseFetch({ path, method = 'GET', auth = false, cred = false, body = null, onError = null, onSuccess = null }) {
+        const fetchData = {
+            method,
+            credentials: (cred) ? 'include' : 'omit',
+            headers: this.getHeader({ auth, cred }),
+        }
+        if (method !== 'GET' && body) { fetchData.body = JSON.stringify(body) }
+        
+        try {
+            const response = await fetch(backendUrl + path, fetchData)
+            const data = await response.json()
+            if (!response.ok) {
+                if (onError) onError(data)
+                return { error: data }
+            }
+            if (onSuccess) onSuccess(data)
+            return data
+            
+        } catch (e) {
+            if (onError) onError({ error: e.message })
+        }
+    }
+    
+    startAutoRefreshAccessToken(onError) {
+        const response = this.tokenRefresh()
+        onError(response)
+        
+        setInterval(() => {
+            const response = this.tokenRefresh()
+            onError(response)
+        }, access_token_lifetime)
+        
     }
     
     getHeader({ auth = false, cred = false } = {}) {
         const header = new Headers({ 'Content-Type': 'application/json' })
         if (auth) header.append('Authorization', `Bearer ${this.access_token}`)
-        if (cred) header.append('X-CSRFToken', getCookie('csrftoken'))
+        if (cred) header.append('X-CSRFToken', this.csrf_token)
         return header
     }
     
-    async login({ username = '', email = '', password = '' }) {
-        try {
-            const response = await fetch(`${backendUrl}/auth/login/`, {
-                method: 'POST',
-                credentials: 'include',
-                headers: this.getHeader(),
-                body: JSON.stringify({
-                    username,
-                    email,
-                    password
-                })
-            })
-            const data = await response.json()
-            if (!response.ok) {
-                throw Error(data.non_field_errors[0])
-            }
-            return data
-        }
-        catch (e) {
-            return { error: e.message }
-        }
-        
+    async login({ username = '', email = '', password = '', onSuccess = null, onError = null }) {
+        return await this.#baseFetch({
+            path: 'auth/login/',
+            method: 'POST',
+            body: { username, email, password },
+            onError,
+            onSuccess
+        })
     }
     
-    async signup({ username, email, password }) {
-        const response = await fetch(`${backendUrl}/auth/registration/`, {
+    async signup({ username, email, password, onError = null, onSuccess = null }) {
+        return await this.#baseFetch({
+            path: 'auth/registration/',
             method: 'POST',
-            headers: this.getHeader(),
-            body: JSON.stringify({
+            body: {
                 username,
                 email,
                 password1: password,
                 password2: password
-            })
+            },
+            onError,
+            onSuccess
         })
-        
-        return await response.json()
     }
     
-    async resendVerificationLink(email) {
-        const response = await fetch(`${backendUrl}/auth/registration/resend-email/`, {
+    async resendVerificationLink({ email, onError = null, onSuccess = null }) {
+        return await this.#baseFetch({
+            path: 'auth/registration/resend-email/',
             method: 'POST',
-            headers: this.getHeader(),
-            body: JSON.stringify({
-                email
-            })
+            body: { email },
+            onError,
+            onSuccess
         })
-        const data = response.json()
-        if (data.response == 'ok') {
-            
-        }
     }
     
-    async changePassword(password) {
-        const response = await fetch(`${backendUrl}/auth/password/change/`, {
+    async changePassword({ password, onError = null, onSuccess = null }) {
+        return await this.#baseFetch({
+            path: 'auth/password/change/',
             method: 'POST',
-            header: this.getHeader({ auth: true }),
-            body: JSON.stringify({
+            auth: true,
+            body: {
                 password1: password,
                 password2: password
-            })
+            },
+            onError,
+            onSuccess
         })
     }
     
-    async tokenRefresh() {
-        const response = await fetch(`${backendUrl}/auth/token/refresh/`, {
-            method: 'POST',
-            credentials: 'include',
-            headers: this.getHeader({ cred: true }),
-        })
+    async tokenRefresh({ onError = null, onSuccess = null } = {}) {
         
-        const data = await response.json()
+        const data = await this.#baseFetch({
+            path: 'auth/token/refresh/',
+            method: 'POST',
+            cred: true,
+            onError,
+            onSuccess
+        })
         this.access_token = data.access
-        console.log(data)
     }
     
-    async googleLoginByID(googleTokenObject) {
-        const response = await fetch(`${backendUrl}/auth/social/google/ID/`, {
+    async googleLoginByID({ googleTokenObject, onError = null, onSuccess = null }) {
+        const data = await this.#baseFetch({
+            path: 'auth/social/google/ID/',
             method: 'POST',
-            headers: this.getHeader(),
-            body: JSON.stringify({
-                token: googleTokenObject.credential
-            })
+            body: { token: googleTokenObject.credential },
+            onError,
+            onSuccess
         })
-        const json = await response.json()
-        this.access_token = json.access
-        return response
+        this.access_token = data.access
     }
     
-    async googleLoginByCode(googleTokenObject) {
-        const response = await fetch(`${backendUrl}/auth/social/google/code/`, {
+    async googleLoginByCode({ googleTokenObject, onError = null, onSuccess = null }) {
+        const data = await this.#baseFetch({
+            path: 'auth/social/google/code/',
             method: 'POST',
-            headers: this.getHeader(),
-            body: JSON.stringify({
-                code: googleTokenObject.code
-            })
+            body: { token: googleTokenObject.code },
+            onError,
+            onSuccess
         })
-        const json = await response.json()
-        this.access_token = json.access
-        return response
+        this.access_token = data.access
+    }
+    
+    async get_csrf({ onError = null, onSuccess = null } = {}) {
+        const data = await this.#baseFetch({
+            path: 'auth/user/csrf/',
+            cred: true,
+            onError,
+            onSuccess
+        })
+        this.csrf_token = data.csrf_token
+        return data
     }
 }
 
