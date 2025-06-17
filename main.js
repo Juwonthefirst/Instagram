@@ -2,6 +2,8 @@ import { router } from './router.js'
 import server from './fetch.js';
 import { onRefreshError, onLoginSuccess, onLoginError } from './helper.js';
 
+const google_client_id = '333616956580-ehlrhiisjvgupkm594kettrev856vdtu.apps.googleusercontent.com'
+
 window.beepMe = {};
 (() => {
 	window.beepMe.googleClient = google.accounts.oauth2.initCodeClient({
