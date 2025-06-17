@@ -441,3 +441,28 @@ input:focus, button:focus {
 	font-weight: 600;
 	opacity: 1;
 }
+
+.new-user{
+    padding-top: 0;
+}
+
+.new-user .header{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: var(--sm);
+    font-weight: 400;
+    width: 100%;
+    border-bottom: 1px solid white;
+}
+
+.new-user .back-btn{
+   position: absolute;
+   left: 5%;
+   width: var(--icon);
+   height: var(--icon);
+}
+
+.new-user .header-text{
+    margin: 0;
+}

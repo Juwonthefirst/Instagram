@@ -1,12 +1,48 @@
 import { router } from './router.js'
 import server from './fetch.js';
-import { onRefreshError } from './helper.js';
+import { onRefreshError, onLoginSuccess, onLoginError } from './helper.js';
 
-window.addEventListener('popstate', router.route)
-//window.addEventListener('hashchange', router.route)
+window.beepMe = {};
+(() => {
+	window.beepMe.googleClient = google.accounts.oauth2.initCodeClient({
+		client_id: google_client_id,
+		scope: 'email profile openid',
+		redirect_uri: 'postmessage',
+		ux_mode: 'popup',
+		code_challenge_method: 'S256',
+		callback: async (code) => {
+			await server.googleLoginByCode({
+				googleTokenObject: code,
+				onError: (data) => onLoginError(data),
+				onSuccess: () => onLoginSuccess( router, server )
+			})
+		}
+	})
+})();
+
+(() => {
+	google.accounts.id.initialize({
+		client_id: google_client_id,
+		callback: async (id_token) => {
+			await server.googleLoginByID({
+				googleTokenObject: id_token,
+				onError: (data) => onLoginError(data),
+				onSuccess: () => onLoginSuccess( router, server )
+			})
+		},
+		auto_select: true,
+		cancel_on_tap_outside: false,
+	});
+})();
+
+//window.addEventListener('popstate', router.route)
+window.addEventListener('hashchange', router.route)
+//window.addEventListener('load', router.route)
+
 window.addEventListener('load', async () => {
 	const response = await server.get_csrf()
 	router.route()
-	if(response === 'no csrf'){ return router.navigateTo('/login') }
-	await server.startAutoRefreshAccessToken( (response) => onRefreshError(response, router) )
+	if(response.error){ return router.navigateTo('/login') }
+	else await server.startAutoRefreshAccessToken( (response) => onRefreshError(response, router) )
 })
+//history.pushState(null, '', '/#/signup')
