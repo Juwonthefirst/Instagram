@@ -4,9 +4,6 @@ import server from '../fetch.js'
 import { router } from '../router.js';
 import { onRefreshError, onLoginError, onLoginSuccess } from '../helper.js';
 
-
-const google_client_id = '333616956580-ehlrhiisjvgupkm594kettrev856vdtu.apps.googleusercontent.com'
-
 const loginDiv = document.createElement('div')
 loginDiv.className = 'login'
 
