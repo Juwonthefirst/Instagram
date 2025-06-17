@@ -381,6 +381,7 @@ input:focus, button:focus {
 .login > form > .input-field > input:not(:placeholder-shown) + label{
 	top: 2px;
 	font-size: 10px;
+	opacity: 1;
 }
 .login > form > .input-field > input:not(:placeholder-shown) + label + .password-icon,
 .login > form > .input-field:focus-within > .password-icon{
