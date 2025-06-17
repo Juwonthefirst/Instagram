@@ -35,8 +35,8 @@ window.beepMe = {};
 	});
 })();
 
-//window.addEventListener('popstate', router.route)
-window.addEventListener('hashchange', router.route)
+window.addEventListener('popstate', router.route)
+//window.addEventListener('hashchange', router.route)
 //window.addEventListener('load', router.route)
 
 window.addEventListener('load', async () => {
