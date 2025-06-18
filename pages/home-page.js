@@ -1,5 +1,5 @@
 export default function home() {
-  const main = document.querySelector('.main')
+  const main = document.querySelector('.root')
 	main.innerHTML = `<header class="head">
     <h2>Instagram</h2>
     <div class="head-icon">

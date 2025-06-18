@@ -8,7 +8,7 @@ import { google_client_id, FormValidator } from '../helper.js';
 
 let googleClient
 
-/*(() => {
+(() => {
 	googleClient = google.accounts.oauth2.initCodeClient({
 		client_id: google_client_id,
 		scope: 'email profile openid',
@@ -23,7 +23,7 @@ let googleClient
 			})
 		}
 	})
-})();*/
+})();
 
 const signupDiv = document.createElement('div')
 signupDiv.className = 'signup'
@@ -62,7 +62,7 @@ signupDiv.appendChild(form)
 const formValidator = new FormValidator( [ emailField, passField, confirmPassField ], signupBtn )
 formValidator.addCustomErrorHandler(confirmPassInput, () => {
 	const isValid = confirmPassInput.value.trim() === passInput.value.trim()
-	const errorMessage = 'boom'
+	const errorMessage = 'This fiel'
 	return { isValid, errorMessage }
 })
 
@@ -84,7 +84,7 @@ const socialLoginBtn = googleButton(googleClient)
 socialLoginDiv.appendChild(socialLoginBtn)
 signupDiv.appendChild(socialLoginDiv)
 export default function signupPage() {
-	const main = document.querySelector('.main')
+	const main = document.querySelector('.root')
 	main.innerHTML = ''
 	main.appendChild(signupDiv)
 }

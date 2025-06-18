@@ -16,6 +16,9 @@ const onLoginSuccess = (router, server) => {
     server.startAutoRefreshAccessToken((response) => onRefreshError(response, router))
 }
 
+const onSignupSuccess = () => {
+    router.render()
+}
 class FormValidator {
     constructor(inputFields, button) {
         this.inputFields = inputFields
@@ -69,7 +72,6 @@ class FormValidator {
     renderErrorMessage(input, customErrorMessage) {
         const inputParent = input.parentElement
         const errorMessage = this.getErrorMessage(input) || this.getCustomErrorMessage(input)
-        console.log(errorMessage)
         let errorTag = inputParent.nextElementSibling
         if (!errorMessage) {
             inputParent.style.borderColor = ''
