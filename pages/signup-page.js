@@ -32,7 +32,7 @@ const header = document.createElement('div')
 header.className = 'header'
 
 const icon = iconDiv("chevron-left", 'back-btn')
-icon.addEventListener('click', () => { router.navigateTo('/#/login') })
+icon.addEventListener('click', () => { router.navigateTo('/login') })
 header.appendChild(icon)
 
 const headerText = document.createElement('p')
