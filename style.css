@@ -339,7 +339,7 @@ input:focus, button:focus {
 	width: 100%;
 }
 
-.login>form>.input-field {
+form>.input-field {
 	font-size: var(--md);
 	border: 1px solid rgba(255, 255, 255, .3);
 	border-radius: var(--vsm);
@@ -350,7 +350,7 @@ input:focus, button:focus {
 	transition: all .2s linear;
 }
 
-.login > form > .input-field > label{
+form > .input-field > label{
 	font: inherit;
 	font-size: var(--sub);
 	position: absolute;
@@ -361,30 +361,31 @@ input:focus, button:focus {
 	pointer-events: none;
 }
 
-.login > form > .input-field > .password-icon{
+form > .input-field > .password-icon{
     align-self: center;
     margin-right: var(--sm);
     width: var(--icon);
     height: var(--icon);
 }
 
-.login > form > .input-field > input{
+form > .input-field > input{
 	padding: var(--sm);
 	padding-top: var(--md);
 }
 
-.login > form > .input-field:focus-within{
+form > .input-field:focus-within{
     border-color: var(--link-color);
 }
 
-.login > form > .input-field > input:focus + label, 
-.login > form > .input-field > input:not(:placeholder-shown) + label{
+form > .input-field > input:focus + label, 
+form > .input-field > input:not(:placeholder-shown) + label{
 	top: 2px;
 	font-size: 10px;
-	opacity: 1;
+	opacity: .8;
 }
-.login > form > .input-field > input:not(:placeholder-shown) + label + .password-icon,
-.login > form > .input-field:focus-within > .password-icon{
+
+form >.input-field > input:not(:placeholder-shown) + label + .password-icon,
+form > .input-field:focus-within > .password-icon{
     visibility: visible !important;
 }
 
@@ -396,7 +397,7 @@ input:focus, button:focus {
 	letter-spacing: .3px;
 }
 
-.login>form>.submit-btn {
+form>.submit-btn {
 	font: inherit;
 	font-size: var(--sub);
 	font-weight: 600;
@@ -414,14 +415,14 @@ input:focus, button:focus {
     opacity: .6;
 }
 
-.login>form>.submit-btn > iconify-icon{
+form>.submit-btn > iconify-icon{
 	font-size: var(--icon);
 	margin: calc( var(--sm) * -1);
 	padding: 0;
 }
 
 .login > .error{
-    display: none;
+
 	color: red;
 	font-size: var(--sub);
 	width: 80%;
@@ -442,27 +443,57 @@ input:focus, button:focus {
 	opacity: 1;
 }
 
-.new-user{
-    padding-top: 0;
+.signup{
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	padding-top: 0;
 }
 
-.new-user .header{
+.signup .header{
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: var(--sm);
-    font-weight: 400;
+    padding: var(--sub);
     width: 100%;
-    border-bottom: 1px solid white;
+    max-height: 48px;
+    border-bottom: 1px solid rgba(255, 255, 255, .2);
 }
 
-.new-user .back-btn{
-   position: absolute;
+.signup .back-btn{
+   position: fixed;
    left: 5%;
-   width: var(--icon);
+}
+
+.signup .back-btn svg{
+	width: var(--icon);
    height: var(--icon);
 }
-
-.new-user .header-text{
+.signup .header-text{
+	font-weight: 600;
     margin: 0;
+}
+
+.signup form{
+    display: flex;
+    flex-direction: column;
+    padding: var(--lg);
+	gap: var(--md);
+	
+}
+
+.signup .social-login-box{
+	height: 54px;
+	border-top: 1px solid rgba(255, 255, 255, .3);
+	padding: var(--sub) 0;
+	width: 100%;
+}
+
+.signup .input-error{
+	display: none;
+	color: red; 
+	margin: calc(var(--sub) * -1) 0 0;
+	font-size: var(--sub);
+	overflow-wrap: break-word;
+	text-align: center;
 }

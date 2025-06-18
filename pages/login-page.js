@@ -2,7 +2,26 @@ import { inputField, passwordField } from '../components/Inputs.js'
 import { googleButton } from '../components/buttons.js';
 import server from '../fetch.js'
 import { router } from '../router.js';
-import { onRefreshError, onLoginError, onLoginSuccess } from '../helper.js';
+import { google_client_id, onRefreshError, onLoginError, onLoginSuccess } from '../helper.js';
+
+let googleClient
+
+/*(() => {
+	googleClient = google.accounts.oauth2.initCodeClient({
+		client_id: google_client_id,
+		scope: 'email profile openid',
+		redirect_uri: 'postmessage',
+		ux_mode: 'popup',
+		code_challenge_method: 'S256',
+		callback: async (code) => {
+			await server.googleLoginByCode({
+				googleTokenObject: code,
+				onError: (data) => onLoginError(data),
+				onSuccess: () => onLoginSuccess( router, server )
+			})
+		}
+	})
+})();*/
 
 const loginDiv = document.createElement('div')
 loginDiv.className = 'login'
@@ -16,7 +35,7 @@ logo.className = 'logo'
 logo.textContent = 'Instagram'
 loginDiv.append(language, logo)
 
-const googleLoginBtn = googleButton()
+const googleLoginBtn = googleButton(googleClient)
 loginDiv.appendChild(googleLoginBtn)
 
 const orTag = document.createElement('p')
@@ -69,7 +88,7 @@ form.addEventListener('submit', async (event) => {
 			credentialsField.firstElementChild.value = ''
 			passField.firstElementChild.value = ''
 		};
-		data.onError = (data) => onLoginError(data);
+		data.onError = (data) => onLoginError(errorTag, data);
 		
 		(credentials.includes('@')) ? data.email = credentials : data.username = credentials;
 		loginBtn.innerHTML = '<iconify-icon icon="line-md:loading-loop"></iconify-icon>'
@@ -82,7 +101,7 @@ form.addEventListener('input', () => loginBtn.disabled = !form.checkValidity());
 
 
 export default function login() {
-	google.accounts.id.prompt()
+	//google.accounts.id.prompt()
 	const main = document.querySelector('.main')
 	main.innerHTML = ''
 	main.appendChild(loginDiv)
