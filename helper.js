@@ -10,15 +10,22 @@ const onLoginError = (errorTag, data) => {
     errorTag.textContent = data.error || data.non_field_errors
 }
 
-const onLoginSuccess = (router, server) => {
+const onLoginSuccess = (data, router, server) => {
+    server.get_csrf()
+    server.startAutoRefreshAccessToken((response) => onRefreshError(response, router))
+    if (data.new_user) {
+        return router.render('finish-signup')
+    }
     router.navigateTo('/')
+}
+
+const onSignupSuccess = ( router, server ) => {
+    router.render('finish-signup')
     server.get_csrf()
     server.startAutoRefreshAccessToken((response) => onRefreshError(response, router))
 }
 
-const onSignupSuccess = () => {
-    router.render()
-}
+
 class FormValidator {
     constructor(inputFields, button) {
         this.inputFields = inputFields
@@ -113,4 +120,4 @@ class FormValidator {
 }
     
     
-    export { google_client_id, onRefreshError, onLoginError, onLoginSuccess, FormValidator }
+    export { google_client_id, onRefreshError, onLoginError, onLoginSuccess, onSignupSuccess, FormValidator }

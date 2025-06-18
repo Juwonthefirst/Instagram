@@ -3,7 +3,7 @@ import { inputField, passwordField } from '../components/Inputs.js';
 import { googleButton } from '../components/buttons.js';
 import { router } from '../router.js';
 import server from '../fetch.js';
-import { google_client_id, FormValidator } from '../helper.js';
+import { google_client_id, FormValidator, onSignupSuccess } from '../helper.js';
 
 
 let googleClient
@@ -19,7 +19,7 @@ let googleClient
 			await server.googleLoginByCode({
 				googleTokenObject: code,
 				onError: (data) => onLoginError(data),
-				onSuccess: () => onLoginSuccess( router, server )
+				onSuccess: () => onSignupSuccess( router, server )
 			})
 		}
 	})
@@ -66,14 +66,19 @@ formValidator.addCustomErrorHandler(confirmPassInput, () => {
 	return { isValid, errorMessage }
 })
 
+const onSignupSuccess = (data) => {
+	const errors = data.error
+	for (let error of errors) {
+		console.log(error)
+	}
+}
 
 form.addEventListener('submit', async (event) => {
 	event.preventDefault()
-	const email = emailInput.value.trim()
-	const password = passInput.value.trim()
-	const confirmPass = confirmPassInput.value.trim()
 	if(formValidator.validate()){
-	    await server.signup({ email, password })
+		signupBtn.innerHTML = '<iconify-icon icon="line-md:loading-loop"></iconify-icon>'
+	    await server.signup({ email, password, onSuccess: () => onSignupSuccess( router, server ), onError: onSignupError })
+	    signupBtn.innerHTML = 'Next'
 	}
 	
 })

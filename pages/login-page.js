@@ -6,7 +6,7 @@ import { google_client_id, onRefreshError, onLoginError, onLoginSuccess } from '
 
 let googleClient
 
-/*(() => {
+(() => {
 	googleClient = google.accounts.oauth2.initCodeClient({
 		client_id: google_client_id,
 		scope: 'email profile openid',
@@ -21,7 +21,7 @@ let googleClient
 			})
 		}
 	})
-})();*/
+})();
 
 const loginDiv = document.createElement('div')
 loginDiv.className = 'login'
@@ -83,8 +83,8 @@ form.addEventListener('submit', async (event) => {
 		
 		loginBtn.disabled = true
 		const data = { password: password };
-		data.onSuccess = () => {
-			onLoginSuccess( router, server)
+		data.onSuccess = (data) => {
+			onLoginSuccess( data, router, server)
 			credentialsField.firstElementChild.value = ''
 			passField.firstElementChild.value = ''
 		};
@@ -92,7 +92,7 @@ form.addEventListener('submit', async (event) => {
 		
 		(credentials.includes('@')) ? data.email = credentials : data.username = credentials;
 		loginBtn.innerHTML = '<iconify-icon icon="line-md:loading-loop"></iconify-icon>'
-		const response = await server.login(data)
+		await server.login(data)
 		loginBtn.innerHTML = 'Log in'
 		loginBtn.disabled = false
 	}
