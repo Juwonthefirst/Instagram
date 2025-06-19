@@ -73,6 +73,9 @@ button:focus {
 }
 
 .root {
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	height: 100dvh;
 }
 
@@ -508,4 +511,27 @@ form>.submit-btn>iconify-icon {
 	font-size: var(--sub);
 	overflow-wrap: break-word;
 	text-align: center;
+}
+
+.basic-popup{
+	display: flex;
+	flex-direction: column;
+	gap: var(--sm);
+	border-radius: var(--sm);
+	font-size: var(--sub);
+}
+
+.basic-popup:first-child{
+	border-bottom: 1px solid rgba(255, 255, 255, .3);
+	padding: var(--vsm);
+}
+
+.basic-popup .main-text{
+	padding: var(--vsm);
+}
+
+.basic-popup :last-child{
+	border-top: 1px solid rgba(255, 255, 255, .3);
+	padding: var(--vsm);
+	color: var(--btn-color);
 }

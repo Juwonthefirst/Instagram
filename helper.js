@@ -19,13 +19,6 @@ const onLoginSuccess = (data, router, server) => {
     router.navigateTo('/')
 }
 
-const onSignupSuccess = ( router, server ) => {
-    router.render('finish-signup')
-    server.get_csrf()
-    server.startAutoRefreshAccessToken((response) => onRefreshError(response, router))
-}
-
-
 class FormValidator {
     constructor(inputFields, button) {
         this.inputFields = inputFields
@@ -120,4 +113,4 @@ class FormValidator {
 }
     
     
-    export { google_client_id, onRefreshError, onLoginError, onLoginSuccess, onSignupSuccess, FormValidator }
+    export { google_client_id, onRefreshError, onLoginError, onLoginSuccess, FormValidator }

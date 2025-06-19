@@ -132,6 +132,16 @@ class Server {
         this.access_token = data.access
     }
     
+    async verifyEmail({key, onSuccess = null, onError = null}){
+        return await this.#baseFetch({ 
+            path: 'auth/registration/verify-email/',
+            method: 'POST',
+            body: { key },
+            onError,
+            onSuccess
+        })
+    }
+    
     async get_csrf({ onError = null, onSuccess = null } = {}) {
         const data = await this.#baseFetch({
             path: 'auth/user/csrf/',

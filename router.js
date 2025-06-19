@@ -3,7 +3,8 @@ const routes = {
 	'/': () => import( './pages/home-page.js'),
 	'/login': () => import( './pages/login-page.js'),
 	'/signup': () => import('./pages/signup-page.js'),
-	'finish-signup': () => import('./pages/username-page.js')
+	'finish-signup': () => import('./pages/username-page.js'),
+	'/verify-email': () => import('./pages/verify-email.js')
 }
 
 

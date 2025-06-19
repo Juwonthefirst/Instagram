@@ -19,7 +19,7 @@ let googleClient
 			await server.googleLoginByCode({
 				googleTokenObject: code,
 				onError: (data) => onLoginError(data),
-				onSuccess: () => onSignupSuccess( router, server )
+				onSuccess: () => router.render('finish-signup')
 			})
 		}
 	})
@@ -66,7 +66,7 @@ formValidator.addCustomErrorHandler(confirmPassInput, () => {
 	return { isValid, errorMessage }
 })
 
-const onSignupSuccess = (data) => {
+const onSignupError = (data) => {
 	const errors = data.error
 	for (let error of errors) {
 		console.log(error)
@@ -77,7 +77,7 @@ form.addEventListener('submit', async (event) => {
 	event.preventDefault()
 	if(formValidator.validate()){
 		signupBtn.innerHTML = '<iconify-icon icon="line-md:loading-loop"></iconify-icon>'
-	    await server.signup({ email, password, onSuccess: () => onSignupSuccess( router, server ), onError: onSignupError })
+	    await server.signup({ email, password, onSuccess: () => {router.render('/verify-email'); sessionStorage.setItem('pending_verified_mail', email)}, onError: onSignupError })
 	    signupBtn.innerHTML = 'Next'
 	}
 	
