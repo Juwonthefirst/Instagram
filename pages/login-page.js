@@ -3,6 +3,7 @@ import { googleButton } from '../components/buttons.js';
 import server from '../fetch.js'
 import { router } from '../router.js';
 import { google_client_id, onRefreshError, onLoginError, onLoginSuccess } from '../helper.js';
+import { iconifyIcon } from '../components/icon.js';
 
 let googleClient
 
@@ -91,9 +92,9 @@ form.addEventListener('submit', async (event) => {
 		data.onError = (data) => onLoginError(errorTag, data);
 		
 		(credentials.includes('@')) ? data.email = credentials : data.username = credentials;
-		loginBtn.innerHTML = '<iconify-icon icon="line-md:loading-loop"></iconify-icon>'
+		loginBtn.firstChild.replaceWith(iconifyIcon('line-md:loading-loop"'))
 		await server.login(data)
-		loginBtn.innerHTML = 'Log in'
+		loginBtn.textContent = 'Log in'
 		loginBtn.disabled = false
 	}
 })
@@ -102,7 +103,5 @@ form.addEventListener('input', () => loginBtn.disabled = !form.checkValidity());
 
 export default function login() {
 	//google.accounts.id.prompt()
-	const main = document.querySelector('.root')
-	main.innerHTML = ''
-	main.appendChild(loginDiv)
+	return loginDiv
 }

@@ -1,7 +1,6 @@
-
 const routes = {
-	'/': () => import( './pages/home-page.js'),
-	'/login': () => import( './pages/login-page.js'),
+	'/': () => import('./pages/home-page.js'),
+	'/login': () => import('./pages/login-page.js'),
 	'/signup': () => import('./pages/signup-page.js'),
 	'finish-signup': () => import('./pages/username-page.js'),
 	'/verify-email': () => import('./pages/verify-email.js')
@@ -11,12 +10,14 @@ const routes = {
 class PageRouter {
 	constructor(routes) {
 		this.routes = routes
+		this.main = document.querySelector('.root')
 	}
 	
-	async render(pageURL){
+	async render(pageURL) {
 		const pageModule = this.routes[pageURL] || (() => import('./pages/not-found-page.js'))
 		const page = await pageModule()
-		page.default()
+		console.log(this.main.children[0])
+		this.main.children[0].replaceWith(page.default())
 		lucide.createIcons()
 	}
 	async route() {

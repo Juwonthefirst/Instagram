@@ -1,4 +1,4 @@
-import iconDiv from '../components/icon.js';
+import { lucideIcon, iconifyIcon } from '../components/icon.js';
 import { inputField, passwordField } from '../components/Inputs.js';
 import { googleButton } from '../components/buttons.js';
 import { router } from '../router.js';
@@ -31,7 +31,7 @@ signupDiv.className = 'signup'
 const header = document.createElement('div')
 header.className = 'header'
 
-const icon = iconDiv("chevron-left", 'back-btn')
+const icon = lucideIcon("chevron-left", 'back-btn')
 icon.addEventListener('click', () => { router.navigateTo('/login') })
 header.appendChild(icon)
 
@@ -76,9 +76,17 @@ const onSignupError = (data) => {
 form.addEventListener('submit', async (event) => {
 	event.preventDefault()
 	if(formValidator.validate()){
-		signupBtn.innerHTML = '<iconify-icon icon="line-md:loading-loop"></iconify-icon>'
-	    await server.signup({ email, password, onSuccess: () => {router.render('/verify-email'); sessionStorage.setItem('pending_verified_mail', email)}, onError: onSignupError })
-	    signupBtn.innerHTML = 'Next'
+		signupBtn.firstChild.replaceWith(iconifyIcon('line-md:loading-loop"'))
+	    await server.signup({ 
+	    	email, 
+	    	password, 
+	    	onSuccess: () => {
+	    		router.render('/verify-email'); 
+	    		sessionStorage.setItem('pending_verified_mail', email)
+	    	}, 
+	    	onError: onSignupError
+	    })
+	    signupBtn.textContent = 'Next'
 	}
 	
 })
@@ -89,7 +97,5 @@ const socialLoginBtn = googleButton(googleClient)
 socialLoginDiv.appendChild(socialLoginBtn)
 signupDiv.appendChild(socialLoginDiv)
 export default function signupPage() {
-	const main = document.querySelector('.root')
-	main.innerHTML = ''
-	main.appendChild(signupDiv)
+	return signupDiv
 }

@@ -1,4 +1,4 @@
-import iconTag from './icon.js';
+import { lucideIcon } from './icon.js';
 
 const inputField = function (type, id, title){
 	const fieldDiv = document.createElement('div')

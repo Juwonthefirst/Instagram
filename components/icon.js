@@ -1,4 +1,4 @@
-const iconDiv = function(iconName, className){
+const lucideIcon = function(iconName, className){
 	const div = document.createElement('div')
 	div.className = className
 	const icon = document.createElement('i')
@@ -7,4 +7,9 @@ const iconDiv = function(iconName, className){
 	return div
 }
 
-export default iconDiv
+const iconifyIcon = function(iconName){
+	const icon = document.createElement('iconify-icon')
+	icon.icon = iconName
+	return icon
+}
+export { lucideIcon, iconifyIcon }
