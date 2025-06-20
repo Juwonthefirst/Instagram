@@ -27,7 +27,7 @@ class PageRouter {
 	}
 	async navigateTo(url) {
 		history.pushState(null, '', url)
-		await this.route()
+		await this.render(url)
 	}
 }
 
