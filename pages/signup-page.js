@@ -3,12 +3,12 @@ import { inputField, passwordField } from '../components/Inputs.js';
 import { googleButton } from '../components/buttons.js';
 import { router } from '../router.js';
 import server from '../fetch.js';
-import { google_client_id, FormValidator, onSignupSuccess } from '../helper.js';
+import { google_client_id, FormValidator } from '../helper.js';
 
 
 let googleClient
 
-(() => {
+/*(() => {
 	googleClient = google.accounts.oauth2.initCodeClient({
 		client_id: google_client_id,
 		scope: 'email profile openid',
@@ -23,7 +23,7 @@ let googleClient
 			})
 		}
 	})
-})();
+})();*/
 
 const signupDiv = document.createElement('div')
 signupDiv.className = 'signup'
@@ -59,10 +59,10 @@ signupBtn.textContent = 'Next'
 form.append(emailField, passField, confirmPassField, signupBtn)
 signupDiv.appendChild(form)
 
-const formValidator = new FormValidator( [ emailField, passField, confirmPassField ], signupBtn )
+const formValidator = new FormValidator([emailField, passField, confirmPassField], signupBtn)
 formValidator.addCustomErrorHandler(confirmPassInput, () => {
 	const isValid = confirmPassInput.value.trim() === passInput.value.trim()
-	const errorMessage = 'This fiel'
+	const errorMessage = 'This field should be the same as your password'
 	return { isValid, errorMessage }
 })
 
@@ -75,18 +75,20 @@ const onSignupError = (data) => {
 
 form.addEventListener('submit', async (event) => {
 	event.preventDefault()
-	if(formValidator.validate()){
-		signupBtn.firstChild.replaceWith(iconifyIcon('line-md:loading-loop"'))
-	    await server.signup({ 
-	    	email, 
-	    	password, 
-	    	onSuccess: () => {
-	    		router.render('/verify-email'); 
-	    		sessionStorage.setItem('pending_verified_mail', email)
-	    	}, 
-	    	onError: onSignupError
-	    })
-	    signupBtn.textContent = 'Next'
+	if (formValidator.validate()) {
+		const email = emailInput.value
+		const password = passInput.value
+		signupBtn.firstChild.replaceWith(iconifyIcon('line-md:loading-loop'))
+		await server.signup({
+			email,
+			password,
+			onSuccess: () => {
+				router.render('/verify-email');
+				sessionStorage.setItem('pending_verified_mail', emailInput.value)
+			},
+			onError: onSignupError
+		})
+		signupBtn.textContent = 'Next'
 	}
 	
 })

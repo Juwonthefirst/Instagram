@@ -22,6 +22,10 @@
     --theme: inear-gradient(45deg, #feda75, #fa7e1e, #d62976, #962fbf, #4f5bd5);
 }
 
+::backdrop{
+    background: rgba(0, 0, 0, 0.5);
+}
+
 @font-face {
     font-family: 'Grand Hotel';
     src: url("./fonts/grandhotel-regular-webfont.woff2") format('woff2'),
@@ -405,7 +409,7 @@ form>.input-field:focus-within>.password-icon {
     letter-spacing: .3px;
 }
 
-.resend-btn,
+
 form>.submit-btn {
     font: inherit;
     font-size: var(--sub);
@@ -516,26 +520,37 @@ form>.submit-btn>iconify-icon {
 }
 
 .basic-popup {
-    display: flex;
-    flex-direction: column;
-    gap: var(--sm);
-    border-radius: var(--sm);
+    padding: 0;
+    color: inherit;
+    font: inherit;
+    font-weight: 400;
+    width: 60%;
+    border-radius: var(--sub);
+    /*border: 2px solid white;*/
     font-size: var(--sub);
-}
-
-.basic-popup:first-child {
-    border-bottom: 1px solid rgba(255, 255, 255, .3);
-    padding: var(--vsm);
+    background: #262829;
+    border: 0;
 }
 
 .basic-popup .main-text {
-    padding: var(--vsm);
+    font-size: var(--md);
+    padding: var(--lg) var(--md)
 }
 
-.basic-popup :last-child {
+.basic-popup button{
+    border: 0;
     border-top: 1px solid rgba(255, 255, 255, .3);
-    padding: var(--vsm);
+    background: inherit;
     color: var(--btn-color);
+    padding: var(--sm);
+    width: 100%;
+    outline: 0;
+    font-size: var(--md);
+}
+
+.basic-popup button:hover{
+    background: var(--btn-color);
+    color: white;
 }
 
 .basic-popup.error {
@@ -558,6 +573,7 @@ form>.submit-btn>iconify-icon {
 }
 
 .verify-email iconify-icon {
+    stroke-linejoin: 1;
     color: #DFE723;
     font-size: 128px;
     padding: var(--lg);
@@ -569,5 +585,8 @@ form>.submit-btn>iconify-icon {
 }
 
 .resend-btn{
+    color: var(--link-color);
+    background: inherit;
     margin: var(--md);
+    border: 0;
 }

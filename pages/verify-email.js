@@ -3,9 +3,11 @@ import server from '../fetch.js';
 import { basicPopUp } from '../components/popup.js';
 import { lucideIcon, iconifyIcon } from '../components/icon.js';
 
-const emailSentPopup = basicPopUp('Verification mail sent', 'A new verification email has been sent to you click on it to verify your Email')
-const errorEmailSentPopup = basicPopUp('Invalid Key', 'We can\'t verify you with the key you provided, please request for a new link', true)
+const emailSentPopup = basicPopUp('A new verification email has been sent to you click on it to verify your Email')
+const invalidVerificationKeyPopup = basicPopUp('We can\'t verify you with the key you provided, please request for a new link', true)
+const errorEmailSentPopup = basicPopUp('it seems like something is wrong and we are unable to send you a new verification email')
 const verificationKey = new URLSearchParams(location.search).get('key')
+
 if(verificationKey){
 	server.verifyEmail({ 
 		key: verificationKey, 
@@ -13,7 +15,7 @@ if(verificationKey){
 			sessionStorage.removeItem('pending_verified_mail')
 			router.render('finish-signup')
 		}, 
-		onError:  errorEmailSentPopup.showModal
+		onError:  () => errorEmailSentPopup.showModal()
 	})
 }
 
@@ -37,7 +39,7 @@ resendLink.className = 'resend-btn'
 resendLink.textContent = resendLinkText
 resendLink.addEventListener('click', async (event) => {
 	resendLink.disabled = true
-	let timeout = 10
+	let timeout = 120
 	const getTimeoutText = (timeout) => `Wait ${timeout} seconds before sending another request`
 	resendLink.textContent = getTimeoutText(timeout)
 	const interval = setInterval(() => {
@@ -55,13 +57,6 @@ resendLink.addEventListener('click', async (event) => {
 		onError: () => {errorEmailSentPopup.showModal()}
 	})
 })
-
-/*const timer = document.createElement('p')
-timer.textContent = 120
-
-setInterval(() => {
-	 timer.textContent -= 1
-}, 1000)*/
 
 verifyEmailDiv.append(pendingVerificationIcon, status, verifyEmailText, resendLink, emailSentPopup, errorEmailSentPopup)
 

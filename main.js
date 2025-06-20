@@ -12,5 +12,5 @@ import { onRefreshError, onLoginSuccess, onLoginError } from './helper.js';
 	if(response.error){ return router.navigateTo('/login') }
 	else await server.startAutoRefreshAccessToken( (response) => onRefreshError(response, router) )
 })*/
-router.render('/verify-email')
+router.render('/signup')
 //history.pushState(null, '', '/#/signup')
