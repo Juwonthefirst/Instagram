@@ -1,6 +1,6 @@
-const basicPopUp = function( text, isError ) {
+const basicPopUp = function( text ) {
 	const popup = document.createElement('dialog')
-	popup.className = isError? 'basic-popup error' : 'basic-popup'
+	popup.className = 'basic-popup'
 
 	
 	const popupText = document.createElement('p')

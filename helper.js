@@ -72,6 +72,11 @@ class FormValidator {
     renderErrorMessage(input, customErrorMessage) {
         const inputParent = input.parentElement
         const errorMessage = this.getErrorMessage(input) || this.getCustomErrorMessage(input)
+        this.appendErrorMessage(inputParent, errorMessage)
+        
+    }
+    
+    appendErrorMessage(inputParent, errorMessage) {
         let errorTag = inputParent.nextElementSibling
         if (!errorMessage) {
             inputParent.style.borderColor = ''
@@ -88,6 +93,7 @@ class FormValidator {
         errorTag.textContent = errorMessage
         inputParent.style.borderColor = 'red'
     }
+    
     addCustomErrorHandler(input, callback) {
         if (typeof callback !== 'function') {
             throw Error('Custom errors must contain a callback')
@@ -111,6 +117,6 @@ class FormValidator {
         return true
     }
 }
-    
-    
-    export { google_client_id, onRefreshError, onLoginError, onLoginSuccess, FormValidator }
+
+
+export { google_client_id, onRefreshError, onLoginError, onLoginSuccess, FormValidator }

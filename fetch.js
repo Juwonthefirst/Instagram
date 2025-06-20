@@ -20,7 +20,7 @@ class Server {
             const response = await fetch(backendUrl + path, fetchData)
             const data = await response.json()
             if (!response.ok) {
-                if (onError) onError(data)
+                if (onError) onError({ error: data })
                 return { error: data }
             }
             if (onSuccess) onSuccess(data)

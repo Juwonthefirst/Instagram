@@ -1,6 +1,7 @@
 import { lucideIcon, iconifyIcon } from '../components/icon.js';
 import { inputField, passwordField } from '../components/Inputs.js';
 import { googleButton } from '../components/buttons.js';
+import { basicPopUp } from '../components/popup.js';
 import { router } from '../router.js';
 import server from '../fetch.js';
 import { google_client_id, FormValidator } from '../helper.js';
@@ -27,6 +28,9 @@ let googleClient
 
 const signupDiv = document.createElement('div')
 signupDiv.className = 'signup'
+
+const signupErrorPopup = basicPopUp('')
+signupDiv.appendChild(signupErrorPopup)
 
 const header = document.createElement('div')
 header.className = 'header'
@@ -67,9 +71,22 @@ formValidator.addCustomErrorHandler(confirmPassInput, () => {
 })
 
 const onSignupError = (data) => {
+	const inputFields = {
+		email: emailField,
+		password1: passField
+	}
+	
 	const errors = data.error
-	for (let error of errors) {
-		console.log(error)
+	
+	for (let error in errors) {
+		const errorMessage = errors[error][0]
+		const inputFieldWithError = inputFields[error] || null
+		if(!inputFieldWithError){
+			signupErrorPopup.firstElementChild.textContent = errorMessage
+			signupErrorPopup.showModal()
+			continue
+		}
+		formValidator.appendErrorMessage( inputFieldWithError, errorMessage )
 	}
 }
 
@@ -78,15 +95,17 @@ form.addEventListener('submit', async (event) => {
 	if (formValidator.validate()) {
 		const email = emailInput.value
 		const password = passInput.value
+		const defaultUsername = email.replace('@gmail.com', '')
 		signupBtn.firstChild.replaceWith(iconifyIcon('line-md:loading-loop'))
 		await server.signup({
+			username: defaultUsername,
 			email,
 			password,
 			onSuccess: () => {
 				router.render('/verify-email');
 				sessionStorage.setItem('pending_verified_mail', emailInput.value)
 			},
-			onError: onSignupError
+			onError: (data) => onSignupError(data)
 		})
 		signupBtn.textContent = 'Next'
 	}
@@ -98,6 +117,7 @@ socialLoginDiv.className = 'social-login-box'
 const socialLoginBtn = googleButton(googleClient)
 socialLoginDiv.appendChild(socialLoginBtn)
 signupDiv.appendChild(socialLoginDiv)
+
 export default function signupPage() {
 	return signupDiv
 }
