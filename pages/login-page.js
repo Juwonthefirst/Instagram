@@ -73,7 +73,7 @@ signupLink.addEventListener('click', (event) => {
 	event.preventDefault()
 	router.navigateTo('/signup')
 })
-signupLink.innerHTML = 'Don\'t have an account? <a data-link href="">Sign up</a>'
+signupLink.innerHTML = 'Don\'t have an account? <a data-link>Sign up</a>'
 loginDiv.appendChild(signupLink);
 
 form.addEventListener('submit', async (event) => {
