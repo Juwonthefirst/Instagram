@@ -7,7 +7,7 @@ const emailSentPopup = basicPopUp('A new verification email has been sent to you
 const invalidVerificationKeyPopup = basicPopUp('We can\'t verify you with the key you provided, please request for a new link', true)
 const errorEmailSentPopup = basicPopUp('it seems like something is wrong and we are unable to send you a new verification email')
 const verificationKey = new URLSearchParams(location.search).get('key')
-
+console.log(verificationKey)
 if(verificationKey){
 	server.verifyEmail({ 
 		key: verificationKey, 
