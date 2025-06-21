@@ -73,6 +73,7 @@ formValidator.addCustomErrorHandler(confirmPassInput, () => {
 	const errorMessage = 'This field should be the same as your password'
 	return { isValid, errorMessage }
 })
+
 const onSignupSuccess = () => {
 	router.render('/verify-email');
 	sessionStorage.setItem('pending_verified_mail', emailInput.value)
@@ -88,10 +89,7 @@ const onSignupError = (data) => {
 	
 	for (let error in errors) {
 		const errorMessage = errors[error][0]
-		if (errorMessage === 'a user with this username already exists') {
-			console.log('correct if statement')
-		}
-		const inputFieldWithError = inputFields[error] || null
+		const inputFieldWithError = inputFields[error]
 		if(!inputFieldWithError){
 			signupErrorPopup.firstElementChild.textContent = errorMessage
 			signupErrorPopup.showModal()
@@ -113,7 +111,7 @@ form.addEventListener('submit', async (event) => {
 			email,
 			password,
 			onSuccess: onSignupSuccess,
-			onError: (data) => onSignupError(data)
+			onError: onSignupError
 		})
 		signupBtn.textContent = 'Next'
 	}
