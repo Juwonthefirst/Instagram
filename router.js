@@ -21,6 +21,7 @@ class PageRouter {
 		lucide.createIcons()
 	}
 	async route() {
+		console.log(location.pathname)
 		const path = location.pathname || '/'
 		//const route = location.hash.slice(1) || '/'
 		await this.render( path )
