@@ -16,12 +16,10 @@ class PageRouter {
 	async render(pageURL) {
 		const pageModule = this.routes[pageURL] || (() => import('./pages/not-found-page.js'))
 		const page = await pageModule()
-		console.log(this.main.children[0])
 		this.main.children[0].replaceWith(page.default())
 		lucide.createIcons()
 	}
 	async route() {
-		console.log(location.pathname)
 		const path = location.pathname || '/'
 		//const route = location.hash.slice(1) || '/'
 		await this.render( path )
