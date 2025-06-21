@@ -4,6 +4,7 @@ import { googleButton } from '../components/buttons.js';
 import { basicPopUp } from '../components/popup.js';
 import { router } from '../router.js';
 import server from '../fetch.js';
+import { memory } from '../appMemory.js';
 import { google_client_id, FormValidator } from '../helper.js';
 
 
@@ -81,6 +82,7 @@ formValidator.addCustomErrorHandler(confirmPassInput, () => {
 
 const onSignupSuccess = () => {
 	router.render('/verify-email');
+	memory.save('password', passInput.value)
 	sessionStorage.setItem('pending_verified_mail', emailInput.value)
 }
 

@@ -83,7 +83,7 @@ form.addEventListener('submit', async (event) => {
 })
 form.addEventListener('input', () => loginBtn.disabled = !form.checkValidity());
 
-(() => {
+/*(() => {
 	googleClient = google.accounts.oauth2.initCodeClient({
 		client_id: google_client_id,
 		scope: 'email profile openid',
@@ -98,7 +98,7 @@ form.addEventListener('input', () => loginBtn.disabled = !form.checkValidity());
 			})
 		}
 	})
-})();
+})();*/
 
 export default function login() {
 	return loginDiv

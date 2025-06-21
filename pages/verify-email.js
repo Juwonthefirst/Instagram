@@ -1,5 +1,6 @@
 import { router } from '../router.js';
 import server from '../fetch.js';
+import { memory } from '../appMemory.js';
 import { basicPopUp } from '../components/popup.js';
 import { lucideIcon, iconifyIcon } from '../components/icon.js';
 
@@ -13,6 +14,7 @@ if(verificationKey){
 		key: verificationKey, 
 		onSuccess: () => {
 			const email = sessionStorage.getItem('pending_verified_mail')
+			const password = memory.retrieve('password')
 			sessionStorage.removeItem('pending_verified_mail')
 			router.render('finish-signup')
 			await server.login({ 

@@ -13,22 +13,24 @@ class PageRouter {
 		this.main = document.querySelector('.root')
 	}
 	
+	async route() {
+		const path = location.pathname || '/'
+		//const route = location.hash.slice(1) || '/'
+		await this.render(path)
+	}
+	
 	async render(pageURL) {
 		const pageModule = this.routes[pageURL] || (() => import('./pages/not-found-page.js'))
 		const page = await pageModule()
 		this.main.children[0].replaceWith(page.default())
 		lucide.createIcons()
 	}
-	async route() {
-		const path = location.pathname || '/'
-		//const route = location.hash.slice(1) || '/'
-		await this.render( path )
-	}
-	async navigateTo( url ) {
-		history.pushState( null, '', url )
-		await this.render( url )
+	
+	async navigateTo(url) {
+		history.pushState(null, '', url)
+		await this.render(url)
 	}
 }
 
-const router = new PageRouter( routes )
+const router = new PageRouter(routes)
 export { router }
