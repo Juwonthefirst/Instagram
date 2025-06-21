@@ -8,7 +8,7 @@ import { google_client_id, FormValidator } from '../helper.js';
 
 
 let googleClient
-const signupErrorPopup = basicPopUp('')
+const signupErrorPopup = basicPopUp('');
 
 (() => {
 	googleClient = google.accounts.oauth2.initCodeClient({
