@@ -8,8 +8,9 @@ import { google_client_id, FormValidator } from '../helper.js';
 
 
 let googleClient
+const signupErrorPopup = basicPopUp('')
 
-/*(() => {
+(() => {
 	googleClient = google.accounts.oauth2.initCodeClient({
 		client_id: google_client_id,
 		scope: 'email profile openid',
@@ -19,17 +20,19 @@ let googleClient
 		callback: async (code) => {
 			await server.googleLoginByCode({
 				googleTokenObject: code,
-				onError: (data) => onLoginError(data),
+				onError: (data) => {
+					signupErrorPopup.firstElementChild.textContent = data.error
+					signupErrorPopup.showModal()
+				},
 				onSuccess: () => router.render('finish-signup')
 			})
 		}
 	})
-})();*/
+})();
 
 const signupDiv = document.createElement('div')
 signupDiv.className = 'signup'
 
-const signupErrorPopup = basicPopUp('')
 signupDiv.appendChild(signupErrorPopup)
 
 const header = document.createElement('div')
