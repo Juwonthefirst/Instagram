@@ -21,15 +21,15 @@ class PageRouter {
 		lucide.createIcons()
 	}
 	async route() {
-		const route = location.pathname || '/'
+		const path = location.pathname || '/'
 		//const route = location.hash.slice(1) || '/'
-		await this.render(route)
+		await this.render( path )
 	}
-	async navigateTo(url) {
-		history.pushState(null, '', url)
-		await this.render(url)
+	async navigateTo( url ) {
+		history.pushState( null, '', url )
+		await this.render( url )
 	}
 }
 
-const router = new PageRouter(routes)
+const router = new PageRouter( routes )
 export { router }

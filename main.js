@@ -1,6 +1,6 @@
 import { router } from './router.js'
 import server from './fetch.js';
-import { onRefreshError, onLoginSuccess, onLoginError } from './helper.js';
+import { onRefreshError } from './helper.js';
 
 window.addEventListener('popstate', router.route)
 //window.addEventListener('hashchange', router.route)
