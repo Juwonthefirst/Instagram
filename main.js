@@ -8,8 +8,8 @@ window.addEventListener('popstate', router.route)
 
 window.addEventListener('load', async () => {
 	const response = await server.get_csrf()
-	router.route()
-	if(response.error){ return router.navigateTo('/login') }
+	await router.route()
+	if(response.error){ return await router.navigateTo('/login') }
 	else await server.startAutoRefreshAccessToken( (response) => onRefreshError(response, router) )
 })
 //history.pushState(null, '', '/#/signup')
