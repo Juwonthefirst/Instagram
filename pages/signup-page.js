@@ -24,7 +24,12 @@ const signupErrorPopup = basicPopUp('');
 					signupErrorPopup.firstElementChild.textContent = data.error
 					signupErrorPopup.showModal()
 				},
-				onSuccess: () => router.render('finish-signup')
+				onSuccess: (data) => {
+					if (data.new_user) {
+						return router.render('finish-signup')
+					}
+					router.navigateTo('/')
+				}
 			})
 		}
 	})
