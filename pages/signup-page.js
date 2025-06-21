@@ -47,6 +47,7 @@ headerText.textContent = 'Register'
 headerText.className = 'header-text'
 header.appendChild(headerText)
 signupDiv.appendChild(header)
+
 const form = document.createElement('form')
 form.noValidate = true
 
