@@ -7,23 +7,6 @@ import { iconifyIcon } from '../components/icon.js';
 
 let googleClient
 
-(() => {
-	googleClient = google.accounts.oauth2.initCodeClient({
-		client_id: google_client_id,
-		scope: 'email profile openid',
-		redirect_uri: 'postmessage',
-		ux_mode: 'popup',
-		code_challenge_method: 'S256',
-		callback: async (code) => {
-			await server.googleLoginByCode({
-				googleTokenObject: code,
-				onError: (data) => onLoginError(data),
-				onSuccess: () => onLoginSuccess( router, server )
-			})
-		}
-	})
-})();
-
 const loginDiv = document.createElement('div')
 loginDiv.className = 'login'
 
@@ -100,8 +83,23 @@ form.addEventListener('submit', async (event) => {
 })
 form.addEventListener('input', () => loginBtn.disabled = !form.checkValidity());
 
+(() => {
+	googleClient = google.accounts.oauth2.initCodeClient({
+		client_id: google_client_id,
+		scope: 'email profile openid',
+		redirect_uri: 'postmessage',
+		ux_mode: 'popup',
+		code_challenge_method: 'S256',
+		callback: async (code) => {
+			await server.googleLoginByCode({
+				googleTokenObject: code,
+				onError: (data) => onLoginError(errorTag, data),
+				onSuccess: (data) => onLoginSuccess( data, router, server )
+			})
+		}
+	})
+})();
 
 export default function login() {
-	//google.accounts.id.prompt()
 	return loginDiv
 }
