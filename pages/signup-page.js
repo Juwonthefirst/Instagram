@@ -104,8 +104,8 @@ const onSignupError = (data) => {
 form.addEventListener('submit', async (event) => {
 	event.preventDefault()
 	if (formValidator.validate()) {
-		const email = emailInput.value
-		const password = passInput.value
+		const email = emailInput.value.trim()
+		const password = passInput.value.trim()
 		const defaultUsername = email.replace('@gmail.com', '') + Math.round(Math.random() * 1000)
 		signupBtn.firstChild.replaceWith(iconifyIcon('line-md:loading-loop'))
 		await server.signup({
