@@ -7,6 +7,7 @@ window.addEventListener('popstate', router.route)
 //window.addEventListener('load', router.route)
 
 window.addEventListener('load', async () => {
+	console.log(location.pathname)
 	const response = await server.get_csrf()
 	router.route()
 	if(response.error){ return router.navigateTo('/login') }
