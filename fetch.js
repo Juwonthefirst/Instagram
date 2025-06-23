@@ -152,6 +152,28 @@ class Server {
         this.csrf_token = data.csrf_token
         return data
     }
+    
+    async updateUserField({fields, onError, onSuccess}){
+        const data = this.#baseFetch({
+            path: 'auth/user/',
+            method: 'PATCH',
+            auth: true,
+            body: fields,
+            onError,
+            onSuccess
+        })
+    }
+    
+    async userExists({username, onExist, onFree}){
+        const data = this.#baseFetch({
+            path: 'users/exists/',
+            method: 'POST',
+            auth: true,
+            body: {username},
+            onError: onExist,
+            onSuccess: onFree
+        })
+    }
 }
 
 export default new Server()

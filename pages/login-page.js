@@ -2,6 +2,7 @@ import { inputField, passwordField } from '../components/Inputs.js'
 import { googleButton } from '../components/buttons.js';
 import server from '../fetch.js'
 import { router } from '../router.js';
+import { memory } from '../appMemory.js';
 import { google_client_id, onRefreshError, onLoginError, onLoginSuccess } from '../helper.js';
 import { iconifyIcon } from '../components/icon.js';
 
@@ -68,7 +69,7 @@ form.addEventListener('submit', async (event) => {
 		loginBtn.disabled = true
 		const data = { password: password };
 		data.onSuccess = (data) => {
-			onLoginSuccess( data, router, server)
+			onLoginSuccess( data, router, server, memory)
 			credentialsField.firstElementChild.value = ''
 			passField.firstElementChild.value = ''
 		};
@@ -94,7 +95,7 @@ form.addEventListener('input', () => loginBtn.disabled = !form.checkValidity());
 			await server.googleLoginByCode({
 				googleTokenObject: code,
 				onError: (data) => onLoginError(errorTag, data),
-				onSuccess: (data) => onLoginSuccess( data, router, server )
+				onSuccess: (data) => onLoginSuccess( data, router, server, memory )
 			})
 		}
 	})

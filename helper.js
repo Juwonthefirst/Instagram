@@ -10,9 +10,10 @@ const onLoginError = (errorTag, data) => {
     errorTag.textContent = data.error || data.non_field_errors
 }
 
-const onLoginSuccess = ( data, router, server ) => {
+const onLoginSuccess = ( data, router, server, memory ) => {
     server.get_csrf()
     server.startAutoRefreshAccessToken((response) => onRefreshError(response, router))
+    memory.setCurrentUser(data.user)
     if (data.new_user) {
         return router.render('finish-signup')
     }
