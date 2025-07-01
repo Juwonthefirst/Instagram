@@ -20,6 +20,15 @@ const onLoginSuccess = ( data, router, server, memory ) => {
     router.navigateTo('/')
 }
 
+const onExist = ( formValidator, input ) => {
+    inputField.parentElement.style.borderColor = 'green'
+    formValidator.appendErrorMessage(input, 'Sorry looks like this name is already taken')
+}
+
+const onFree = ( inputField ) => {
+    inputField.style.borderColor = 'green'
+}
+
 class FormValidator {
     constructor(inputFields, button) {
         this.inputFields = inputFields
@@ -119,4 +128,4 @@ class FormValidator {
 }
 
 
-export { google_client_id, onRefreshError, onLoginError, onLoginSuccess, FormValidator }
+export { google_client_id, onRefreshError, onLoginError, onLoginSuccess, FormValidator, onFree, onExist }
