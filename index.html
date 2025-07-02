@@ -13,13 +13,39 @@
   <link rel="preload" href="https://accounts.google.com/gsi/client" as="script" crossorigin="anonymous" />
   <script src="https://accounts.google.com/gsi/client" async defer></script>
   <link rel="preload" href="/main.js" as="script" />
-  <script type="module" src="/main.js"></script>
+  <!--<script type="module" src="/main.js"></script>-->
 </head>
 
 <body>
   <div class="root">
-    <p></p>
+    <div class="chat">
+      <div class="chat-header">
+        <div class="left-icons">
+          <i data-lucide="user-plus"></i>
+          <i data-lucide="search"></i>
+        </div>
+        <h2>Beep</h2>
+        <i data-lucide="settings"></i>
+      </div>
+      
+      <div class="chats">
+        <div class="chat">
+          <img class="profile-picture" src="/img/profile.jpg" alt="" />
+          <p class="username">Juwon36</p>
+          <p class="message">Heeeey nigga</p>
+        </div>
+      </div>
+    </div>
+    <div class="bottom-navbar">
+      <i data-lucide="user-plus"></i>
+      <i data-lucide="message-circle"></i>
+     <iconify-icon icon="mingcute:thought-line"></iconify-icon>
+    </div>
   </div>
+  
+  <script>
+    lucide.createIcons()
+  </script>
 </body>
 
 </html>
