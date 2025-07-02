@@ -13,15 +13,9 @@ if(verificationKey){
 	server.verifyEmail({ 
 		key: verificationKey, 
 		onSuccess: () => {
-			const email = sessionStorage.getItem('pending_verified_mail')
-			const password = memory.retrieve('password')
-			sessionStorage.removeItem('pending_verified_mail')
-			router.render('finish-signup')
-			await server.login({ 
-				email, 
-				password,
-				onSuccess
-			})
+			const email = localStorage.getItem('pending_verified_mail')
+			localStorage.removeItem('pending_verified_mail')
+			router.navigateTo('/login')
 		}, 
 		onError:  () => errorEmailSentPopup.showModal()
 	})

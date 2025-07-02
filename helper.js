@@ -20,10 +20,7 @@ const onLoginSuccess = ( data, router, server, memory ) => {
     router.navigateTo('/')
 }
 
-const onExist = ( formValidator, input ) => {
-    inputField.parentElement.style.borderColor = 'green'
-    formValidator.appendErrorMessage(input, 'Sorry looks like this name is already taken')
-}
+
 
 const onFree = ( inputField ) => {
     inputField.style.borderColor = 'green'
@@ -35,11 +32,7 @@ class FormValidator {
         this.inputs = this.inputFields.map((inputField) => inputField.firstElementChild)
         this.button = button
         this.customErrorHandlers = new Map()
-    }
-    
-    
-    getErrorMessage(input) {
-        let errors = {
+        this.errors = {
             valueMissing: 'This field can\'t be empty',
             typeMismatch: `Input a valid ${input.type}`,
             patternMismatch: 'This does not match the set format',
@@ -47,10 +40,15 @@ class FormValidator {
             rangeUnderflow: `Your input can not be less than ${input.min}`,
             stepMismatch: 'invalid number'
         }
+    }
+    
+    
+    getErrorMessage(input) {
         
-        for (let error in errors) {
+        
+        for (let error in this.errors) {
             if (input.validity[error]) {
-                return errors[error]
+                return this.errors[error]
             }
         }
         return ''
@@ -128,4 +126,4 @@ class FormValidator {
 }
 
 
-export { google_client_id, onRefreshError, onLoginError, onLoginSuccess, FormValidator, onFree, onExist }
+export { google_client_id, onRefreshError, onLoginError, onLoginSuccess, FormValidator }

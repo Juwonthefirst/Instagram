@@ -5,7 +5,7 @@ import { basicPopUp } from '../components/popup.js';
 import { router } from '../router.js';
 import server from '../fetch.js';
 import { memory } from '../appMemory.js';
-import { google_client_id, FormValidator, onExist, onFree } from '../helper.js';
+import { google_client_id, FormValidator } from '../helper.js';
 
 let usernameTimeout
 let googleClient
@@ -70,12 +70,15 @@ const signupBtn = document.createElement('button')
 signupBtn.type = 'submit'
 signupBtn.className = 'submit-btn'
 signupBtn.textContent = 'Next'
+signupBtn.disabled = true
+
 
 form.append(usernameField, emailField, passField, confirmPassField, signupBtn)
 signupDiv.appendChild(form)
 
 
 const formValidator = new FormValidator([emailField, passField, confirmPassField], signupBtn)
+formValidator.errors.patternMismatch = 'Your username should only have letters and numbers'
 formValidator.addCustomErrorHandler(confirmPassInput, () => {
 	const isValid = confirmPassInput.value.trim() === passInput.value.trim()
 	const errorMessage = 'This field should be the same as your password'
@@ -84,8 +87,7 @@ formValidator.addCustomErrorHandler(confirmPassInput, () => {
 
 const onSignupSuccess = () => {
 	router.render('/verify-email');
-	memory.save('password', passInput.value)
-	sessionStorage.setItem('pending_verified_mail', emailInput.value)
+	localStorage.setItem('pending_verified_mail', emailInput.value)
 }
 
 const onSignupError = (data) => {
@@ -99,12 +101,12 @@ const onSignupError = (data) => {
 	for (let error in errors) {
 		const errorMessage = errors[error][0]
 		const inputFieldWithError = inputFields[error]
-		if(!inputFieldWithError){
+		if (!inputFieldWithError) {
 			signupErrorPopup.firstElementChild.textContent = errorMessage
 			signupErrorPopup.showModal()
 			continue
 		}
-		formValidator.appendErrorMessage( inputFieldWithError, errorMessage )
+		formValidator.appendErrorMessage(inputFieldWithError, errorMessage)
 	}
 }
 
@@ -113,12 +115,15 @@ usernameInput.addEventListener('input', () => {
 	usernameTimeout = setTimeout(async () => {
 		const username = usernameInput.value.trim()
 		await server.userExists({
-			username, 
+			username,
 			onExist: () => {
-				onExist( formValidator, input )
-			}, 
+				formValidator.appendErrorMessage(usernameInput, 'Sorry, someone already picked this')
+			},
 			onFree: () => {
-				onFree( usernameField )
+				formValidator.appendErrorMessage(usernameInput, 'Wow, good name you should take it')
+				const errorTag = usernameField.nextElementSibling
+				errorTag.style.color = green
+				signupBtn.disabled = false
 			}
 		})
 	}, 1000)
