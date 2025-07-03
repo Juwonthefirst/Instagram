@@ -49,6 +49,10 @@ class Server {
         return header
     }
     
+    getAccessToken(){
+        return this.access_token
+    }
+    
     async login({ username = '', email = '', password = '', onSuccess = null, onError = null }) {
         return await this.#baseFetch({
             path: 'auth/login/',

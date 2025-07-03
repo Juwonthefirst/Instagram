@@ -18,12 +18,13 @@
     
     /*color sheme*/
     --main-colour: black;
+    --light-main: #2A2A2A;
     --accent-color: rgb(76, 104, 230);
     --link-color: rgb(90, 140, 255);
     --theme: inear-gradient(45deg, #feda75, #fa7e1e, #d62976, #962fbf, #4f5bd5);
 }
 
-::backdrop{
+::backdrop {
     background: rgba(0, 0, 0, 0.5);
 }
 
@@ -45,9 +46,11 @@ body {
     height: 100dvh;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Grand Hotel";
 }
-h2{
+
+h2 {
     margin: 0;
 }
+
 p {
     font: inherit;
     margin: 0;
@@ -473,7 +476,6 @@ form>.submit-btn>iconify-icon {
     padding: var(--sub);
     max-height: 60px;
     border-bottom: 1px solid rgba(255, 255, 255, .5);
-    
 }
 
 .signup .back-btn {
@@ -540,7 +542,7 @@ form>.submit-btn>iconify-icon {
     padding: var(--lg) var(--md)
 }
 
-.basic-popup button{
+.basic-popup button {
     border: 0;
     border-top: 1px solid rgba(255, 255, 255, .3);
     background: inherit;
@@ -551,7 +553,7 @@ form>.submit-btn>iconify-icon {
     font-size: var(--md);
 }
 
-.basic-popup button:hover{
+.basic-popup button:hover {
     background: var(--accent-color);
     color: white;
 }
@@ -583,11 +585,11 @@ form>.submit-btn>iconify-icon {
     padding-bottom: 0;
 }
 
-.verify-email .verification-status{
+.verify-email .verification-status {
     color: #DFE723;
 }
 
-.resend-btn{
+.resend-btn {
     color: var(--link-color);
     background: inherit;
     margin: var(--md);
@@ -598,14 +600,14 @@ form>.submit-btn>iconify-icon {
 * Chat style
 */
 
-.chat{
+.chat {
     flex: 1;
     height: 100dvh;
     display: flex;
     flex-direction: column;
 }
 
-.chat-header{
+.chat-header {
     padding: var(--md);
     display: flex;
     align-items: center;
@@ -614,14 +616,14 @@ form>.submit-btn>iconify-icon {
     box-sizing: border-box;
 }
 
-.chat-header svg{
+.chat-header svg {
     height: var(--icon);
     width: var(--icon);
     padding: 0 var(--sm);
     
 }
 
-.chat-header > .left-icons svg{
+.chat-header>.left-icons svg {
     padding: 0 var(--sm);
 }
 
@@ -632,44 +634,44 @@ form>.submit-btn>iconify-icon {
     overflow-y: auto;
 }
 
-.chat-preview{
+.chat-preview {
     display: flex;
     height: 54px;
     gap: var(--md);
     padding: var(--sub) var(--md);
 }
 
-.chat-preview-details{
+.chat-preview-details {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr;
 }
 
-.chat-preview-details > .message{
+.chat-preview-details>.message {
     grid-row-start: 2;
     grid-column: span 3;
     font-size: var(--sub);
     opacity: .7;
 }
 
-.chat-preview-details > .timestamp {
+.chat-preview-details>.timestamp {
     grid-column-start: 4;
-    font-size: 12px;
+    font-size: 11px;
     opacity: .7;
-    color: var(--link-color);
 }
 
-.chats-main > .chat-preview .profile-picture{
+.chats-main>.chat-preview .profile-picture {
     width: var(--profile);
     height: var(--profile);
     grid-row: span 2;
     border-radius: 50%;
 }
-.profile-field{
+
+.profile-field {
     position: relative;
 }
 
-.profile-field > .status{
+.profile-field>.status {
     position: absolute;
     display: flex;
     justify-content: center;
@@ -684,14 +686,14 @@ form>.submit-btn>iconify-icon {
     color: #000;
 }
 
-.chat-message{
+.chat-message {
     flex: 1;
     display: flex;
     flex-direction: column;
     height: 100dvh;
 }
 
-.message-header{
+.message-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -701,53 +703,109 @@ form>.submit-btn>iconify-icon {
     box-sizing: border-box;
 }
 
-.message-header > .icons svg{
+.message-header>.icons{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--sub);
+}
+
+.message-header>.icons svg {
     height: var(--icon);
     width: var(--icon);
     padding: var(--sm);
 }
 
-.chat-details{
+.message-header > .icons > .phone-icon{
+    height: 22px;
+    width: 22px;
+}
+
+.chat-details {
     display: flex;
     gap: var(--sub);
     margin-left: calc(var(--lg) * -1);
 }
 
-.chat-details > .name-and-status{
+.chat-details>.name-and-status {
     display: flex;
     flex-direction: column;
     gap: var(--vsm);
     justify-content: center;
 }
 
-.status{
-    opacity: .7;
+.status {
+    opacity: 1;
     font-size: var(--sub);
 }
 
-.chat-message .chat-picture{
+.chat-message .chat-picture {
     width: calc(var(--lg) + var(--sm));
     height: calc(var(--lg) + var(--sm));
     border-radius: 50%;
 }
 
-.message-main{
-    background: #1F1F24;
-    height: calc(100dvh - 54px);
+.message-main {
+    /*background: var(--main-colour);*/
+	/*background-color: #0b1a2a;
+	background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='40' height='40'><rect width='100%' height='100%' fill='none'/><circle cx='10' cy='10' r='2' fill='%23fff'/><circle cx='30' cy='10' r='2' fill='%23fff'/><circle cx='10' cy='30' r='2' fill='%23fff'/><circle cx='30' cy='30' r='2' fill='%23fff'/><path d='M0 20 H40 M20 0 V40' stroke='%23fff' stroke-width='1'/></svg>");
+	background-size: 40px 40px;*/
+
+
+    max-height: calc(100dvh - 116px);
     position: relative;
+    padding: var(--sub);
+    display: flex;
+    flex-direction: column;
+    gap: var(--md);
+    overflow-x: auto;
+    margin-bottom: var(--profile);
 }
 
-.message-main > .input-area{
-    padding: var(--sub);
+.message-main>.chat-bubble {
+    border-radius: var(--icon);
+    padding: 12px;
+    width: 40%;
+}
+
+.message-main>.chat-bubble *:first-child{
+    padding-bottom: var(--vsm);
+}
+
+.message-main > .chat-bubble > .timestamp{
+    font-size: 10px;
+}
+
+.message-main > .chat-bubble.chat-bubble.sender > .timestamp{
+    text-align: right;
+}
+
+.message-main>.chat-bubble.sender {
+    background: var(--accent-color);
+    align-self: flex-end;
+    border-bottom-right-radius: 0;
+}
+
+.message-main>.chat-bubble.receiver {
+    background: var(--light-main);
+    align-self: flex-start;
+    border-bottom-left-radius: 0;
+}
+
+.message-main>.input-area {
+    padding: var(--sub) 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: var(--vlg);
-    position: absolute;
+    height: 62px;
+    position: fixed;
     bottom: 0%;
+    box-sizing: border-box;
 }
 
-.message-main > .input-area > .input-box{
+
+
+.message-main>.input-area>.input-box {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -755,22 +813,36 @@ form>.submit-btn>iconify-icon {
     border-radius: var(--sub);
     padding: 8px;
     gap: var(--sm);
+    background: var(--light-main);
 }
 
-.message-main > .input-area > .input-box svg{
-    height: var(--icon);
-    width: var(--icon);
+.message-main>.input-area>.input-box svg {
+    min-height: var(--icon);
+    min-width: var(--icon);
     border-radius: 50%;
     padding: var(--sm);
-    background-color: #1F1F24;
-    color: var(--accent-color);
+    background-color: var(--main-colour);
+    color: var(--link-color);
+    margin: -4px 0;
 }
 
-.message-main > .input-area > .input-box input{
-    flex-grow: 0;
+.message-main>.input-area>.send-btn {
+    display: flex;
+    justify-content: center;
+    align-self: center;
+    padding: 12px;
+    margin: 0 var(--sm);
+    border-radius: 50%;
+    /*background-color: var(--light-main);*/
+    color: var(--link-color);
 }
 
-.bottom-navbar{
+.message-main>.input-area>.input-box input {
+    font: inherit;
+    caret-color: var(--link-color);
+}
+
+.bottom-navbar {
     box-sizing: border-box;
     padding: var(--sm);
     height: 54px;
@@ -780,27 +852,26 @@ form>.submit-btn>iconify-icon {
 }
 
 .bottom-navbar svg,
-.bottom-navbar iconify-icon
-{
+.bottom-navbar iconify-icon {
     padding: var(--vsm) var(--sub);
     border-radius: 30%;
     transition: all 0.1s;
 }
 
 .bottom-navbar svg:hover,
-.bottom-navbar iconify-icon:hover
-{
+.bottom-navbar iconify-icon:hover {
     background-color: rgba(70, 100, 219, 0.4);
     color: var(--link-color);
     fill: var(--link-color);
     animation: .5s click;
 }
 
-@keyframes click{
-    from{
+@keyframes click {
+    from {
         transform: scale(1.08);
     }
-    to{
+    
+    to {
         transform: scale(1);
     }
 }

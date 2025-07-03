@@ -13,7 +13,7 @@
   <link rel="preload" href="https://accounts.google.com/gsi/client" as="script" crossorigin="anonymous" />
   <script src="https://accounts.google.com/gsi/client" async defer></script>
   <link rel="preload" href="/main.js" as="script" />
-  <!--<script type="module" src="/main.js"></script>-->
+  <script type="module" src="/main.js"></script>
 </head>
 
 <body>
@@ -163,19 +163,61 @@
         </div>
         
         <div class="icons">
-          <i data-lucide="video"></i>
-          <i data-lucide="phone"></i>
+          <i class="video-icon" data-lucide="video"></i>
+          <i class="phone-icon" data-lucide="phone"></i>
           <i data-lucide="ellipsis-vertical"></i>
         </div>
       </div>
       
       <div class="message-main">
+        <div class="chat-bubble sender">
+          <p>this is a message from my friend</p>
+          <p class="timestamp">12:53</p>
+        </div>
+        <div class="chat-bubble receiver">
+          <p>this is a message from me</p>
+          <p class="timestamp">13:37</p>
+        </div>
+        <div class="chat-bubble sender">
+          <p>this is a message from my friend</p>
+          <p class="timestamp">12:53</p>
+        </div>
+        <div class="chat-bubble receiver">
+          <p>this is a message from me</p>
+          <p class="timestamp">13:37</p>
+        </div>
+        <div class="chat-bubble sender">
+          <p>this is a message from my friend</p>
+          <p class="timestamp">12:53</p>
+        </div>
+        <div class="chat-bubble receiver">
+          <p>this is a message from me</p>
+          <p class="timestamp">13:37</p>
+        </div>
+        <div class="chat-bubble sender">
+          <p>this is a message from my friend</p>
+          <p class="timestamp">12:53</p>
+        </div>
+        <div class="chat-bubble receiver">
+          <p>this is a message from me</p>
+          <p class="timestamp">13:37</p>
+        </div>
+        <div class="chat-bubble sender">
+          <p>this is a message from my friend</p>
+          <p class="timestamp">12:53</p>
+        </div>
+        <div class="chat-bubble receiver">
+          <p>this is a message from me</p>
+          <p class="timestamp">13:37</p>
+        </div>
         <div class="input-area">
           <div class="input-box">
             <i class="camera" data-lucide="camera"></i>
-            <input type="text" placeholder="Message"/>
+            <input type="text" placeholder="Message" />
           </div>
-          <i data-lucide="mic"></i>
+          <div class="send-btn">
+            <i data-lucide="send"></i>
+          </div>
         </div>
       </div>
     </div>
