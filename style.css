@@ -695,13 +695,29 @@ form>.submit-btn>iconify-icon {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 var(--sm);
+    padding: var(--vsm) var(--sm);
     height: 54px;
+    background-color: black;
+    box-sizing: border-box;
+}
+
+.message-header > .icons svg{
+    height: var(--icon);
+    width: var(--icon);
+    padding: var(--sm);
 }
 
 .chat-details{
     display: flex;
-    gap: var(--sm);
+    gap: var(--sub);
+    margin-left: calc(var(--lg) * -1);
+}
+
+.chat-details > .name-and-status{
+    display: flex;
+    flex-direction: column;
+    gap: var(--vsm);
+    justify-content: center;
 }
 
 .status{
@@ -713,6 +729,45 @@ form>.submit-btn>iconify-icon {
     width: calc(var(--lg) + var(--sm));
     height: calc(var(--lg) + var(--sm));
     border-radius: 50%;
+}
+
+.message-main{
+    background: #1F1F24;
+    height: calc(100dvh - 54px);
+    position: relative;
+}
+
+.message-main > .input-area{
+    padding: var(--sub);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: var(--vlg);
+    position: absolute;
+    bottom: 0%;
+}
+
+.message-main > .input-area > .input-box{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: black;
+    border-radius: var(--sub);
+    padding: 8px;
+    gap: var(--sm);
+}
+
+.message-main > .input-area > .input-box svg{
+    height: var(--icon);
+    width: var(--icon);
+    border-radius: 50%;
+    padding: var(--sm);
+    background-color: #1F1F24;
+    color: var(--accent-color);
+}
+
+.message-main > .input-area > .input-box input{
+    flex-grow: 0;
 }
 
 .bottom-navbar{
