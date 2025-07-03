@@ -1,5 +1,7 @@
 :root {
     /* font sizes */
+    --profile: 56px;
+    
     --vlg: 48px;
     /*very large*/
     --lg: 32px;
@@ -16,8 +18,7 @@
     
     /*color sheme*/
     --main-colour: black;
-    --accent-colour: white;
-    --btn-color: rgb(76, 104, 230);
+    --accent-color: rgb(76, 104, 230);
     --link-color: rgb(90, 140, 255);
     --theme: inear-gradient(45deg, #feda75, #fa7e1e, #d62976, #962fbf, #4f5bd5);
 }
@@ -419,7 +420,7 @@ form>.submit-btn {
     padding: var(--sm);
     border-radius: var(--sm);
     border: 0;
-    background: var(--btn-color);
+    background: var(--accent-color);
     color: white;
     cursor: pointer;
     text-align: center;
@@ -543,7 +544,7 @@ form>.submit-btn>iconify-icon {
     border: 0;
     border-top: 1px solid rgba(255, 255, 255, .3);
     background: inherit;
-    color: var(--btn-color);
+    color: var(--accent-color);
     padding: var(--sm);
     width: 100%;
     outline: 0;
@@ -551,7 +552,7 @@ form>.submit-btn>iconify-icon {
 }
 
 .basic-popup button:hover{
-    background: var(--btn-color);
+    background: var(--accent-color);
     color: white;
 }
 
@@ -602,7 +603,6 @@ form>.submit-btn>iconify-icon {
     height: 100dvh;
     display: flex;
     flex-direction: column;
-    gap: var(--sm);
 }
 
 .chat-header{
@@ -610,6 +610,8 @@ form>.submit-btn>iconify-icon {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    height: 54px;
+    box-sizing: border-box;
 }
 
 .chat-header svg{
@@ -623,7 +625,127 @@ form>.submit-btn>iconify-icon {
     padding: 0 var(--sm);
 }
 
-.chats >.chat .profile-picture{
-    width: var(--vlg);
-    height: var(--vlg);
+.chats-main {
+    height: calc(100dvh - 108px);
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+.chat-preview{
+    display: flex;
+    height: 54px;
+    gap: var(--md);
+    padding: var(--sub) var(--md);
+}
+
+.chat-preview-details{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+}
+
+.chat-preview-details > .message{
+    grid-row-start: 2;
+    grid-column: span 3;
+    font-size: var(--sub);
+    opacity: .7;
+}
+
+.chat-preview-details > .timestamp {
+    grid-column-start: 4;
+    font-size: 12px;
+    opacity: .7;
+    color: var(--link-color);
+}
+
+.chats-main > .chat-preview .profile-picture{
+    width: var(--profile);
+    height: var(--profile);
+    grid-row: span 2;
+    border-radius: 50%;
+}
+.profile-field{
+    position: relative;
+}
+
+.profile-field > .status{
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    right: 0px;
+    bottom: 0px;
+    background: var(--accent-color);
+    border-radius: 50%;
+    height: 18px;
+    width: 18px;
+    font-size: 10px;
+    color: #000;
+}
+
+.chat-message{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    height: 100dvh;
+}
+
+.message-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 var(--sm);
+    height: 54px;
+}
+
+.chat-details{
+    display: flex;
+    gap: var(--sm);
+}
+
+.status{
+    opacity: .7;
+    font-size: var(--sub);
+}
+
+.chat-message .chat-picture{
+    width: calc(var(--lg) + var(--sm));
+    height: calc(var(--lg) + var(--sm));
+    border-radius: 50%;
+}
+
+.bottom-navbar{
+    box-sizing: border-box;
+    padding: var(--sm);
+    height: 54px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.bottom-navbar svg,
+.bottom-navbar iconify-icon
+{
+    padding: var(--vsm) var(--sub);
+    border-radius: 30%;
+    transition: all 0.1s;
+}
+
+.bottom-navbar svg:hover,
+.bottom-navbar iconify-icon:hover
+{
+    background-color: rgba(70, 100, 219, 0.4);
+    color: var(--link-color);
+    fill: var(--link-color);
+    animation: .5s click;
+}
+
+@keyframes click{
+    from{
+        transform: scale(1.08);
+    }
+    to{
+        transform: scale(1);
+    }
 }
