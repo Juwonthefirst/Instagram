@@ -1,10 +1,19 @@
 const access_token_lifetime = 60 * 30 * 1000
 const backendUrl = 'https://beep-me-api.onrender.com/api/'
-
+/*{
+  "access": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzUxNzA2ODY0LCJpYXQiOjE3NTE3MDMyNjQsImp0aSI6IjA0ZDdlNmIwMWJiZTQwMmJhMTFiMzIxY2EyZDA4NzczIiwidXNlcl9pZCI6NX0.k_w0yFxUfn1BipKWdY_zX9oj7t5DuttjR34vfMJiNys",
+  "user": {
+    "pk": 5,
+    "username": "juwon30",
+    "email": "ajibolajuwon57@gmail.com",
+    "first_name": "",
+    "last_name": ""
+  }
+}*/
 class Server {
     
     constructor() {
-        this.access_token = null
+        this.access_token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzUxNzA2ODY0LCJpYXQiOjE3NTE3MDMyNjQsImp0aSI6IjA0ZDdlNmIwMWJiZTQwMmJhMTFiMzIxY2EyZDA4NzczIiwidXNlcl9pZCI6NX0.k_w0yFxUfn1BipKWdY_zX9oj7t5DuttjR34vfMJiNys'
         this.csrf_token = null
     }
     
@@ -177,6 +186,16 @@ class Server {
             onError: onExist,
             onSuccess: onFree
         })
+    }
+    
+    async getUsersChat({onSuccess, onError, pageNumber = 1, searchKeyWord = ''}){
+        const data = this.#baseFetch({
+            path: `auth/user/rooms/?page=${pageNumber}&search=${searchKeyWord}`,
+            auth: true,
+            onSuccess,
+            onError
+        })
+        
     }
 }
 

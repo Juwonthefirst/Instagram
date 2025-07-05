@@ -597,17 +597,17 @@ form>.submit-btn>iconify-icon {
 }
 
 /**
-* Chat style
+* home style
 */
 
-.chat {
+.home {
     flex: 1;
     height: 100dvh;
     display: flex;
     flex-direction: column;
 }
 
-.chat-header {
+.home-header {
     padding: var(--md);
     display: flex;
     align-items: center;
@@ -616,14 +616,14 @@ form>.submit-btn>iconify-icon {
     box-sizing: border-box;
 }
 
-.chat-header svg {
+.home-header svg {
     height: var(--icon);
     width: var(--icon);
     padding: 0 var(--sm);
     
 }
 
-.chat-header>.left-icons svg {
+.home-header>.left-icons svg {
     padding: 0 var(--sm);
 }
 
@@ -764,8 +764,9 @@ form>.submit-btn>iconify-icon {
 
 .message-main>.chat-bubble {
     border-radius: var(--icon);
-    padding: 12px;
+    padding: 10px;
     width: 40%;
+    text-align: left;
 }
 
 .message-main>.chat-bubble *:first-child{
@@ -776,7 +777,7 @@ form>.submit-btn>iconify-icon {
     font-size: 10px;
 }
 
-.message-main > .chat-bubble.chat-bubble.sender > .timestamp{
+.message-main > .chat-bubble.sender > .timestamp{
     text-align: right;
 }
 
@@ -858,8 +859,8 @@ form>.submit-btn>iconify-icon {
     transition: all 0.1s;
 }
 
-.bottom-navbar svg:hover,
-.bottom-navbar iconify-icon:hover {
+.bottom-navbar .current svg,
+.bottom-navbar iconify-icon.current {
     background-color: rgba(70, 100, 219, 0.4);
     color: var(--link-color);
     fill: var(--link-color);

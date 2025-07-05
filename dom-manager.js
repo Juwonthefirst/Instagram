@@ -39,3 +39,5 @@ class DomManager{
 	}
 	
 }
+
+export default new DomManager()

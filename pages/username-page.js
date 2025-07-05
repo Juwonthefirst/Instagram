@@ -4,7 +4,8 @@ import { router } from '../router.js';
 import { memory } from '../appMemory.js';
 import { iconifyIcon } from '../components/icon.js';
 
-
+let usernameInput;
+	
 const pickUsernameDiv = document.createElement('div')
 const form = document.createElement('form')
 form.noValidate = true
@@ -14,22 +15,26 @@ const usernameInput = usernameField.firstElementChild
 const usernameErrorTag = document.createElement('p')
 usernameErrorTag.className = 'input-error'
 
-usernameInput.addEventListener('input', async () => {
-	await server.userExists({ 
-		username: usernameInput.value.trim(),
-		onExist: () => { 
-			usernameErrorTag.className = 'input-error'
-			usernameErrorTag.textContent = 'Sorry, someone already picked this'
-			signupBtn.disabled = true
-		},
-		onFree: () => {
-			usernameErrorTag.className = 'input-success'
-			usernameErrorTag.textContent = 'Wow, nice name you should take it'
-			signupBtn.disabled = false
-		}
-	})
-})
 
+usernameInput.addEventListener('input', () => {
+	clearTimeout(usernameTimeout)
+	usernameTimeout = setTimeout(async () => {
+		const username = usernameInput.value.trim()
+		await server.userExists({
+			username,
+			onExist: () => {
+				usernameErrorTag.className = 'input-error'
+				usernameErrorTag.textContent = 'Sorry, someone already picked this'
+				signupBtn.disabled = true
+			},
+			onFree: () => {
+				usernameErrorTag.className = 'input-success'
+				usernameErrorTag.textContent = 'Wow, nice name you should take it'
+				signupBtn.disabled = false
+			}
+		})
+	}, 1000)
+})
 const signupBtn = document.createElement('button')
 signupBtn.type = 'submit'
 signupBtn.className = 'submit-btn'
@@ -43,7 +48,7 @@ form.addEventListener('submit', async (event) => {
 		data = { username }
 		await server.updateUserField({
 			data,
-			onError: (data) => {usernameErrorTag.textContent = data.error.username},
+			onError: (data) => { usernameErrorTag.textContent = data.error.username },
 			onSuccess: (data) => {
 				memory.setCurrentUser(data.user)
 				router.navigateTo('/')

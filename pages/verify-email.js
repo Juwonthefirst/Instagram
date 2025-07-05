@@ -13,8 +13,7 @@ if(verificationKey){
 	server.verifyEmail({ 
 		key: verificationKey, 
 		onSuccess: () => {
-			const email = localStorage.getItem('pending_verified_mail')
-			localStorage.removeItem('pending_verified_mail')
+			localStorage.setItem('new_user', true)
 			router.navigateTo('/login')
 		}, 
 		onError:  () => errorEmailSentPopup.showModal()

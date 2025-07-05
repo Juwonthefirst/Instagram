@@ -7,7 +7,7 @@ import server from '../fetch.js';
 import { memory } from '../appMemory.js';
 import { google_client_id, FormValidator } from '../helper.js';
 
-let usernameTimeout
+
 let googleClient
 const signupErrorPopup = basicPopUp('');
 
@@ -110,31 +110,14 @@ const onSignupError = (data) => {
 	}
 }
 
-usernameInput.addEventListener('input', () => {
-	clearTimeout(usernameTimeout)
-	usernameTimeout = setTimeout(async () => {
-		const username = usernameInput.value.trim()
-		await server.userExists({
-			username,
-			onExist: () => {
-				formValidator.appendErrorMessage(usernameInput, 'Sorry, someone already picked this')
-			},
-			onFree: () => {
-				formValidator.appendErrorMessage(usernameInput, 'Wow, good name you should take it')
-				const errorTag = usernameField.nextElementSibling
-				errorTag.style.color = green
-				signupBtn.disabled = false
-			}
-		})
-	}, 1000)
-})
-
 form.addEventListener('submit', async (event) => {
 	event.preventDefault()
 	if (formValidator.validate()) {
-		const username = usernameInput.value.trim()
+	
 		const email = emailInput.value.trim()
 		const password = passInput.value.trim()
+		const username = '!!!' + email.replace('@gmail.com', String(Math.random() * 1000))
+		
 		signupBtn.firstChild.replaceWith(iconifyIcon('line-md:loading-loop'))
 		await server.signup({
 			username,
