@@ -922,15 +922,62 @@ form>.submit-btn>iconify-icon {
 }
 
 .chat-notification{
-    
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: auto;
+    grid-column-gap: var(--sub);
+    grid-row-gap: var(--vsm);
+    height: 104px;
+    position: absolute;
+    top: var(--md);
+    border-radius: var(--sub);
+    padding: var(--sm);
+    box-sizing: border-box;
+    background-color: var(--light-main);
+    width: 90%;
+    align-self: center;
+    animation: 0.5s dropDown 0s;
+}
+
+.chat-notification > .sender-profile-pic{
+    width: var(--lg);
+    height: var(--lg);
+    border-radius: 50%;
+}
+
+.chat-notification > .message-sender{
+    font-size: 18px;
+    padding-top: var(--vsm);
+    font-weight: 600;
+}
+
+.chat-notification > .message-body{
+    grid-row-start: 2;
+    grid-column: span 4;
+    padding: 0 var(--sm);
+    font-size: var(--sub);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 20px;
+}
+
+.chat-notification > .close-btn{
+    background: var(--light-main);
+    border: 2px solid #FF3838;
+    border-radius: var(--sm);
+    color: #FF3838;
+    height: var(--icon);
+    grid-column-end: 5;
 }
 
 @keyframes dropDown{
     from{
+        opacity: 0;
         transform: translateY(-100px);
     }
     
     to{
+        opacity: 1;
         transform: translateY(0px);
     }
 }

@@ -31,8 +31,9 @@ const callNotification = (username, room_name, room_id) => {
 	return notificationDiv
 }
 
+
 const chatNotification = (message, sender, sender_id) => {
-	const chatNotificationDiv = document.querySelector('div')
+	const chatNotificationDiv = document.createElement('div')
 	chatNotificationDiv.className = 'chat-notification'
 	
 	const profileImg = document.createElement('img')
@@ -42,13 +43,23 @@ const chatNotification = (message, sender, sender_id) => {
 	
 	const senderUsername = document.createElement('p')
 	senderUsername.textContent = sender
-	senderUsername.className = 'sender'
+	senderUsername.className = 'message-sender'
 	chatNotificationDiv.appendChild(senderUsername)
 	
 	const messageTag = document.createElement('p')
 	messageTag.textContent = message
-	messageTag.className = 'message'
+	messageTag.className = 'message-body'
 	chatNotificationDiv.appendChild(messageTag)
+	
+	const closeBtn = document.createElement('button')
+	closeBtn.className = 'close-btn'
+	closeBtn.textContent = 'X'
+	closeBtn.addEventListener('click', () => {
+		document.querySelector('.root').removeChild(chatNotificationDiv)
+	})
+	chatNotificationDiv.appendChild(closeBtn)
+	
+	return chatNotificationDiv
 }
 
-export { callNotification }
+export { callNotification, chatNotification }

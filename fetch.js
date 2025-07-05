@@ -205,6 +205,15 @@ class Server {
         })
         return data
     }
+    
+    async getRoomAndMessage({room_name, onSuccess, onError}) {
+        const data = await this.#baseFetch({
+            path: `chats/${room_name}/`,
+            auth: true,
+            onSuccess,
+            onError
+        })
+    }
 }
 
 export default new Server()

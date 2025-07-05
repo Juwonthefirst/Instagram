@@ -3,7 +3,7 @@ import { chatPreview } from '../components/chat.js';
 import server from '../fetch.js';
 import domManager from '../dom-manager.js'
 import { socket } from '../socket.js';
-import { callNotification } from '../components/notification.js';
+import { callNotification, chatNotification } from '../components/notification.js';
 // 54px is the chat header size
 //70px is the size of each chat preview + gap
 let currentPage = 1
@@ -136,5 +136,6 @@ socket.chatsocket.onmessage = (event) => {
 	}
 	
 }
-
-document.querySelector('.root').appendChild(callNotification('juwon33', 'chat_1_2', 2))
+const chat = chatNotification('heeey Nigga my name is jayfKsgxhdhxglxkfzkgdlyxkfzkfzkfzktdltxfkxglxktdlydxggkxgkxtkxgkxg,gxl', 'Juwon33', 1)
+const call = callNotification('Juwon33', 'chat_1_2', 3)
+document.querySelector('.root').appendChild(chat)
