@@ -13,7 +13,7 @@ const backendUrl = 'https://beep-me-api.onrender.com/api/'
 class Server {
     
     constructor() {
-        this.access_token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzUxNzA2ODY0LCJpYXQiOjE3NTE3MDMyNjQsImp0aSI6IjA0ZDdlNmIwMWJiZTQwMmJhMTFiMzIxY2EyZDA4NzczIiwidXNlcl9pZCI6NX0.k_w0yFxUfn1BipKWdY_zX9oj7t5DuttjR34vfMJiNys'
+        this.access_token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzUxNzE1MTAxLCJpYXQiOjE3NTE3MTE1MDEsImp0aSI6IjcwYjVmZWRmOTFlZTRmODA5YTRkOGE2NzU3MWNkYzBmIiwidXNlcl9pZCI6NX0.JH6ipVgW-DTa1SmyQW9mYDLDmp0BylSIuWH6zXoJAQg'
         this.csrf_token = null
     }
     

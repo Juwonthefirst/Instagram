@@ -6,7 +6,7 @@ class Socket {
 	#chatsocket
 	#notificationSocket
 	
-	constructor(baseUrl = 'wss://beep-me-api.onrender.com/ws/') {
+	constructor() {
 		this.#chatsocket = null
 		this.#notificationSocket = null
 		this.MaxRetry = 5
@@ -17,7 +17,7 @@ class Socket {
 	get chatsocket() { return this.#chatsocket } 
 	get notificationSocket() { return this.#notificationSocket }
 	
-	connect() {
+	connect(baseUrl = 'wss://beep-me-api.onrender.com/ws/') {
 		this.#chatsocket = new WebSocket(`${baseUrl}chat/?token=${server.getAccessToken()}`)
 		this.#notificationSocket = new WebSocket(`${baseUrl}notification/?token=${server.getAccessToken()}`)
 		this.#chatsocket.onclose = (event) => {
@@ -30,6 +30,7 @@ class Socket {
 		}
 		this.#chatsocket.onopen = () => {
 			this.chatRetryCount = 0
+			console.log('Chat socket opened')
 		}
 		
 		this.#notificationSocket.onclose = (event) => {
@@ -41,7 +42,8 @@ class Socket {
 			
 		}
 		this.#notificationSocket.onopen = () => {
-			this.notificationRetryCount = 0
+			this.notificationRetryCount = 0 
+			console.log('Notofication socket open')
 		}
 		
 		
