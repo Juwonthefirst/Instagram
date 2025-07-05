@@ -31,4 +31,24 @@ const callNotification = (username, room_name, room_id) => {
 	return notificationDiv
 }
 
+const chatNotification = (message, sender, sender_id) => {
+	const chatNotificationDiv = document.querySelector('div')
+	chatNotificationDiv.className = 'chat-notification'
+	
+	const profileImg = document.createElement('img')
+	profileImg.src = '/img/profile.jpg'
+	profileImg.className = 'sender-profile-pic'
+	chatNotificationDiv.appendChild(profileImg)
+	
+	const senderUsername = document.createElement('p')
+	senderUsername.textContent = sender
+	senderUsername.className = 'sender'
+	chatNotificationDiv.appendChild(senderUsername)
+	
+	const messageTag = document.createElement('p')
+	messageTag.textContent = message
+	messageTag.className = 'message'
+	chatNotificationDiv.appendChild(messageTag)
+}
+
 export { callNotification }
