@@ -167,7 +167,7 @@ class Server {
     }
     
     async updateUserField({fields, onError, onSuccess}){
-        const data = this.#baseFetch({
+        const data = await this.#baseFetch({
             path: 'auth/user/',
             method: 'PATCH',
             auth: true,
@@ -178,7 +178,7 @@ class Server {
     }
     
     async userExists({username, onExist, onFree}){
-        const data = this.#baseFetch({
+        const data = await this.#baseFetch({
             path: 'users/exists/',
             method: 'POST',
             auth: true,
@@ -189,13 +189,21 @@ class Server {
     }
     
     async getUsersChat({onSuccess, onError, pageNumber = 1, searchKeyWord = ''}){
-        const data = this.#baseFetch({
+        const data = await this.#baseFetch({
             path: `auth/user/rooms/?page=${pageNumber}&search=${searchKeyWord}`,
             auth: true,
             onSuccess,
             onError
         })
         
+    }
+    
+    async getLiveKitJWT(room_id) {
+        const data = await this.#baseFetch({
+            path: `chats/${room_id}/video/auth/`,
+            auth: true
+        })
+        return data
     }
 }
 

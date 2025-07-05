@@ -876,3 +876,43 @@ form>.submit-btn>iconify-icon {
         transform: scale(1);
     }
 }
+
+.call-notification{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--sm);
+    height: 72px;
+    position: absolute;
+    top: var(--md);
+    border: 2px solid var(--link-color);
+    border-radius: var(--sub);
+    padding: var(--sub);
+    box-sizing: border-box;
+    background-color: var(--main-colour);
+    width: 80%;
+    align-self: center;
+    animation: 0.5s dropDown 0s;
+}
+
+.call-notification > .caller-profile-pic{
+    width: var(--vlg);
+    height: var(--vlg);
+    border-radius: 50%;
+}
+
+.call-notification > .caller{
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: .3px;
+}
+
+@keyframes dropDown{
+    from{
+        transform: translateY(-100px);
+    }
+    
+    to{
+        transform: translateY(0px);
+    }
+}

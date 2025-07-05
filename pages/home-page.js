@@ -3,7 +3,7 @@ import { chatPreview } from '../components/chat.js';
 import server from '../fetch.js';
 import domManager from '../dom-manager.js'
 import { socket } from '../socket.js';
-
+import { callNotification } from '../components/notification.js';
 // 54px is the chat header size
 //70px is the size of each chat preview + gap
 let currentPage = 1
@@ -67,7 +67,7 @@ const updateCurrentSection = (newCurrentIcon, newSection) => {
 	homeDiv.children[1].replaceWith(newSection)
 }
 
-friendIcon.addEventListener('click', () =>{
+friendIcon.addEventListener('click', () => {
 	if (currentSectionIcon === friendIcon) { return }
 	updateCurrentSection(friendIcon, chatDiv)
 	console.log('friend')
@@ -107,5 +107,34 @@ chatDiv.addEventListener('scroll', async (event) => {
 socket.chatsocket.onmessage = (event) => {
 	data = event.data
 	
-}
+	if (data.typing && data.room in domManager.chatPreviewDom) {
+		domManager.updateChatPreview(data.room, (element) => {
+			const messageTag = element.querySelector('.message')
+			const last_message = messageTag.textContent
+			
+			setTimeout(() => {
+				messageTag.textContent = last_message
+			}, 3000)
+		})
+		
+	}
 	
+	else if (data.room in domManager.chatPreviewDom) {
+		domManager.updateChatPreview(data.room, (element) => {
+			element.querySelector('.timestamp').textContent = data.timestamp
+			element.querySelector('.message').textContent = data.message
+		})
+		chatDiv.removeChild(element)
+		chatDiv.children[0].insertBefore(element)
+		
+	}
+	
+	else {
+		const chatPreviewDiv = chatPreview({ profileImage: '/img/profile.jpg', username: data.sender_username, timestamp: data.timestamp, message: data.message })
+		chatDiv.children[0].insertBefore(chatPreviewDiv)
+		domManager.createChatPreviewDom(data.room, chatPreviewDiv)
+	}
+	
+}
+
+document.querySelector('.root').appendChild(callNotification('juwon33', 'chat_1_2', 2))
