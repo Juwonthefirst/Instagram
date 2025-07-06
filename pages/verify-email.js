@@ -1,5 +1,5 @@
 import { router } from '../router.js';
-import server from '../fetch.js';
+import {server} from '../server.js';
 import { memory } from '../appMemory.js';
 import { basicPopUp } from '../components/popup.js';
 import { lucideIcon, iconifyIcon } from '../components/icon.js';

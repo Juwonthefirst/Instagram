@@ -1,5 +1,5 @@
 import { inputField } from '../components/Inputs.js';
-import server from '../fetch.js';
+import {server} from '../server.js';
 import { router } from '../router.js';
 import { memory } from '../appMemory.js';
 import { iconifyIcon } from '../components/icon.js';

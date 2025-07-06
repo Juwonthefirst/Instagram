@@ -1,6 +1,6 @@
 import { lucideIcon, iconifyIcon } from '../components/icon.js';
 import { chatPreview } from '../components/chat.js';
-import server from '../fetch.js';
+import {server} from '../server.js';
 import domManager from '../dom-manager.js'
 import { socket } from '../socket.js';
 import { callNotification, chatNotification } from '../components/notification.js';
@@ -136,6 +136,7 @@ socket.chatsocket.onmessage = (event) => {
 	}
 	
 }
+
 const chat = chatNotification('heeey Nigga my name is jayfKsgxhdhxglxkfzkgdlyxkfzkfzkfzktdltxfkxglxktdlydxggkxgkxtkxgkxg,gxl', 'Juwon33', 1)
 const call = callNotification('Juwon33', 'chat_1_2', 3)
 document.querySelector('.root').appendChild(chat)

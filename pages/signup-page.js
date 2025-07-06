@@ -3,7 +3,7 @@ import { inputField, passwordField } from '../components/Inputs.js';
 import { googleButton } from '../components/buttons.js';
 import { basicPopUp } from '../components/popup.js';
 import { router } from '../router.js';
-import server from '../fetch.js';
+import {server} from '../server.js';
 import { memory } from '../appMemory.js';
 import { google_client_id, FormValidator } from '../helper.js';
 

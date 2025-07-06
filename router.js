@@ -14,7 +14,8 @@ class PageRouter {
 	}
 	
 	async route() {
-		const path = location.pathname.split('/') || '/'
+		const path = location.pathname || '/'
+		
 		await this.render(path)
 	}
 	

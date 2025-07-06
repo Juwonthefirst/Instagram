@@ -1,6 +1,6 @@
 import { inputField, passwordField } from '../components/Inputs.js'
 import { googleButton } from '../components/buttons.js';
-import server from '../fetch.js'
+import {server} from '../server.js'
 import { router } from '../router.js';
 import { memory } from '../appMemory.js';
 import { google_client_id, onRefreshError, onLoginError, onLoginSuccess } from '../helper.js';

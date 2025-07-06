@@ -1,6 +1,6 @@
 import { lucideIcon } from './icon.js';
 import { Room } from '../modules/livekit-client.esm.js';
-import server from '../fetch.js';
+import server from '../server.js';
 
 let wsurl = ''
 

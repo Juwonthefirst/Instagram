@@ -32,4 +32,22 @@ const chatPreview = function({ profileImage, username, timestamp, message }) {
 	return chatPreviewDiv
 }
 
-export { chatPreview }
+const chatBubble = function (isSender, message, timestamp) {
+	const messageDiv = document.createElement('div')
+	messageDiv.classList.add('chat-bubble')
+	messageDiv.classList.add(
+		(isSender)? 'sender' : 'receiver'
+	)
+	const messageTag = document.querySelector('p')
+	messageTag.textContent = message 
+	messageDiv.appendChild(messageTag)
+	
+	const timestampTag = document.querySelector('p')
+	timestampTag.className = 'timestamp'
+	timestampTag.textContent = timestamp
+	messageDiv.appendChild(timestampTag)
+	
+	return messageDiv
+}
+
+export { chatPreview, chatBubble }
