@@ -1,9 +1,8 @@
 import { lucideIcon, iconifyIcon } from '../components/icon.js';
 import { chatPreview } from '../components/chat.js';
-import {server} from '../server.js';
+import { server, socket } from '../server.js';
 import domManager from '../dom-manager.js'
-import { socket } from '../socket.js';
-import { callNotification, chatNotification } from '../components/notification.js';
+import { showNotification } from '../components/notification.js';
 // 54px is the chat header size
 //70px is the size of each chat preview + gap
 let currentPage = 1
@@ -104,8 +103,9 @@ chatDiv.addEventListener('scroll', async (event) => {
 	})
 })
 
-socket.chatsocket.onmessage = (event) => {
+socket.chatsocket.addEventListener('message', (event) => {
 	data = event.data
+	
 	
 	if (data.typing && data.room in domManager.chatPreviewDom) {
 		domManager.updateChatPreview(data.room, (element) => {
@@ -135,8 +135,33 @@ socket.chatsocket.onmessage = (event) => {
 		domManager.createChatPreviewDom(data.room, chatPreviewDiv)
 	}
 	
+})
+
+socket.notificationSocket.onmessage = (event) => {
+	const data = event.data
+	switch (data.type) {
+		case 'chat_notification':
+			showNotification('chat',{
+				message: data.message,
+				sender: data.sender_username,
+				timestamp: data.timestamp
+			})
+			break;
+		case 'call_notification':
+			showNotification('call', {
+				caller: data.caller,
+				room_id: data.room_id,
+				room_name: data.room_name,
+			})
+			break;
+			
+		
+		default:
+			// Tab to edit
+	}
+	
 }
 
-const chat = chatNotification('heeey Nigga my name is jayfKsgxhdhxglxkfzkgdlyxkfzkfzkfzktdltxfkxglxktdlydxggkxgkxtkxgkxg,gxl', 'Juwon33', 1)
-const call = callNotification('Juwon33', 'chat_1_2', 3)
-document.querySelector('.root').appendChild(chat)
+
+//showNotification('chat',{message: 'heeey Nigga my name is jayfKsgxhdhxglxkfzkgdlyxkfzkfzkfzktdltxfkxglxktdlydxggkxgkxtkxgkxg,gxl', sender: 'Juwon33', timestamp: '13:60'})
+showNotification('call', {caller:'Juwon33', room_name: 'chat_1_2', room_id: 3})

@@ -1,15 +1,6 @@
 const access_token_lifetime = 60 * 30 * 1000
 const backendUrl = 'https://beep-me-api.onrender.com/api/'
-/*{
-  "access": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzUxNzA2ODY0LCJpYXQiOjE3NTE3MDMyNjQsImp0aSI6IjA0ZDdlNmIwMWJiZTQwMmJhMTFiMzIxY2EyZDA4NzczIiwidXNlcl9pZCI6NX0.k_w0yFxUfn1BipKWdY_zX9oj7t5DuttjR34vfMJiNys",
-  "user": {
-    "pk": 5,
-    "username": "juwon30",
-    "email": "ajibolajuwon57@gmail.com",
-    "first_name": "",
-    "last_name": ""
-  }
-}*/
+
 class Server {
     
     constructor() {
@@ -217,8 +208,7 @@ class Server {
     }
 }
 
-import domManager from './dom-manager.js';
-import { memory } from './appMemory.js';
+
 
 class Socket {
 	#chatsocket
@@ -277,32 +267,6 @@ const server = new Server()
 const socket = new Socket()
 socket.connect()
 
-socket.notificationSocket.onmessage = (event) => {
-	const data = event.data
-	switch (data.type) {
-		case 'chat_notification':
-			
-			break;
-			
-		case 'online_status_notification':
-			
-			break;
-			
-		case 'friend_notification':
-			
-			break;
-		
-		case 'group_notification':
-			
-			break;
-			
-		case 'call_notification':
-			
-			break;
-		
-		
-		
-	}
-}
+
 
 export { server, socket }

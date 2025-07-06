@@ -1,9 +1,9 @@
 import { lucideIcon } from '../components/icon.js';
-import {server} from '../server.js';
+import { server, socket } from '../server.js';
 import { memory } from '../appMemory.js';
 import { chatBubble } from '../components/chat.js';
 import domManager from '../dom-manager.js';
-
+import { showNotification } from '../components/notification.js';
 const currentUser = memory.getCurrentUser()
 
 const messagesDiv = document.createElement('div')
@@ -77,6 +77,7 @@ window.addEventListener('load', async () => {
 	const room = await server.getRoomAndMessage({
 		friend_username,
 		onSuccess: (data) => {
+			memory.currentRoom = data.name
 			usernameTag.textContent = (data.is_group)? data.parent.name : data.parent.username
 			const messages = data.messages
 			for (const message of messages) {
@@ -90,3 +91,14 @@ window.addEventListener('load', async () => {
 	})
 })
 
+socket.chatsocket.onmessage = (event) => {
+	data = event.data
+	if (memory.currentRoom === data.room && data.sender_username !== currentUser.username) {
+		const chatBubbleDiv = chatBubble(false, data.message, data.timestamp)
+		messageMainDiv.appendChild(chatBubbleDiv)
+	}
+	
+	else if (messages.currentRoom !== data.room) {
+		showNotification('chat', {})
+	}
+}

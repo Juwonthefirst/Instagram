@@ -56,7 +56,7 @@ class FormValidator {
     
     /*mustBeEqual(errorMessage, ...inputs){
         for(let input of inputs){
-            this.addCustomErrorHandler(input, () => {
+            this.(input, () => {
                 const isValid = inputs.every((input) => input.value === inputs[0].value)
                 return { isValid, errorMessage }
             })

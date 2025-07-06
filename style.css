@@ -961,13 +961,11 @@ form>.submit-btn>iconify-icon {
     line-height: 20px;
 }
 
-.chat-notification > .close-btn{
-    background: var(--light-main);
-    border: 2px solid #FF3838;
-    border-radius: var(--sm);
-    color: #FF3838;
-    height: var(--icon);
+.chat-notification > .timestamp{
+    color: var(--link-color);
     grid-column-end: 5;
+    font-size: var(--sub);
+    padding-top: var(--vsm);
 }
 
 @keyframes dropDown{

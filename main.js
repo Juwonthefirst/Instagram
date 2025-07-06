@@ -1,5 +1,5 @@
 import { router } from './router.js'
-import server from './server.js';
+import {server} from './server.js';
 import { onRefreshError } from './helper.js';
 
 /*window.addEventListener('popstate', router.route)

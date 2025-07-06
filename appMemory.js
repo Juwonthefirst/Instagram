@@ -4,6 +4,7 @@ class AppMemory{
 	constructor(){
 		this.#currentUser = null
 		this.#data = {}
+		this.currentRoom = null
 	}
 	
 	save(key, value){
@@ -62,6 +63,7 @@ class AppMemory{
 	deleteCurrentUser(){
 		this.#currentUser = null
 	}
+	
 }
 
 const memory = new AppMemory()

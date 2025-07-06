@@ -1,10 +1,10 @@
 import { lucideIcon } from './icon.js';
 import { Room } from '../modules/livekit-client.esm.js';
-import server from '../server.js';
+import {server} from '../server.js';
 
 let wsurl = ''
 
-const callNotification = (username, room_name, room_id) => {
+const callNotification = ({caller, room_name, room_id}) => {
 	const notificationDiv = document.createElement('div')
 	notificationDiv.className = 'call-notification'
 	
@@ -14,7 +14,7 @@ const callNotification = (username, room_name, room_id) => {
 	notificationDiv.appendChild(profileImgTag)
 	
 	const usernameTag = document.createElement('p')
-	usernameTag.textContent = username
+	usernameTag.textContent = caller
 	usernameTag.className = 'caller'
 	notificationDiv.appendChild(usernameTag)
 	
@@ -32,7 +32,7 @@ const callNotification = (username, room_name, room_id) => {
 }
 
 
-const chatNotification = (message, sender, sender_id) => {
+const chatNotification = ({message, sender, timestamp}) => {
 	const chatNotificationDiv = document.createElement('div')
 	chatNotificationDiv.className = 'chat-notification'
 	
@@ -51,15 +51,23 @@ const chatNotification = (message, sender, sender_id) => {
 	messageTag.className = 'message-body'
 	chatNotificationDiv.appendChild(messageTag)
 	
-	const closeBtn = document.createElement('button')
-	closeBtn.className = 'close-btn'
-	closeBtn.textContent = 'X'
-	closeBtn.addEventListener('click', () => {
-		document.querySelector('.root').removeChild(chatNotificationDiv)
-	})
-	chatNotificationDiv.appendChild(closeBtn)
+	const timestampTag = document.createElement('p')
+	timestampTag.className = 'timestamp'
+	timestampTag.textContent = timestamp
+	chatNotificationDiv.appendChild(timestampTag)
 	
 	return chatNotificationDiv
 }
 
-export { callNotification, chatNotification }
+const notificationMap = {
+	chat: chatNotification,
+	call: callNotification
+}
+
+const showNotification = (type, options) => {
+	const root = document.querySelector('.root')
+	const notificationDiv = notificationMap[type](options)
+	root.appendChild(notificationDiv)
+}
+	
+export { showNotification }
