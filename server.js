@@ -217,6 +217,7 @@ class Socket {
 	constructor() {
 		this.#chatsocket = null
 		this.#notificationSocket = null
+		this.connected = false
 		this.MaxRetry = 5
 		this.notificationRetryCount = 0
 		this.chatRetryCount = 0
@@ -266,7 +267,6 @@ class Socket {
 const server = new Server()
 const socket = new Socket()
 socket.connect()
-
 
 
 export { server, socket }

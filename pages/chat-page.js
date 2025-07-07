@@ -5,7 +5,7 @@ import { chatBubble } from '../components/chat.js';
 import domManager from '../dom-manager.js';
 import { showNotification } from '../components/notification.js';
 const currentUser = memory.getCurrentUser()
-
+const room_name = locat
 const messagesDiv = document.createElement('div')
 messagesDiv.className = 'chat-message'
 
@@ -65,6 +65,19 @@ messageInput.placeholder = 'Send them that text'
 messageBoxDiv.append(cameraIcon, messageInput)
 messageInputDiv.appendChild(messageBoxDiv)
 const sendBtn = lucideIcon('send', 'send-btn')
+sendBtn.addEventListener('click', () => {
+	if (messageInput.value) {
+		const message = messageInput.value.trim()
+		socket.chatsocket.send(JSON.stringify({
+			sender_id: currentUser.id,
+			sender_username: currentUser.username,
+			message,
+			action: 'chat',
+			room: ''
+		}))
+		
+	}
+})
 messageInputDiv.appendChild(sendBtn)
 messageMainDiv.appendChild(messageInputDiv)
 messagesDiv.appendChild(messageMainDiv)

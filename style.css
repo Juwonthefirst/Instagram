@@ -909,9 +909,12 @@ form>.submit-btn>iconify-icon {
 
 .call-notification > .call-answer-btn{
     border-radius: 50%;
-    background-color: #38FF54;
+    background-color: #38FF54D9;
     width: 42px;
     height: 42px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .call-notification > .call-deny-btn{
@@ -919,6 +922,15 @@ form>.submit-btn>iconify-icon {
     background-color: #FF3838;
     width: 42px;
     height: 42px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: rotateZ(135deg);
+}
+
+.call-notification svg{
+    fill: white;
+    stroke-width: 1px;
 }
 
 .chat-notification{
