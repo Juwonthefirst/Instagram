@@ -1,3 +1,6 @@
+import { memory } from './appMemory.js';
+import { showNotification } from './components/notification.js';
+
 const access_token_lifetime = 60 * 30 * 1000
 const backendUrl = 'https://beep-me-api.onrender.com/api/'
 
@@ -49,7 +52,7 @@ class Server {
         return header
     }
     
-    getAccessToken(){
+    getAccessToken() {
         return this.access_token
     }
     
@@ -136,8 +139,8 @@ class Server {
         this.access_token = data.access
     }
     
-    async verifyEmail({key, onSuccess = null, onError = null}){
-        return await this.#baseFetch({ 
+    async verifyEmail({ key, onSuccess = null, onError = null }) {
+        return await this.#baseFetch({
             path: 'auth/registration/verify-email/',
             method: 'POST',
             body: { key },
@@ -157,7 +160,7 @@ class Server {
         return data
     }
     
-    async updateUserField({fields, onError, onSuccess}){
+    async updateUserField({ fields, onError, onSuccess }) {
         const data = await this.#baseFetch({
             path: 'auth/user/',
             method: 'PATCH',
@@ -168,18 +171,18 @@ class Server {
         })
     }
     
-    async userExists({username, onExist, onFree}){
+    async userExists({ username, onExist, onFree }) {
         const data = await this.#baseFetch({
             path: 'users/exists/',
             method: 'POST',
             auth: true,
-            body: {username},
+            body: { username },
             onError: onExist,
             onSuccess: onFree
         })
     }
     
-    async getUsersChat({onSuccess, onError, pageNumber = 1, searchKeyWord = ''}){
+    async getUsersChat({ onSuccess, onError, pageNumber = 1, searchKeyWord = '' }) {
         const data = await this.#baseFetch({
             path: `auth/user/rooms/?page=${pageNumber}&search=${searchKeyWord}`,
             auth: true,
@@ -197,7 +200,7 @@ class Server {
         return data
     }
     
-    async getRoomAndMessage({friend_username, onSuccess, onError}) {
+    async getRoomAndMessage({ friend_username, onSuccess, onError }) {
         const data = await this.#baseFetch({
             path: `chats/${friend_username}/`,
             auth: true,
@@ -211,62 +214,124 @@ class Server {
 
 
 class Socket {
-	#chatsocket
-	#notificationSocket
-	
-	constructor() {
-		this.#chatsocket = null
-		this.#notificationSocket = null
-		this.connected = false
-		this.MaxRetry = 5
-		this.notificationRetryCount = 0
-		this.chatRetryCount = 0
-	}
-	
-	get chatsocket() { return this.#chatsocket } 
-	get notificationSocket() { return this.#notificationSocket }
-	
-	connect(baseUrl = 'wss://beep-me-api.onrender.com/ws/') {
-		this.#chatsocket = new WebSocket(`${baseUrl}chat/?token=${server.getAccessToken()}`)
-		this.#notificationSocket = new WebSocket(`${baseUrl}notification/?token=${server.getAccessToken()}`)
-		this.#chatsocket.onclose = (event) => {
-			if (!(event.code === 1000 || event.code === 1001) && this.chatRetryCount < this.maxRetry) {
-				this.#chatsocket = new WebSocket(`${baseUrl}chat/?token=${server.getAccessToken()}`)
-				this.chatRetryCount++
-				console.warn('Chat socket closed retrying connection')
-			}
-			
-		}
-		this.#chatsocket.onopen = () => {
-			this.chatRetryCount = 0
-			console.log('Chat socket opened')
-		}
-		
-		this.#notificationSocket.onclose = (event) => {
-			if (!(event.code === 1000 || event.code === 1001) && this.notificationRetryCount < this.maxRetry) {
-				this.#notificationSocket = new WebSocket(`${baseUrl}notification/?token=${server.getAccessToken()}`)
-				this.notificationRetryCount++
-				console.warn('Notification socket closed retrying connection')
-			}
-			
-		}
-		this.#notificationSocket.onopen = () => {
-			this.notificationRetryCount = 0 
-			console.log('Notofication socket open')
-		}
-		
-		
-	}
-	
-	disconnect() {
-		this.#chatsocket.close(1000)
-		this.#notificationSocket.close(1000)
-	}
-	
+    #chatsocket
+    #notificationSocket
+    
+    constructor() {
+        this.#chatsocket = null
+        this.#notificationSocket = null
+        this.currentRoom = null
+        this.maxRetry = 5
+        this.retryTimeout = 10000
+        this.notificationRetryCount = 0
+        this.chatRetryCount = 0
+        this.onRoomMessage = null
+        this.onPreviewMessage = null
+        this.onTyping = null
+    }
+    
+    get chatsocket() { return this.#chatsocket }
+    get notificationSocket() { return this.#notificationSocket }
+    
+    connectChatSocket() {
+        this.#chatsocket = new WebSocket(`wss://beep-me-api.onrender.com/ws/chat/?token=${server.getAccessToken()}`)
+        this.#chatsocket.onclose = (event) => {
+            if (!(event.code === 1000 || event.code === 1001) && this.chatRetryCount < this.maxRetry) {
+                this.chatRetryCount++
+                console.warn('Chat socket closed retrying connection')
+                setTimeout(() => this.connectChatSocket(), this.retryTimeout)
+            }
+            
+        }
+        this.#chatsocket.onopen = () => {
+            this.chatRetryCount = 0
+            console.log('Chat socket opened')
+        }
+        
+        this.#chatsocket.onmessage = (event) => {
+            data = event.data
+            if (data.typing && this.onTyping) {
+                this.onTyping()
+            }
+            else if (memory.currentRoom === data.room && this.onRoomMessage) {
+                this.onRoomMessage(data)
+            }
+            
+            else if (memory.currentRoom && memory.currentRoom !== data.room) {
+                showNotification('chat', {
+                        message: data.message,
+                        sender: data.sender_username,
+                        timestamp: data.timestamp
+                    })
+            }
+            if (this.onPreviewMessage) this.onPreviewMessage(data)
+        }
+        
+    }
+    
+    connectNotificationSocket() {
+        this.#notificationSocket = new WebSocket(`wss://beep-me-api.onrender.com/ws/notification/?token=${server.getAccessToken()}`)
+        this.#notificationSocket.onclose = (event) => {
+            console.log('connection')
+            if (!(event.code === 1000 || event.code === 1001) && this.notificationRetryCount < this.maxRetry) {
+                this.notificationRetryCount++
+                console.warn('Notification socket closed retrying connection')
+                setTimeout(() => this.connectNotificationSocket(), this.retryTimeout)
+            }
+            
+        }
+        
+        this.#notificationSocket.onopen = () => {
+            this.notificationRetryCount = 0
+            console.log('Notofication socket open')
+        }
+    }
+    
+    connect() {
+        this.connectChatSocket()
+        this.connectNotificationSocket()
+    }
+    
+    disconnect() {
+        this.#chatsocket.close(1000)
+        this.#notificationSocket.close(1000)
+    }
+    
+    listenForNotifications() {
+        this.#notificationSocket.onmessage = () => {
+            const data = event.data
+            switch (data.type) {
+                case 'chat_notification':
+                    showNotification('chat', {
+                        message: data.message,
+                        sender: data.sender_username,
+                        timestamp: data.timestamp
+                    })
+                    break;
+                case 'call_notification':
+                    showNotification('call', {
+                        caller: data.caller,
+                        room_id: data.room_id,
+                        room_name: data.room_name,
+                    })
+                    break;
+                    
+                    
+                default:
+                    
+            }
+            
+        }
+    }
+    
+    
+    send(...body){
+        this.#chatsocket.send(JSON.stringify(body))
+    }
+    
 }
 const server = new Server()
 const socket = new Socket()
-socket.connect()
 
 
 export { server, socket }

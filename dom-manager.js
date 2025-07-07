@@ -1,3 +1,6 @@
+import { socket } from './server.js';
+import { chatBubble, chatPreview } from './components/chat.js';
+
 class DomManager{
 	constructor(){
 		this.chatPreviewDom = {}
@@ -8,8 +11,8 @@ class DomManager{
 		this.chatPreviewDom[key] = domElement
 	}
 	
-	createChatDom(key, domElement){
-		this.chatDom[key] = domElement
+	createChatDom(key, domElementList){
+		this.chatDom[key] = domElementList
 	}
 	
 	updateChatPreview(domKey, callback){

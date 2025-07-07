@@ -4,8 +4,12 @@ import { memory } from '../appMemory.js';
 import { chatBubble } from '../components/chat.js';
 import domManager from '../dom-manager.js';
 import { showNotification } from '../components/notification.js';
+
+
 const currentUser = memory.getCurrentUser()
-const room_name = locat
+const urlPath = location.pathname.split('/')
+const friend_username = urlPath.at(-1) || urlPath.at(-2)
+
 const messagesDiv = document.createElement('div')
 messagesDiv.className = 'chat-message'
 
@@ -64,34 +68,40 @@ const messageInput = document.createElement('input')
 messageInput.placeholder = 'Send them that text'
 messageBoxDiv.append(cameraIcon, messageInput)
 messageInputDiv.appendChild(messageBoxDiv)
-const sendBtn = lucideIcon('send', 'send-btn')
+const sendBtn = lucideIcon('mic', 'send-btn')
 sendBtn.addEventListener('click', () => {
-	if (messageInput.value) {
-		const message = messageInput.value.trim()
-		socket.chatsocket.send(JSON.stringify({
+	const message = messageInput.value.trim()
+	if (message) {
+		
+		socket.send({
 			sender_id: currentUser.id,
 			sender_username: currentUser.username,
 			message,
 			action: 'chat',
 			room: ''
-		}))
+		})
 		
 	}
 })
 messageInputDiv.appendChild(sendBtn)
 messageMainDiv.appendChild(messageInputDiv)
 messagesDiv.appendChild(messageMainDiv)
+messageInput.addEventListener('input', () => {
+	if (messageInput.value.trim()) {
+		sendBtn.children[0].dataset.lucide = 'send'
+	}
+})
 
 export default function chatPage() {
 	return messagesDiv
 }
 
-window.addEventListener('load', async () => {
+(async () => {
 	const room = await server.getRoomAndMessage({
 		friend_username,
 		onSuccess: (data) => {
 			memory.currentRoom = data.name
-			usernameTag.textContent = (data.is_group)? data.parent.name : data.parent.username
+			usernameTag.textContent = (data.is_group) ? data.parent.name : data.parent.username
 			const messages = data.messages
 			for (const message of messages) {
 				const isSender = message.sender_id === currentUser.id
@@ -102,16 +112,18 @@ window.addEventListener('load', async () => {
 		}
 		
 	})
-})
+})()
 
-socket.chatsocket.onmessage = (event) => {
-	data = event.data
-	if (memory.currentRoom === data.room && data.sender_username !== currentUser.username) {
+socket.onRoomMessage = (data) => {
+	if (data.sender_username !== currentUser.username) {
 		const chatBubbleDiv = chatBubble(false, data.message, data.timestamp)
 		messageMainDiv.appendChild(chatBubbleDiv)
 	}
-	
-	else if (messages.currentRoom !== data.room) {
-		showNotification('chat', {})
+	else {
+		
 	}
+}
+
+socket.onTyping = () => {
+	statusTag.textContent = 'typing...'
 }

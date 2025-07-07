@@ -739,6 +739,10 @@ form>.submit-btn>iconify-icon {
     font-size: var(--sub);
 }
 
+.status.online{
+    color: var(--accent-color);
+}
+
 .chat-message .chat-picture {
     width: calc(var(--lg) + var(--sm));
     height: calc(var(--lg) + var(--sm));

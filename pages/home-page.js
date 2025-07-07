@@ -37,6 +37,13 @@ const onFetchSuccess = (data) => {
 }
 
 const showUserChats = async function() {
+	if (Object.keys(domManager.chatPreviewDom).length) {
+		for (const domElement in domManager.chatPreviewDom) {
+			chatDiv.appendChild(domElement)
+		}
+		return 
+	}
+	
 	await server.getUsersChat({
 		onSuccess: onFetchSuccess
 	})
@@ -103,23 +110,8 @@ chatDiv.addEventListener('scroll', async (event) => {
 	})
 })
 
-socket.chatsocket.addEventListener('message', (event) => {
-	data = event.data
-	
-	
-	if (data.typing && data.room in domManager.chatPreviewDom) {
-		domManager.updateChatPreview(data.room, (element) => {
-			const messageTag = element.querySelector('.message')
-			const last_message = messageTag.textContent
-			
-			setTimeout(() => {
-				messageTag.textContent = last_message
-			}, 3000)
-		})
-		
-	}
-	
-	else if (data.room in domManager.chatPreviewDom) {
+socket.onPreviewMessage = (data) => {
+	if (data.room in domManager.chatPreviewDom) {
 		domManager.updateChatPreview(data.room, (element) => {
 			element.querySelector('.timestamp').textContent = data.timestamp
 			element.querySelector('.message').textContent = data.message
@@ -134,34 +126,24 @@ socket.chatsocket.addEventListener('message', (event) => {
 		chatDiv.children[0].insertBefore(chatPreviewDiv)
 		domManager.createChatPreviewDom(data.room, chatPreviewDiv)
 	}
-	
-})
+}
 
-socket.notificationSocket.onmessage = (event) => {
-	const data = event.data
-	switch (data.type) {
-		case 'chat_notification':
-			showNotification('chat',{
-				message: data.message,
-				sender: data.sender_username,
-				timestamp: data.timestamp
-			})
-			break;
-		case 'call_notification':
-			showNotification('call', {
-				caller: data.caller,
-				room_id: data.room_id,
-				room_name: data.room_name,
-			})
-			break;
+socket.onTyping = () => {
+	if (data.room in domManager.chatPreviewDom) {
+		domManager.updateChatPreview(data.room, (element) => {
+			const messageTag = element.querySelector('.message')
+			const last_message = messageTag.textContent
 			
+			setTimeout(() => {
+				messageTag.textContent = last_message
+			}, 3000)
+		})
 		
-		default:
-			// Tab to edit
 	}
-	
 }
 
 
-//showNotification('chat',{message: 'heeey Nigga my name is jayfKsgxhdhxglxkfzkgdlyxkfzkfzkfzktdltxfkxglxktdlydxggkxgkxtkxgkxg,gxl', sender: 'Juwon33', timestamp: '13:60'})
-showNotification('call', {caller:'Juwon33', room_name: 'chat_1_2', room_id: 3})
+
+
+showNotification('chat', { message: 'heeey Nigga my name is jayfKsgxhdhxglxkfzkgdlyxkfzkfzkfzktdltxfkxglxktdlydxggkxgkxtkxgkxg,gxl', sender: 'Juwon33', timestamp: '13:60' })
+//showNotification('call', {caller:'Juwon33', room_name: 'chat_1_2', room_id: 3})
