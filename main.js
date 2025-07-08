@@ -13,8 +13,8 @@ window.addEventListener('load', async () => {
 	await router.route()
 	if (response.error) { return await router.navigateTo('login') }
 	else {
-		await server.startAutoRefreshAccessToken((response) => {
-			onRefreshError(response, router)
+		await server.startAutoRefreshAccessToken(() => {
+			onRefreshError(router)
 			loginFailed = true
 		})
 		

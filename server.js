@@ -36,11 +36,15 @@ class Server {
     
     startAutoRefreshAccessToken(onError) {
         const response = this.tokenRefresh()
-        onError(response)
+        if (response === 'no refresh') return onError()
         
-        setInterval(() => {
+        
+        let refreshIntervalKey = setInterval(() => {
             const response = this.tokenRefresh()
-            onError(response)
+            if (response === 'no refresh') {
+                clearInterval(refreshIntervalKey)
+                onError()
+            }
         }, access_token_lifetime)
         
     }
