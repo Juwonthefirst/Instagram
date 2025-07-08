@@ -1,9 +1,10 @@
 const routes = {
 	'/': () => import('/pages/home-page.js'),
-	'/login': () => import('/pages/login-page.js'),
-	'/signup': () => import('/pages/signup-page.js'),
+	'login': () => import('/pages/login-page.js'),
+	'signup': () => import('/pages/signup-page.js'),
 	'finish-signup': () => import('/pages/username-page.js'),
-	'/verify-email': () => import('/pages/verify-email.js')
+	'verify-email': () => import('/pages/verify-email.js'),
+	'chat': () => import('/pages/chat-page.js')
 }
 
 
@@ -14,7 +15,7 @@ class PageRouter {
 	}
 	
 	async route() {
-		const path = location.pathname || '/'
+		const path = location.pathname.split('/')[1] || '/'
 		
 		await this.render(path)
 	}

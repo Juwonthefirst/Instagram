@@ -63,20 +63,20 @@ const showUserChats = async function() {
 		onSuccess: onUserChatsFetchSuccess
 	})
 }
-showUserChats()
+//showUserChats()
 homeDiv.appendChild(chatDiv)
 
 const friendDiv = document.createElement('div')
 friendDiv.className = 'friends-list'
 friendDiv.textContent = 'heeelo friends'
 
-const getUserFriends = async () => {
+const showUserFriends = async () => {
 	await server.getUserFriends({
 		onSuccess: onUserFriendsFetchSuccess
 	})
 }
 
-getUserFriends()
+//showUserFriends()
 
 const bottomNavBar = document.createElement('div')
 bottomNavBar.className = 'bottom-navbar'
