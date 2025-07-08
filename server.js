@@ -119,6 +119,7 @@ class Server {
             onSuccess
         })
         this.access_token = data.access
+        console.log(data.access)
     }
     
     async googleLoginByID({ googleTokenObject, onError = null, onSuccess = null }) {
