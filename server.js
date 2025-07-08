@@ -39,7 +39,7 @@ class Server {
         if (response === 'no refresh') return onError()
         
         
-        let refreshIntervalKey = setInterval(() => {
+        let refreshIntervalKey = setInterval(async () => {
             const response = await this.tokenRefresh()
             if (response === 'no refresh') {
                 clearInterval(refreshIntervalKey)
