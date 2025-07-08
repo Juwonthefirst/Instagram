@@ -22,4 +22,3 @@ window.addEventListener('load', async () => {
 	}
 })
 //history.pushState(null, '', '/#/signup')
-router.render('/')
