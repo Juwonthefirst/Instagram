@@ -17,7 +17,7 @@ language.textContent = 'English'
 
 const logo = document.createElement('h1')
 logo.className = 'logo'
-logo.textContent = 'Instagram'
+logo.textContent = 'Beep'
 loginDiv.append(language, logo)
 
 const googleLoginBtn = googleButton(googleClient)
