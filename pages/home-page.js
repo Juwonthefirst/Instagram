@@ -8,8 +8,12 @@ import { friendPreview } from '../components/userComponents.js';
 
 // 54px is the chat header size
 //70px is the size of each chat preview + gap
-let currentPage = 1
-const currentScrollLimit = () => (54 + (70 * 15)) * currentPage
+let currentChatPage = 1
+let currentFriendPage = 1
+let currentThoughtPage = 1
+
+let pageScrollLimit = 54 + (70 * 15)
+
 
 //Page render
 
@@ -30,13 +34,20 @@ homeDiv.appendChild(homeHeaderDiv)
 const chatDiv = document.createElement('div')
 chatDiv.className = 'chats-main'
 
-const onFetchSuccess = (data) => {
+const onUserChatsFetchSuccess = (data) => {
 	for (let room of data.results) {
 		const username = (room.is_group) ? room.parent.name : room.parent.username
 		const chatPreviewDiv = chatPreview({ profileImage: '/img/profile.jpg', username, timestamp: room.last_message_time, message: room.last_message.body })
 		chatPreviewDiv.addEventListener('click', () => router.navigateTo(`/chat/${room.parent.name}/`))
 		domManager.createChatPreviewDom(room.name, chatPreviewDiv)
 		chatDiv.appendChild(chatPreviewDiv)
+	}
+}
+
+const onUserFriendsFetchSuccess = (data) => {
+	for (const friend of data.results) {
+		const friendDiv = friendPreview(friend)
+		friendDiv.appendChild(friendDiv)
 	}
 }
 
@@ -48,17 +59,24 @@ const showUserChats = async function() {
 		return 
 	}
 	
-	await server.getUsersChat({
-		onSuccess: onFetchSuccess
+	await server.getUserChat({
+		onSuccess: onUserChatsFetchSuccess
 	})
 }
 showUserChats()
 homeDiv.appendChild(chatDiv)
 
 const friendDiv = document.createElement('div')
-friendDiv.className = 'friend-list'
+friendDiv.className = 'friends-list'
+friendDiv.textContent = 'heeelo friends'
 
+const getUserFriends = async () => {
+	await server.getUserFriends({
+		onSuccess: onUserFriendsFetchSuccess
+	})
+}
 
+getUserFriends()
 
 const bottomNavBar = document.createElement('div')
 bottomNavBar.className = 'bottom-navbar'
@@ -84,20 +102,18 @@ const updateCurrentSection = (newCurrentIcon, newSection) => {
 
 friendIcon.addEventListener('click', () => {
 	if (currentSectionIcon === friendIcon) { return }
-	updateCurrentSection(friendIcon, chatDiv)
-	console.log('friend')
+	updateCurrentSection(friendIcon, friendDiv)
+	
 })
 
 messageIcon.addEventListener('click', () => {
 	if (currentSectionIcon === messageIcon) { return }
 	updateCurrentSection(messageIcon, chatDiv)
-	console.log('chat')
 })
 
 thoughtIcon.addEventListener('click', () => {
 	if (currentSectionIcon === thoughtIcon) { return }
 	updateCurrentSection(thoughtIcon, chatDiv)
-	console.log('memory')
 })
 
 bottomNavBar.append(friendIcon, messageIcon, thoughtIcon)
@@ -110,12 +126,23 @@ export default function homePage() {
 // Page actions
 chatDiv.addEventListener('scroll', async (event) => {
 	console.log(scrollY)
-	if (scrollY < currentScrollLimit) { return }
+	if (scrollY < currentScrollLimit * currentChatPage) { return }
 	
-	currentPage++
-	await server.getUsersChat({
-		onSuccess: onFetchSuccess,
-		pageNumber: currentPage
+	currentChatPage++
+	await server.getUserChat({
+		onSuccess: onUserChatsFetchSuccess,
+		pageNumber: currentChatPage
+	})
+})
+
+friendDiv.addEventListener('scroll', async (event) => {
+	console.log(scrollY)
+	if (scrollY < currentScrollLimit * currentFriendPage) { return }
+	
+	currentFriendPage++
+	await server.getUserFriends({
+		onSuccess: onUserFriendsFetchSuccess,
+		pageNumber: currentFriendPage
 	})
 })
 
@@ -154,5 +181,5 @@ socket.onTyping = () => {
 
 
 
-showNotification('chat', { message: 'heeey Nigga my name is jayfKsgxhdhxglxkfzkgdlyxkfzkfzkfzktdltxfkxglxktdlydxggkxgkxtkxgkxg,gxl', sender: 'Juwon33', timestamp: '13:60' })
+//showNotification('chat', { message: 'heeey Nigga my name is jayfKsgxhdhxglxkfzkgdlyxkfzkfzkfzktdltxfkxglxktdlydxggkxgkxtkxgkxg,gxl', sender: 'Juwon33', timestamp: '13:60' })
 //showNotification('call', {caller:'Juwon33', room_name: 'chat_1_2', room_id: 3})
