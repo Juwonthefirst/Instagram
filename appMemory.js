@@ -34,7 +34,7 @@ class AppMemory{
 	}
 	
 	getCurrentUser({field = 'all'} = {}){
-		user = this.#currentUser
+		const user = this.#currentUser
 		switch (field) {
 			case 'id':
 				return user.id
