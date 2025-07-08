@@ -11,7 +11,9 @@ import { friendPreview } from '../components/userComponents.js';
 let currentChatPage = 1
 let currentFriendPage = 1
 let currentThoughtPage = 1
-
+let currentSubPage
+let searchTimeout
+let searching = false
 let pageScrollLimit = 54 + (70 * 15)
 
 
@@ -23,14 +25,30 @@ homeDiv.className = 'home'
 const homeHeaderDiv = document.createElement('div')
 homeHeaderDiv.className = 'home-header'
 
-const searchIcon = lucideIcon('search', 'left-icons')
+const searchBar = document.createElement('div')
+searchBar.className = 'search-bar'
+
+
+const backIcon = lucideIcon('arrow-left', 'back-btn')
+searchBar.appendChild(backIcon)
+const searchInput = document.createElement('input')
+searchInput.className = 'search-input'
+searchInput.placeholder = 'What are you looking for'
+searchBar.appendChild(searchInput)
+const searchIcon = lucideIcon('search', 'search-btn')
+searchBar.appendChild(searchIcon)
 const logoHeader = document.createElement('h2')
 logoHeader.textContent = 'Beep'
-const settingsIcon = lucideIcon('settings', '')
-homeHeaderDiv.append(searchIcon, logoHeader, settingsIcon)
+const settingsIcon = lucideIcon('settings', 'settings')
+homeHeaderDiv.append(searchBar, logoHeader, settingsIcon)
 
 homeDiv.appendChild(homeHeaderDiv)
 
+/**
+ * Sub pages
+*/
+
+// Chat
 const chatDiv = document.createElement('div')
 chatDiv.className = 'chats-main'
 
@@ -66,6 +84,8 @@ const showUserChats = async function() {
 //showUserChats()
 homeDiv.appendChild(chatDiv)
 
+
+//Friend
 const friendDiv = document.createElement('div')
 friendDiv.className = 'friends-list'
 friendDiv.textContent = 'heeelo friends'
@@ -77,6 +97,16 @@ const showUserFriends = async () => {
 }
 
 //showUserFriends()
+
+
+//Search
+const searchResultDiv = document.createElement('div')
+searchResultDiv.className = 'search-results'
+
+const resultsDiv = document.createElement('div')
+resultsDiv.className = 'results'
+resultsDiv.textContent = 'searching'
+searchResultDiv.appendChild(resultsDiv)
 
 const bottomNavBar = document.createElement('div')
 bottomNavBar.className = 'bottom-navbar'
@@ -94,6 +124,7 @@ const thoughtIcon = iconifyIcon('mingcute:thought-line');
 let currentSectionIcon = messageIcon
 
 const updateCurrentSection = (newCurrentIcon, newSection) => {
+	if (searching) {return}
 	currentSectionIcon.classList.toggle('current')
 	currentSectionIcon = newCurrentIcon
 	currentSectionIcon.classList.toggle('current')
@@ -124,6 +155,40 @@ export default function homePage() {
 }
 
 // Page actions
+backIcon.addEventListener('click', (event) => {
+	if (!searchBar.classList.contains('opened')) return
+	event.stopPropagation()
+	searching = false
+	searchBar.classList.remove('opened'); 
+	logoHeader.style.display = 'block'
+	settingsIcon.style.display = 'block'
+	searchResultDiv.replaceWith(currentSubPage)
+})
+
+searchBar.addEventListener('click', () => {
+	if (searchBar.classList.contains('opened')) return
+	searchBar.classList.add('opened'); 
+	logoHeader.style.display = 'none'
+	settingsIcon.style.display = 'none'
+	currentSubPage = homeDiv.children[1]
+	currentSubPage.replaceWith(searchResultDiv)
+	searching = true
+})
+
+searchInput.addEventListener('input', async () => {
+	clearTimeout(searchTimeout)
+	searchTimeout = setTimeout(async () => {
+		const searchKeyWord = searchInput.value.trim()
+		await server.getUserChat({
+			searchKeyWord,
+			onSuccess: (data) => {
+				searchResultDiv.innerHTML = ''
+				
+			}
+		})
+	}, 500)
+})
+
 chatDiv.addEventListener('scroll', async (event) => {
 	console.log(scrollY)
 	if (scrollY < currentScrollLimit * currentChatPage) { return }

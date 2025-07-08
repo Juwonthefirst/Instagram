@@ -325,9 +325,10 @@ class Socket {
                     })
                     break;
                     
+                case 'friend_notification':
                     
-                default:
-                    
+                    break;
+                
             }
             
         }

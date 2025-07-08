@@ -608,7 +608,7 @@ form>.submit-btn>iconify-icon {
 }
 
 .home-header {
-    padding: var(--md);
+    padding: var(--sub);
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -620,11 +620,54 @@ form>.submit-btn>iconify-icon {
     height: var(--icon);
     width: var(--icon);
     padding: 0 var(--sm);
-    
 }
 
-.home-header>.left-icons svg {
-    padding: 0 var(--sm);
+
+.home-header > .search-bar{
+    display: flex;
+    align-items: center;
+    height: 48px;
+    box-sizing: border-box;
+
+    gap: var(--sm);
+}
+
+.home-header > .search-bar > .back-btn,
+.home-header > .search-bar > .search-input{
+    display: none;
+}
+
+.home-header > .search-bar svg{
+    width: var(--icon);
+    height: var(--icon);
+    padding: var(--sm);
+}
+
+.home-header > .search-bar.opened {
+    padding: var(--sm);
+    background: var(--light-main);
+    border-radius: var(--md);
+    justify-content: flex-end;
+    width: 100%;
+}
+
+.home-header > .search-bar.opened > .back-btn,
+.home-header > .search-bar.opened > .search-input{
+    display: block;
+    caret-color: var(--link-color);
+
+}
+
+
+.home-header > .search-bar.opened > .search-btn{
+    background: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: -4px 0;
+    border-radius: 50%;
+    color: var(--accent-color);
+
 }
 
 .chats-main {
@@ -861,7 +904,6 @@ form>.submit-btn>iconify-icon {
     display: flex;
     align-items: center;
     padding: var(--sm);
-    border-bttom: .5px solid rgba(255, 255, 255, .5);
     border-width: .5px 0;
 }
 
@@ -892,6 +934,10 @@ form>.submit-btn>iconify-icon {
     height: 30px;
 }
 
+.search-results{
+    height: calc(100dvh - 108px);
+}
+
 .bottom-navbar {
     border-top: 1px solid rgba(255, 255, 255, .2);
     box-sizing: border-box;
@@ -914,16 +960,17 @@ form>.submit-btn>iconify-icon {
     background-color: rgba(70, 100, 219, 0.4);
     color: var(--link-color);
     fill: var(--link-color);
+    transform: scale(1.1);
     animation: .5s click;
 }
 
 @keyframes click {
     from {
-        transform: scale(1.08);
+        transform: scale(1);
     }
     
     to {
-        transform: scale(1);
+        transform: scale(1.1);
     }
 }
 
@@ -935,7 +982,6 @@ form>.submit-btn>iconify-icon {
     height: 72px;
     position: absolute;
     top: var(--md);
-    /*border: 1px solid var(--link-color);*/
     border-radius: var(--sub);
     padding: var(--sub);
     box-sizing: border-box;
