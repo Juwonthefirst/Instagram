@@ -10,7 +10,6 @@ let loginFailed = false
 
 window.addEventListener('load', async () => {
 	const response = await server.get_csrf()
-	await router.route()
 	if (response.error) { return await router.navigateTo('login') }
 	else {
 		await server.startAutoRefreshAccessToken(() => {
@@ -23,8 +22,10 @@ window.addEventListener('load', async () => {
 		await server.getUser({
 			onSuccess: (data) => memory.setCurrentUser(data)
 		})
+		
 		socket.connect()
 		socket.listenForNotifications()
+		router.route()
 	}
 })
 //history.pushState(null, '', '/#/signup')
