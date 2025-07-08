@@ -33,11 +33,11 @@ nameAndStatusDiv.className = 'name-and-status'
 
 const usernameTag = document.createElement('p')
 usernameTag.className = 'username'
-usernameTag.textContent = 'Juwon33'
+usernameTag.textContent = friend_username
 
 const statusTag = document.createElement('p')
 statusTag.className = 'status'
-statusTag.textContent = 'online'
+statusTag.textContent = ''
 
 nameAndStatusDiv.append(usernameTag, statusTag)
 chatDetailsDiv.appendChild(nameAndStatusDiv)
@@ -71,17 +71,17 @@ messageInputDiv.appendChild(messageBoxDiv)
 const sendBtn = lucideIcon('mic', 'send-btn')
 sendBtn.addEventListener('click', () => {
 	const message = messageInput.value.trim()
-	if (message) {
-		
+	if (!message) { return }
 		socket.send({
 			sender_id: currentUser.id,
 			sender_username: currentUser.username,
 			message,
 			action: 'chat',
-			room: ''
+			room: memory.currentRoom
 		})
 		
-	}
+		const newMessageDiv = chatBubble(true, message, 'pending')
+		messageMainDiv.appendChild(newMessageDiv)
 })
 messageInputDiv.appendChild(sendBtn)
 messageMainDiv.appendChild(messageInputDiv)
@@ -89,6 +89,7 @@ messagesDiv.appendChild(messageMainDiv)
 messageInput.addEventListener('input', () => {
 	if (messageInput.value.trim()) {
 		sendBtn.children[0].dataset.lucide = 'send'
+		lucide.createIcons()
 	}
 })
 

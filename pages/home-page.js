@@ -3,6 +3,9 @@ import { chatPreview } from '../components/chat.js';
 import { server, socket } from '../server.js';
 import domManager from '../dom-manager.js'
 import { showNotification } from '../components/notification.js';
+import { router } from '../router.js';
+import { friendPreview } from '../components/userComponents.js';
+
 // 54px is the chat header size
 //70px is the size of each chat preview + gap
 let currentPage = 1
@@ -31,6 +34,7 @@ const onFetchSuccess = (data) => {
 	for (let room of data.results) {
 		const username = (room.is_group) ? room.parent.name : room.parent.username
 		const chatPreviewDiv = chatPreview({ profileImage: '/img/profile.jpg', username, timestamp: room.last_message_time, message: room.last_message.body })
+		chatPreviewDiv.addEventListener('click', () => router.navigateTo(`/chat/${room.parent.name}/`))
 		domManager.createChatPreviewDom(room.name, chatPreviewDiv)
 		chatDiv.appendChild(chatPreviewDiv)
 	}
@@ -50,6 +54,11 @@ const showUserChats = async function() {
 }
 showUserChats()
 homeDiv.appendChild(chatDiv)
+
+const friendDiv = document.createElement('div')
+friendDiv.className = 'friend-list'
+
+
 
 const bottomNavBar = document.createElement('div')
 bottomNavBar.className = 'bottom-navbar'

@@ -847,7 +847,53 @@ form>.submit-btn>iconify-icon {
     caret-color: var(--link-color);
 }
 
+.friends-list{
+    height: calc(100dvh - 108px);
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    padding: var(--md);
+    gap: var(--md);
+}
+
+.friends-list > .friend{
+    gap: var(--icon);
+    display: flex;
+    align-items: center;
+    padding: var(--sm);
+    border-bttom: .5px solid rgba(255, 255, 255, .5);
+    border-width: .5px 0;
+}
+
+.friends-list > .friend > .profile-picture{
+    width: var(--profile);
+    height: var(--profile);
+    border-radius: 50%;
+
+}
+
+.friends-list > .friend > .friend-icons{
+    display: flex;
+    gap: var(--sub);
+    justify-content: center;
+    align-items: center;
+}
+
+.friends-list > .friend > .friend-icons svg{
+    /*background-color: var(--accent-color);*/
+    padding: var(--vsm);
+    margin-left: var(--sm);
+    color: var(--accent-color);
+    border-radius: var(--sm);
+}
+
+.friends-list > .friend > .friend-icons svg[data-lucide="video"]{
+    width: 30px;
+    height: 30px;
+}
+
 .bottom-navbar {
+    border-top: 1px solid rgba(255, 255, 255, .2);
     box-sizing: border-box;
     padding: var(--sm);
     height: 54px;
@@ -943,6 +989,8 @@ form>.submit-btn>iconify-icon {
     grid-template-rows: auto;
     grid-column-gap: var(--sub);
     grid-row-gap: var(--vsm);
+    justify-content: center;
+    align-items: center;
     height: 104px;
     position: absolute;
     top: var(--md);
@@ -963,7 +1011,6 @@ form>.submit-btn>iconify-icon {
 
 .chat-notification > .message-sender{
     font-size: 18px;
-    padding-top: var(--vsm);
     font-weight: 600;
 }
 
@@ -981,7 +1028,6 @@ form>.submit-btn>iconify-icon {
     color: var(--link-color);
     grid-column-end: 5;
     font-size: var(--sub);
-    padding-top: var(--vsm);
 }
 
 @keyframes dropDown{
