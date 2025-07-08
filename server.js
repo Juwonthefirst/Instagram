@@ -229,7 +229,7 @@ class Server {
     }
 }
 
-
+const server = new Server()
 
 class Socket {
     #chatsocket
@@ -349,8 +349,7 @@ class Socket {
     }
     
 }
-const server = new Server()
-const socket = new Socket()
 
+const socket = new Socket()
 
 export { server, socket }
