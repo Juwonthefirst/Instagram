@@ -7,7 +7,7 @@ const backendUrl = 'https://beep-me-api.onrender.com/api/'
 class Server {
     
     constructor() {
-        this.access_token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzUxOTg4NTMyLCJpYXQiOjE3NTE5ODQ5MzIsImp0aSI6ImQxMTI4MjYzYTdhYzQxNGM5YTBhYTExYmI0OWJmMzE0IiwidXNlcl9pZCI6NX0.bR9Lf5Hy5FHPePp161P0jtC7JP8N-e5AqbaSx87RAmw'
+        this.access_token = null
         this.csrf_token = null
     }
     
@@ -213,6 +213,15 @@ class Server {
     async getUserFriends({onSuccess, onError, pageNumber = 1, searchKeyWord = ''}){
         const data = await this.#baseFetch({
             path: `auth/user/friends/?page=${pageNumber}&search=${searchKeyWord}`,
+            auth: true,
+            onSuccess,
+            onError
+        })
+    }
+    
+    async getUser({onSuccess, onError}){
+        const data = await this.#baseFetch({
+            path: 'auth/user/',
             auth: true,
             onSuccess,
             onError

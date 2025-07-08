@@ -1,3 +1,4 @@
+import { memory} from './appMemory.js';
 const routes = {
 	'/': () => import('/pages/home-page.js'),
 	'login': () => import('/pages/login-page.js'),
@@ -8,15 +9,19 @@ const routes = {
 }
 
 
+
 class PageRouter {
 	constructor(routes) {
 		this.routes = routes
+		this.protectedRoutes = ['/', 'chat']
 		this.main = document.querySelector('.root')
 	}
 	
 	async route() {
-		const path = location.pathname.split('/')[1] || '/'
-		
+		let path = location.pathname.split('/')[1] || '/'
+		if (this.protectedRoutes.includes(path) && !memory.getCurrentUser()) {
+			path = 'login'
+		}
 		await this.render(path)
 	}
 	
