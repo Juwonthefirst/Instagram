@@ -34,13 +34,13 @@ class Server {
         }
     }
     
-    startAutoRefreshAccessToken(onError) {
-        const response = this.tokenRefresh()
+    async startAutoRefreshAccessToken(onError) {
+        const response = await this.tokenRefresh()
         if (response === 'no refresh') return onError()
         
         
         let refreshIntervalKey = setInterval(() => {
-            const response = this.tokenRefresh()
+            const response = await this.tokenRefresh()
             if (response === 'no refresh') {
                 clearInterval(refreshIntervalKey)
                 onError()
@@ -119,7 +119,6 @@ class Server {
             onSuccess
         })
         this.access_token = data.access
-        console.log(data.access)
     }
     
     async googleLoginByID({ googleTokenObject, onError = null, onSuccess = null }) {
