@@ -618,6 +618,9 @@ form>.submit-btn>iconify-icon {
 
 .home-header > h2{
     font-family: "Grand Hotel";
+    letter-spacing: .3px;
+    font-weight: 400;
+    font-size: var(--lg);
 }
 
 .home-header svg {
@@ -632,7 +635,6 @@ form>.submit-btn>iconify-icon {
     align-items: center;
     height: 48px;
     box-sizing: border-box;
-
     gap: var(--sm);
 }
 
@@ -655,11 +657,15 @@ form>.submit-btn>iconify-icon {
     width: 100%;
 }
 
+.home-header > .search-bar.opened:focus-within{
+    border-color: var(--accent-color);
+    box-shadow: 0 0 var(--vsm) var(--accent-color);
+}
+
 .home-header > .search-bar.opened > .back-btn,
 .home-header > .search-bar.opened > .search-input{
     display: block;
     caret-color: var(--link-color);
-
 }
 
 
@@ -941,6 +947,72 @@ form>.submit-btn>iconify-icon {
 .search-results{
     height: calc(100dvh - 108px);
 }
+
+.user-search{
+    flex: 1;
+    height: 100dvh;
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    flex-direction: column;
+    padding: var(--sm);
+}
+
+.user-search > .user-search-bar{
+    display: flex;
+    align-items: center;
+    gap: var(--sm);
+    padding: var(--vsm) 0;
+    background-color: var(--light-main);
+    width: 95%;
+    border-radius: var(--md);
+    border: 1px solid black;
+}
+
+.user-search > .user-search-bar:focus-within{
+    border-color: var(--accent-color);
+    box-shadow: 0 0 var(--vsm) var(--accent-color);
+
+}
+
+.user-search > .user-search-bar > input{
+    caret-color: var(--accent-color);
+}
+
+.user-search > .user-search-bar .back-btn{
+    margin-bottom: -2px;
+    
+}
+
+.user-search > .user-search-bar .back-btn svg{
+    padding-right: 0;
+}
+
+
+.user-search > .user-search-bar svg{
+    width: var(--icon);
+    height: var(--icon);
+    padding: 6px;
+}
+
+.user-search > .user-search-bar > .search-btn{
+    background: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: -4px 0;
+    border-radius: 50%;
+    color: var(--accent-color);
+
+}
+
+.user-search > .search-results > .result{
+    display: flex;
+    align-items: center;
+    gap: var(--sm);
+}
+
+
 
 .bottom-navbar {
     border-top: 1px solid rgba(255, 255, 255, .2);

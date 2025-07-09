@@ -13,13 +13,33 @@
   <link rel="preload" href="https://accounts.google.com/gsi/client" as="script" crossorigin="anonymous" />
   <script src="https://accounts.google.com/gsi/client" async defer></script>
   <link rel="preload" href="/main.js" as="script" />
-  <script type="module" src="/main.js">
-    </script>
+  <scrip type="module" src="/main.js"></script>
 </head>
 
 <body>
   <div class="root">
-    <div class="home">
+    <div class="user-search">
+      <div class="user-search-bar">
+        <div class="back-btn">
+          <i data-lucide="arrow-left"></i>
+        </div>
+        <input type="text"/>
+        <div class="search-btn">
+          <i data-lucide="search"></i>        
+        </div>
+      </div>
+      <div class="search-results">
+        <div class="result">
+          <img class="profile-picture" src="/img/profile.jpg"/>
+          <div class="details">
+            <p class="username">Juwon36</p>
+            <p class="email">ajibolajuwon5@gmail.com</p>
+          </div>
+          <i data-lucide="user-plus"></i>
+        </div>
+      </div>
+    </div>
+    <!--<div class="home">
       <div class="home-header">
         <div class="left-icons">
           <i data-lucide="search"></i>
@@ -174,10 +194,10 @@
             <p class="message">Heeeey nigga</p>
           </div>
         </div>
-      </div>-->
+      </div>
       </div>
       <div class="bottom-navbar">
-        <i data-lucide="user-plus"></i>
+        <i data-lucide="users"></i>
         <i data-lucide="message-circle"></i>
         <iconify-icon icon="mingcute:thought-line"></iconify-icon>
       </div>

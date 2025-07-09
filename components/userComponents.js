@@ -1,6 +1,8 @@
 import { lucideIcon } from './icon.js';
+import { router } from '../router.js';
 
-const friendPreview = (friendObject, ) => {
+
+const friendPreview = (friendObject) => {
 	const friendPreviewDiv = document.createElement('div')
 	friendPreviewDiv.className = 'friend'
 	
@@ -18,6 +20,7 @@ const friendPreview = (friendObject, ) => {
 	const friendIconDiv = document.createElement('div')
 	friendIconDiv.className = 'friend-icons'
 	const messageIcon = lucideIcon('message-circle')
+	messageIcon.addEventListener('click', () => { router.navigateTo(`/chat/${friendObject.username}/`)})
 	const videoIcon = lucideIcon('video')
 	const callIcon = lucideIcon('phone')
 	friendIconDiv.append(messageIcon, videoIcon, callIcon)

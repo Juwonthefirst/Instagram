@@ -111,7 +111,7 @@ searchResultDiv.appendChild(resultsDiv)
 const bottomNavBar = document.createElement('div')
 bottomNavBar.className = 'bottom-navbar'
 
-const friendIcon = lucideIcon('user-plus', '')
+const friendIcon = lucideIcon('users', '')
 const messageIcon = lucideIcon('message-circle', 'current')
 const thoughtIcon = iconifyIcon('mingcute:thought-line');
 
