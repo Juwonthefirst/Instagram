@@ -46,40 +46,40 @@ homeDiv.appendChild(homeHeaderDiv)
 
 /**
  * Sub pages
-*/
+ */
 
 // Chat
 const chatDiv = document.createElement('div')
 chatDiv.className = 'chats-main'
 
 const onUserChatsFetchSuccess = (data) => {
-	for (let room of data.results) {
-		const username = (room.is_group) ? room.parent.name : room.parent.username
-		const chatPreviewDiv = chatPreview({ profileImage: '/img/profile.jpg', username, timestamp: room.last_message_time, message: room.last_message.body })
-		chatPreviewDiv.addEventListener('click', () => router.navigateTo(`/chat/${room.parent.name}/`))
-		domManager.createChatPreviewDom(room.name, chatPreviewDiv)
-		chatDiv.appendChild(chatPreviewDiv)
-	}
+    for (let room of data.results) {
+        const username = (room.is_group) ? room.parent.name : room.parent.username
+        const chatPreviewDiv = chatPreview({ profileImage: '/img/profile.jpg', username, timestamp: room.last_message_time, message: room.last_message.body })
+        chatPreviewDiv.addEventListener('click', () => router.navigateTo(`/chat/${room.parent.name}/`))
+        domManager.createChatPreviewDom(room.name, chatPreviewDiv)
+        chatDiv.appendChild(chatPreviewDiv)
+    }
 }
 
 const onUserFriendsFetchSuccess = (data) => {
-	for (const friend of data.results) {
-		const friendDiv = friendPreview(friend)
-		friendDiv.appendChild(friendDiv)
-	}
+    for (const friend of data.results) {
+        const friendDiv = friendPreview(friend)
+        friendDiv.appendChild(friendDiv)
+    }
 }
 
 const showUserChats = async function() {
-	if (Object.keys(domManager.chatPreviewDom).length) {
-		for (const domElement in domManager.chatPreviewDom) {
-			chatDiv.appendChild(domElement)
-		}
-		return 
-	}
-	
-	await server.getUserChat({
-		onSuccess: onUserChatsFetchSuccess
-	})
+    if (Object.keys(domManager.chatPreviewDom).length) {
+        for (const domElement in domManager.chatPreviewDom) {
+            chatDiv.appendChild(domElement)
+        }
+        return
+    }
+    
+    await server.getUserChat({
+        onSuccess: onUserChatsFetchSuccess
+    })
 }
 //showUserChats()
 homeDiv.appendChild(chatDiv)
@@ -91,9 +91,9 @@ friendDiv.className = 'friends-list'
 friendDiv.textContent = 'heeelo friends'
 
 const showUserFriends = async () => {
-	await server.getUserFriends({
-		onSuccess: onUserFriendsFetchSuccess
-	})
+    await server.getUserFriends({
+        onSuccess: onUserFriendsFetchSuccess
+    })
 }
 
 //showUserFriends()
@@ -124,123 +124,147 @@ const thoughtIcon = iconifyIcon('mingcute:thought-line');
 let currentSectionIcon = messageIcon
 
 const updateCurrentSection = (newCurrentIcon, newSection) => {
-	if (searching) {return}
-	currentSectionIcon.classList.toggle('current')
-	currentSectionIcon = newCurrentIcon
-	currentSectionIcon.classList.toggle('current')
-	homeDiv.children[1].replaceWith(newSection)
+    if (searching) { return }
+    currentSectionIcon.classList.toggle('current')
+    currentSectionIcon = newCurrentIcon
+    currentSectionIcon.classList.toggle('current')
+    homeDiv.children[1].replaceWith(newSection)
 }
 
 friendIcon.addEventListener('click', () => {
-	if (currentSectionIcon === friendIcon) { return }
-	updateCurrentSection(friendIcon, friendDiv)
-	
+    if (currentSectionIcon === friendIcon) { return }
+    updateCurrentSection(friendIcon, friendDiv)
+    
 })
 
 messageIcon.addEventListener('click', () => {
-	if (currentSectionIcon === messageIcon) { return }
-	updateCurrentSection(messageIcon, chatDiv)
+    if (currentSectionIcon === messageIcon) { return }
+    updateCurrentSection(messageIcon, chatDiv)
 })
 
 thoughtIcon.addEventListener('click', () => {
-	if (currentSectionIcon === thoughtIcon) { return }
-	updateCurrentSection(thoughtIcon, chatDiv)
+    if (currentSectionIcon === thoughtIcon) { return }
+    updateCurrentSection(thoughtIcon, chatDiv)
 })
 
 bottomNavBar.append(friendIcon, messageIcon, thoughtIcon)
 homeDiv.appendChild(bottomNavBar)
 
 export default function homePage() {
-	return homeDiv
+    return homeDiv
 }
 
 // Page actions
 backIcon.addEventListener('click', (event) => {
-	if (!searchBar.classList.contains('opened')) return
-	event.stopPropagation()
-	searching = false
-	searchBar.classList.remove('opened'); 
-	logoHeader.style.display = 'block'
-	settingsIcon.style.display = 'block'
-	searchResultDiv.replaceWith(currentSubPage)
+    if (!searchBar.classList.contains('opened')) return
+    event.stopPropagation()
+    searching = false
+    searchBar.classList.remove('opened');
+    logoHeader.style.display = 'block'
+    settingsIcon.style.display = 'block'
+    searchResultDiv.replaceWith(currentSubPage)
 })
 
 searchBar.addEventListener('click', () => {
-	if (searchBar.classList.contains('opened')) return
-	searchBar.classList.add('opened'); 
-	logoHeader.style.display = 'none'
-	settingsIcon.style.display = 'none'
-	currentSubPage = homeDiv.children[1]
-	currentSubPage.replaceWith(searchResultDiv)
-	searching = true
+    if (searchBar.classList.contains('opened')) return
+    searchBar.classList.add('opened');
+    logoHeader.style.display = 'none'
+    settingsIcon.style.display = 'none'
+    currentSubPage = homeDiv.children[1]
+    currentSubPage.replaceWith(searchResultDiv)
+    searching = true
 })
 
 searchInput.addEventListener('input', async () => {
-	clearTimeout(searchTimeout)
-	searchTimeout = setTimeout(async () => {
-		const searchKeyWord = searchInput.value.trim()
-		await server.getUserChat({
-			searchKeyWord,
-			onSuccess: (data) => {
-				searchResultDiv.innerHTML = ''
-				
-			}
-		})
-	}, 500)
+    clearTimeout(searchTimeout)
+    searchTimeout = setTimeout(async () => {
+        const searchKeyWord = searchInput.value.trim()
+        if (currentSectionIcon === messageIcon) {
+            await server.getUserChat({
+                searchKeyWord,
+                onSuccess: (data) => {
+                    searchResultDiv.innerHTML = ''
+                    for (let room of data.results) {
+                        const username = (room.is_group) ? room.parent.name : room.parent.username
+                        const chatPreviewDiv = chatPreview({ profileImage: '/img/profile.jpg', username, timestamp: room.last_message_time, message: room.last_message.body })
+                        chatPreviewDiv.addEventListener('click', () => router.navigateTo(`/chat/${room.parent.name}/`))
+                        searchResultDiv.appendChild(chatPreviewDiv)
+                    }
+                }
+            })
+        }
+        
+        else if (currentSectionIcon === friendIcon) {
+            await server.getUserFriends({
+                searchKeyWord,
+                onSuccess: (data) => {
+                    searchResultDiv.innerHTML = ''
+                    for (const friend of data.results) {
+                        const friendDiv = friendPreview(friend)
+                        searchResultDiv.appendChild(friendDiv)
+                    }
+                }
+            })
+        }
+        
+        else if (currentSectionIcon === thoughtIcon) {
+            
+        }
+    }, 500)
 })
 
 chatDiv.addEventListener('scroll', async (event) => {
-	console.log(scrollY)
-	if (scrollY < currentScrollLimit * currentChatPage) { return }
-	
-	currentChatPage++
-	await server.getUserChat({
-		onSuccess: onUserChatsFetchSuccess,
-		pageNumber: currentChatPage
-	})
+    console.log(scrollY)
+    if (scrollY < currentScrollLimit * currentChatPage) { return }
+    
+    currentChatPage++
+    await server.getUserChat({
+        onSuccess: onUserChatsFetchSuccess,
+        pageNumber: currentChatPage
+    })
 })
 
 friendDiv.addEventListener('scroll', async (event) => {
-	console.log(scrollY)
-	if (scrollY < currentScrollLimit * currentFriendPage) { return }
-	
-	currentFriendPage++
-	await server.getUserFriends({
-		onSuccess: onUserFriendsFetchSuccess,
-		pageNumber: currentFriendPage
-	})
+    console.log(scrollY)
+    if (scrollY < currentScrollLimit * currentFriendPage) { return }
+    
+    currentFriendPage++
+    await server.getUserFriends({
+        onSuccess: onUserFriendsFetchSuccess,
+        pageNumber: currentFriendPage
+    })
 })
 
 socket.onPreviewMessage = (data) => {
-	if (data.room in domManager.chatPreviewDom) {
-		domManager.updateChatPreview(data.room, (element) => {
-			element.querySelector('.timestamp').textContent = data.timestamp
-			element.querySelector('.message').textContent = data.message
-		})
-		chatDiv.removeChild(element)
-		chatDiv.children[0].insertBefore(element)
-		
-	}
-	
-	else {
-		const chatPreviewDiv = chatPreview({ profileImage: '/img/profile.jpg', username: data.sender_username, timestamp: data.timestamp, message: data.message })
-		chatDiv.children[0].insertBefore(chatPreviewDiv)
-		domManager.createChatPreviewDom(data.room, chatPreviewDiv)
-	}
+    if (data.room in domManager.chatPreviewDom) {
+        domManager.updateChatPreview(data.room, (element) => {
+            element.querySelector('.timestamp').textContent = data.timestamp
+            element.querySelector('.message').textContent = data.message
+        })
+        chatDiv.removeChild(element)
+        chatDiv.children[0].insertBefore(element)
+        
+    }
+    
+    else {
+        const chatPreviewDiv = chatPreview({ profileImage: '/img/profile.jpg', username: data.sender_username, timestamp: data.timestamp, message: data.message })
+        chatDiv.children[0].insertBefore(chatPreviewDiv)
+        domManager.createChatPreviewDom(data.room, chatPreviewDiv)
+    }
 }
 
 socket.onTyping = () => {
-	if (data.room in domManager.chatPreviewDom) {
-		domManager.updateChatPreview(data.room, (element) => {
-			const messageTag = element.querySelector('.message')
-			const last_message = messageTag.textContent
-			
-			setTimeout(() => {
-				messageTag.textContent = last_message
-			}, 3000)
-		})
-		
-	}
+    if (data.room in domManager.chatPreviewDom) {
+        domManager.updateChatPreview(data.room, (element) => {
+            const messageTag = element.querySelector('.message')
+            const last_message = messageTag.textContent
+            
+            setTimeout(() => {
+                messageTag.textContent = last_message
+            }, 3000)
+        })
+        
+    }
 }
 
 
