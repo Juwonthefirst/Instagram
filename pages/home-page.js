@@ -81,14 +81,15 @@ const showUserChats = async function() {
         onSuccess: onUserChatsFetchSuccess
     })
 }
-//showUserChats()
+showUserChats()
 homeDiv.appendChild(chatDiv)
 
 
 //Friend
 const friendDiv = document.createElement('div')
 friendDiv.className = 'friends-list'
-friendDiv.textContent = 'heeelo friends'
+const addFriendIcon = lucideIcon('user-plus', 'add-friend-btn')
+friendDiv.appendChild(addFriendIcon)
 
 const showUserFriends = async () => {
     await server.getUserFriends({
@@ -96,7 +97,7 @@ const showUserFriends = async () => {
     })
 }
 
-//showUserFriends()
+showUserFriends()
 
 
 //Search
