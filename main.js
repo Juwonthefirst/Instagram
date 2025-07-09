@@ -10,7 +10,7 @@ let loginFailed = false
 
 window.addEventListener('load', async () => {
 	const response = await server.get_csrf()
-	if (response.error) { return await router.navigateTo('login') }
+	if (response.error) { return await router.navigateTo('/login') }
 	else {
 		await server.startAutoRefreshAccessToken(() => {
 			onRefreshError(router)

@@ -1,7 +1,7 @@
 const google_client_id = '333616956580-ehlrhiisjvgupkm594kettrev856vdtu.apps.googleusercontent.com'
 
 const onRefreshError = (router) => {
-        router.navigateTo('login')
+        router.navigateTo('/login')
 }
 const onLoginError = (errorTag, data) => {
     errorTag.style.display = 'flex'
