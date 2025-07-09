@@ -21,11 +21,13 @@ window.addEventListener('load', async () => {
 
 		await server.getUser({
 			onSuccess: (data) => memory.setCurrentUser(data)
+			
 		})
+		console.log(memory.getCurrentUser())
 		
 		socket.connect()
 		socket.listenForNotifications()
-		router.route()
+		await router.route()
 	}
 })
 //history.pushState(null, '', '/#/signup')

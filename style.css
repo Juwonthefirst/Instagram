@@ -616,6 +616,10 @@ form>.submit-btn>iconify-icon {
     box-sizing: border-box;
 }
 
+.home-header > h2{
+    font-family: "Grand Hotel";
+}
+
 .home-header svg {
     height: var(--icon);
     width: var(--icon);

@@ -13,15 +13,24 @@ const routes = {
 class PageRouter {
 	constructor(routes) {
 		this.routes = routes
+		this.blockedRoutes = ['login', 'signup', 'finish-signup']
 		this.protectedRoutes = ['/', 'chat']
 		this.main = document.querySelector('.root')
 	}
 	
 	async route() {
 		let path = location.pathname.split('/')[1] || '/'
-		if (this.protectedRoutes.includes(path) && !memory.getCurrentUser()) {
-			path = 'login'
+		if (this.blockedRoutes.includes(path)) {
+			path = '/'
+			history.pushState(null, 'Beep', '/')
+			
 		}
+		
+		else if (this.protectedRoutes.includes(path) && !memory.getCurrentUser()) {
+			path = 'login'
+			history.pushState(null, 'Login nigga', '/login')
+		}
+		
 		await this.render(path)
 	}
 	
