@@ -8,7 +8,7 @@ let loginFailed = false
 //window.addEventListener('hashchange', router.route)
 //window.addEventListener('load', router.route)
 
-window.addEventListener('load', async () => {
+/*window.addEventListener('load', async () => {
 	const response = await server.get_csrf()
 	if (response.error) { return await router.navigateTo('/login') }
 	else {
@@ -29,5 +29,6 @@ window.addEventListener('load', async () => {
 		socket.listenForNotifications()
 		await router.route()
 	}
-})
+})*/
+router.render('/')
 //history.pushState(null, '', '/#/signup')

@@ -29,5 +29,32 @@ const friendPreview = (friendObject) => {
 	return friendPreviewDiv
 }
 
+const userPreview = function(userObject) {
+	const userPreviewDiv = document.createElement('div')
+	userPreviewDiv.className = 'result'
+	
+	const profilePictureTag = document.createElement('img')
+	profilePictureTag.src = '/img/profile.jpg'
+	profilePictureTag.className = 'profile-picture'
+	userPreviewDiv.appendChild(profilePictureTag)
+	
+	const userDetailsDiv = document.createElement('div')
+	userDetailsDiv.className = 'details'
+	
+	const usernameTag = document.createElement('p')
+	usernameTag.className = 'username'
+	usernameTag.textContent = userObject.username
+	
+	const emailTag = document.createElement('p')
+	emailTag.className = 'email'
+	emailTag.textContent = userObject.email
+	userDetailsDiv.append(usernameTag, emailTag)
+	
+	userPreviewDiv.appendChild(userDetailsDiv)
+	
+	const addFriendIcon = lucideIcon('user-plus', 'add-friend')
+	userPreviewDiv.appendChild(addFriendIcon)
+	return userPreviewDiv
+}
 
-export { friendPreview }
+export { friendPreview, userPreview }

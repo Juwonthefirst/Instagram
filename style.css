@@ -956,6 +956,7 @@ form>.submit-btn>iconify-icon {
     box-sizing: border-box;
     flex-direction: column;
     padding: var(--sm);
+    gap: 24px;
 }
 
 .user-search > .user-search-bar{
@@ -1005,14 +1006,46 @@ form>.submit-btn>iconify-icon {
     color: var(--accent-color);
 
 }
+.user-search > .search-results{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--md);
+    padding: var(--md) 0;
+}
 
 .user-search > .search-results > .result{
     display: flex;
     align-items: center;
     gap: var(--sm);
+    
 }
 
+.search-results > .result > .profile-picture{
+    width: var(--profile);
+    height: var(--profile);
+    border-radius: 50%;
+}
 
+.search-results > .result > .details{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--vsm);
+    padding: var(--sm);
+    
+}
+.search-results > .result > .details > .email{
+    font-size: 12px;
+    opacity: .7;
+    font-weight: 300;
+}
+
+.search-results > .result > .add-friend{
+    padding: var(--sm);
+    margin-left: var(--vlg);
+    color: var(--accent-color);
+}
 
 .bottom-navbar {
     border-top: 1px solid rgba(255, 255, 255, .2);
