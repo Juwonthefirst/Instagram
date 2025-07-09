@@ -20,15 +20,16 @@ class PageRouter {
 	
 	async route() {
 		let path = location.pathname.split('/')[1] || '/'
-		if (this.blockedRoutes.includes(path)) {
+		
+		if (this.protectedRoutes.includes(path) && !memory.getCurrentUser()) {
+			path = 'login'
+			history.pushState(null, 'Login nigga', '/login')
+		}
+		
+		else if (this.blockedRoutes.includes(path)) {
 			path = '/'
 			history.pushState(null, 'Beep', '/')
 			
-		}
-		
-		else if (this.protectedRoutes.includes(path) && !memory.getCurrentUser()) {
-			path = 'login'
-			history.pushState(null, 'Login nigga', '/login')
 		}
 		
 		await this.render(path)
