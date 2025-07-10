@@ -59,9 +59,37 @@ const chatNotification = ({message, sender, timestamp}) => {
 	return chatNotificationDiv
 }
 
+const friendNotification = ({sender, action}) => {
+	const friendNotificationDiv = document.createElement('div')
+	friendNotificationDiv.className = 'chat-notification'
+	
+	const profileImg = document.createElement('img')
+	profileImg.src = '/img/profile.jpg'
+	profileImg.className = 'sender-profile-pic'
+	friendNotificationDiv.appendChild(profileImg)
+	
+	const senderUsername = document.createElement('p')
+	senderUsername.textContent = sender
+	senderUsername.className = 'message-sender'
+	friendNotificationDiv.appendChild(senderUsername)
+	
+	const messageTag = document.createElement('p')
+	messageTag.textContent = message
+	messageTag.className = 'message-body'
+	friendNotificationDiv.appendChild(messageTag)
+	
+	const timestampTag = document.createElement('p')
+	timestampTag.className = 'timestamp'
+	timestampTag.textContent = timestamp
+	friendNotificationDiv.appendChild(timestampTag)
+	
+	return friendNotificationDiv
+}
+
 const notificationMap = {
 	chat: chatNotification,
-	call: callNotification
+	call: callNotification,
+	friend: friendNotification,
 }
 
 const showNotification = (type, options) => {

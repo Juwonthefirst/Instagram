@@ -52,5 +52,6 @@ searchInput.addEventListener('input', () => {
 			}
 		})
 		searchBtn.innerHTML = searchIcon
+		lucideIcon.createIcons()
 	}, 300)
 })
