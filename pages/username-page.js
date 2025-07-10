@@ -33,7 +33,7 @@ usernameInput.addEventListener('input', () => {
 				signupBtn.disabled = false
 			}
 		})
-	}, 1000)
+	}, 300)
 })
 const signupBtn = document.createElement('button')
 signupBtn.type = 'submit'

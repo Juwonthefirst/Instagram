@@ -52,5 +52,5 @@ searchInput.addEventListener('input', () => {
 				lucide.createIcons()
 			}
 		})
-	}, 500)
+	}, 300)
 })

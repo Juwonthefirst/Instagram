@@ -217,7 +217,7 @@ searchInput.addEventListener('input', async () => {
         else if (currentSectionIcon === thoughtIcon) {
             
         }
-    }, 500)
+    }, 300)
 })
 
 chatDiv.addEventListener('scroll', async (event) => {
