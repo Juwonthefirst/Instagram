@@ -48,10 +48,9 @@ searchInput.addEventListener('input', () => {
 					const userPreviewDiv = userPreview(user)
 					searchResultsDiv.appendChild(userPreviewDiv)
 				}
-				lucide.createIcons()
 			}
 		})
 		searchBtn.innerHTML = searchIcon
-		lucideIcon.createIcons()
+		lucide.createIcons()
 	}, 300)
 })
