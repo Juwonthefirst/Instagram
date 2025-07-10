@@ -925,18 +925,19 @@ form>.submit-btn>iconify-icon {
 }
 
 .friends-list>.friend>.profile-picture {
-    width: var(--profile);
-    height: var(--profile);
+    width: var(--vlg);
+    height: var(--vlg);
     border-radius: 50%;
     
 }
+
 .friends-list>.friend>.username {
     padding-right: var(--sm);
 }
 
 .friends-list>.friend>.friend-icons {
     display: flex;
-    gap: var(--sm);
+    gap: var(--vsm);
     justify-content: center;
     align-items: center;
 }
