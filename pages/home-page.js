@@ -64,8 +64,8 @@ const onUserChatsFetchSuccess = (data) => {
 
 const onUserFriendsFetchSuccess = (data) => {
     for (const friend of data.results) {
-        const friendDiv = friendPreview(friend)
-        friendDiv.appendChild(friendDiv)
+        const friendPreviewDiv = friendPreview(friend)
+        friendDiv.appendChild(friendPreviewDiv)
     }
 }
 
@@ -90,6 +90,7 @@ const friendDiv = document.createElement('div')
 friendDiv.className = 'friends-list'
 const addFriendIcon = lucideIcon('user-plus', 'add-friend-btn')
 friendDiv.appendChild(addFriendIcon)
+
 
 const showUserFriends = async () => {
     await server.getUserFriends({
@@ -201,8 +202,8 @@ searchInput.addEventListener('input', async () => {
                 onSuccess: (data) => {
                     searchResultDiv.innerHTML = ''
                     for (const friend of data.results) {
-                        const friendDiv = friendPreview(friend)
-                        searchResultDiv.appendChild(friendDiv)
+                        const friendPreviewDiv = friendPreview(friend)
+                        searchResultDiv.appendChild(friendPreviewDiv)
                     }
                 }
             })
