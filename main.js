@@ -29,4 +29,3 @@ window.addEventListener('load', async () => {
 		await router.route()
 	}
 })
-router.render('/')
