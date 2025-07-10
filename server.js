@@ -245,6 +245,7 @@ class Server {
         const data = await this.#baseFetch({
             path: `auth/user/friend-requests/send/`,
             method: 'POST',
+            auth: true,
             body: {
                 user_ids: [friendId]
             },

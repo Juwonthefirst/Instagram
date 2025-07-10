@@ -54,6 +54,7 @@ const userPreview = function(userObject) {
 	
 	const addFriendBtn = lucideIcon('user-plus', 'add-friend')
 	const addFriendIcon = addFriendBtn.innerHTML
+	
 	addFriendBtn.addEventListener('click', async (event) => {
 		addFriendBtn.disabled = true
 		addFriendBtn.innerHTML = loadingLoopIcon
@@ -65,14 +66,14 @@ const userPreview = function(userObject) {
 				if (data.status === 'ok'){
 					addFriendBtn.replaceWith(lucideIcon('user-check', 'add-friend sent', true))
 				}
-				lucide.createIcons()
+				
 			},
 			onError: () => {
 				addFriendBtn.disabled = false
 				addFriendBtn.innerHTML = addFriendIcon
 			}
 		})
-		
+		lucide.createIcons()
 	})
 	
 	userPreviewDiv.appendChild(addFriendBtn)
