@@ -907,7 +907,7 @@ form>.submit-btn>iconify-icon {
 }
 
 .friends-list {
-    height: calc(100dvh - 108px);
+    height: calc(100dvh - 118px);
     display: flex;
     flex-direction: column;
     overflow-y: auto;
