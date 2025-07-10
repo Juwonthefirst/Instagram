@@ -70,8 +70,9 @@ const userPreview = function(userObject) {
 				addFriendBtn.innerHTML = addFriendIcon
 			}
 		})
+		lucide.createIcons()
 	})
-	lucide.createIcons()
+	
 	userPreviewDiv.appendChild(addFriendBtn)
 	return userPreviewDiv
 }

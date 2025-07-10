@@ -1068,8 +1068,8 @@ form>.submit-btn>iconify-icon {
     flex-direction: column;
     align-items: flex-start;
     gap: var(--vsm);
-    padding: var(--sm);
-    
+    min-width: 200px;
+    max-width: 70%;
 }
 
 .search-results>.result>.details>.email {
