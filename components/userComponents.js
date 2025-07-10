@@ -12,7 +12,7 @@ const friendPreview = (friendObject) => {
 	profilePictureTag.alt = `${friendObject.username} profile picture`
 	friendPreviewDiv.appendChild(profilePictureTag)
 	
-	const usernameTag = document.createElement('h2')
+	const usernameTag = document.createElement('p')
 	usernameTag.textContent = friendObject.username
 	usernameTag.className = 'username'
 	friendPreviewDiv.appendChild(usernameTag)

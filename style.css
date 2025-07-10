@@ -930,7 +930,9 @@ form>.submit-btn>iconify-icon {
     border-radius: 50%;
     
 }
-
+.friends-list>.friend>.username {
+    
+}
 .friends-list>.friend>.friend-icons {
     display: flex;
     gap: var(--sm);
@@ -957,6 +959,7 @@ form>.submit-btn>iconify-icon {
     position: absolute;
     bottom: 5%;
     right: 5%;
+    z-index: 3;
     background: var(--accent-color);
     padding: var(--vsm);
     border-radius: 50%;
