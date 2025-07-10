@@ -911,8 +911,8 @@ form>.submit-btn>iconify-icon {
     display: flex;
     flex-direction: column;
     overflow-y: auto;
-    padding: var(--md);
-    gap: var(--sm);
+    padding: var(--sub);
+    gap: var(--vsm);
     position: relative;
 }
 
