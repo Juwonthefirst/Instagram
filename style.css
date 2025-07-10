@@ -932,7 +932,7 @@ form>.submit-btn>iconify-icon {
 }
 
 .friends-list>.friend>.username {
-    padding-right: var(--sub);
+    margin-right: var(--md);
 }
 
 .friends-list>.friend>.friend-icons {
