@@ -8,8 +8,7 @@ import { showNotification } from '../components/notification.js';
 
 const currentUser = memory.getCurrentUser()
 const urlPath = location.pathname.split('/')
-console.log(urlPath)
-const friend_username = urlPath.at(-1) || urlPath.at(-2)
+const friend_username = urlPath.at(-1) || urlPath.at(-2);
 
 (async () => {
 	if (Object.keys(domManager.chatDom).length) {
