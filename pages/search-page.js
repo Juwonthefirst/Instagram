@@ -20,6 +20,7 @@ backBtn.addEventListener('click', () => {
 const searchInput = document.createElement('input')
 searchInput.placeholder = 'Who are you looking for'
 const searchBtn = lucideIcon('search', 'search-btn')
+const searchIcon = searchBtn.innerHTML
 userSearchBarDiv.append(backBtn, searchInput, searchBtn)
 
 userSearchDiv.appendChild(userSearchBarDiv)
@@ -36,10 +37,9 @@ export default function userSearchPage() {
 //Page actions
 searchInput.addEventListener('input', () => {
 	clearTimeout(searchTimeout)
-	const currentSearchBtn = userSearchBarDiv.children[2]
 	const searchKeyWord = searchInput.value.trim()
 	searchTimeout = setTimeout( async () => {
-		currentSearchBtn.innerHTML = loadingLoopIcon
+		searchBtn.innerHTML = loadingLoopIcon
 		await server.searchUsers({
 			searchKeyWord,
 			onSuccess: (data) => {
@@ -48,7 +48,7 @@ searchInput.addEventListener('input', () => {
 					const userPreviewDiv = userPreview(user)
 					searchResultsDiv.appendChild(userPreviewDiv)
 				}
-				currentSearchBtn.replaceWith(lucideIcon('search', 'search-btn'))
+				searchBtn.innerHTML = searchIcon
 				lucide.createIcons()
 			}
 		})
