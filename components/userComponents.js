@@ -71,6 +71,7 @@ const userPreview = function(userObject) {
 			}
 		})
 	})
+	lucide.createIcons()
 	userPreviewDiv.appendChild(addFriendBtn)
 	return userPreviewDiv
 }
