@@ -240,6 +240,19 @@ class Server {
             onError
         })
     }
+    
+    async sendFriendRequest({friendId, onSuccess, onError}){
+        const data = await this.#baseFetch({
+            path: `auth/user/friend-requests/send/`,
+            method: 'POST',
+            body: {
+                user_ids: [friendId]
+            },
+            onSuccess,
+            onError
+            
+        })
+    }
 }
 
 const server = new Server()

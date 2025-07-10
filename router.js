@@ -22,7 +22,7 @@ class PageRouter {
 	async route() {
 		let path = location.pathname.split('/')[1] || '/'
 		
-		if (this.protectedRoutes.includes(path) && !memory.getCurrentUser()) {
+		/*if (this.protectedRoutes.includes(path) && !memory.getCurrentUser()) {
 			path = 'login'
 			history.pushState(null, 'Login nigga', '/login')
 		}
@@ -31,7 +31,7 @@ class PageRouter {
 			path = '/'
 			history.pushState(null, 'Beep', '/')
 			
-		}
+		}*/
 		
 		await this.render(path)
 	}

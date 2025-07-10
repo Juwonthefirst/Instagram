@@ -4,7 +4,7 @@ import {server} from '../server.js'
 import { router } from '../router.js';
 import { memory } from '../appMemory.js';
 import { google_client_id, onRefreshError, onLoginError, onLoginSuccess } from '../helper.js';
-import { iconifyIcon } from '../components/icon.js';
+import { iconifyIcon, loadingLoopIcon } from '../components/icon.js';
 
 let googleClient
 
@@ -76,7 +76,7 @@ form.addEventListener('submit', async (event) => {
 		data.onError = (data) => onLoginError(errorTag, data);
 		
 		(credentials.includes('@')) ? data.email = credentials : data.username = credentials;
-		loginBtn.firstChild.replaceWith(iconifyIcon('line-md:loading-loop"'))
+		loginBtn.firstChild.replaceWith(loadingLoopIcon)
 		await server.login(data)
 		loginBtn.textContent = 'Log in'
 		loginBtn.disabled = false

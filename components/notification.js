@@ -8,7 +8,7 @@ const callNotification = ({caller, room_name, room_id}) => {
 	const notificationDiv = document.createElement('div')
 	notificationDiv.className = 'call-notification'
 	
-	const profileImgTag = document.querySelector('img')
+	const profileImgTag = document.createElement('img')
 	profileImgTag.src = '/img/profile.jpg'
 	profileImgTag.className = 'caller-profile-pic'
 	notificationDiv.appendChild(profileImgTag)
@@ -27,7 +27,7 @@ const callNotification = ({caller, room_name, room_id}) => {
 		if(!is_video) await room.localParticipant.setCameraEnabled(false)
 	})
 	const denyBtn = lucideIcon('phone', 'call-deny-btn')
-	notificationDiv.append(answerBtn, denyBtn)
+	notificationDiv.append(denyBtn, answerBtn)
 	return notificationDiv
 }
 

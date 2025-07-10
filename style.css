@@ -77,6 +77,10 @@ input {
     width: 100%;
 }
 
+button{
+    all: unset;
+}
+
 input:focus,
 button:focus {
     outline: 0;
@@ -1079,7 +1083,9 @@ form>.submit-btn>iconify-icon {
     margin-left: var(--vlg);
     color: var(--accent-color);
 }
-
+.search-results>.result>.add-friend.sent{
+    color: #38FF54D9;
+}
 .bottom-navbar {
     border-top: 1px solid rgba(255, 255, 255, .2);
     box-sizing: border-box;

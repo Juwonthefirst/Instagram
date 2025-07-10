@@ -1,6 +1,6 @@
-import { lucideIcon } from './icon.js';
+import { lucideIcon, loadingLoopIcon } from './icon.js';
 import { router } from '../router.js';
-
+import { server } from '../server.js';
 
 const friendPreview = (friendObject) => {
 	const friendPreviewDiv = document.createElement('div')
@@ -52,8 +52,26 @@ const userPreview = function(userObject) {
 	
 	userPreviewDiv.appendChild(userDetailsDiv)
 	
-	const addFriendIcon = lucideIcon('user-plus', 'add-friend')
-	userPreviewDiv.appendChild(addFriendIcon)
+	const addFriendBtn = lucideIcon('user-plus', 'add-friend')
+	const addFriendIcon = addFriendBtn.innerHTML
+	addFriendBtn.addEventListener('click', async (event) => {
+		addFriendBtn.disabled = true
+		addFriendBtn.innerHTML = loadingLoopIcon
+		
+		await server.sendFriendRequest({
+			friendId: userObject.id,
+			onSuccess: (data) => {
+				if (data.status === 'ok'){
+					addFriendBtn.replaceWith(lucideIcon('user-check', 'add-friend sent'))
+				}
+			},
+			onError: () => {
+				addFriendBtn.disabled = false
+				addFriendBtn.innerHTML = addFriendIcon
+			}
+		})
+	})
+	userPreviewDiv.appendChild(addFriendBtn)
 	return userPreviewDiv
 }
 
