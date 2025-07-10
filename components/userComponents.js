@@ -69,7 +69,6 @@ const userPreview = function(userObject) {
 		await server.sendFriendRequest({
 			friendId: userObject.id,
 			onSuccess: (data) => {
-				alert(data.status)
 				if (data.status === 'ok') {
 					const friendIcon = (userObject.is_following_me)? lucideIcon( 'users', 'add-friend', true) : lucideIcon( 'user-check', 'add-friend sent', true)
 					addFriendBtn.replaceWith(friendIcon)
