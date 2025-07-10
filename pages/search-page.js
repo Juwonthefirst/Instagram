@@ -1,4 +1,4 @@
-import { lucideIcon } from '../components/icon.js';
+import { lucideIcon, loadingLoopIcon } from '../components/icon.js';
 import { router } from '../router.js';
 import { server } from '../server.js';
 import { userPreview } from '../components/userComponents.js';
@@ -14,6 +14,7 @@ userSearchBarDiv.className = 'user-search-bar'
 const backBtn = lucideIcon('arrow-left', 'back-btn')
 backBtn.addEventListener('click', () => {
 	const previousRoute = localStorage.getItem('previousRoute') || '/'
+	localStorage.removeItem('previousRoute')
 	router.navigateTo(previousRoute)
 })
 const searchInput = document.createElement('input')
@@ -37,6 +38,7 @@ searchInput.addEventListener('input', () => {
 	clearTimeout(searchTimeout)
 	const searchKeyWord = searchInput.value.trim()
 	searchTimeout = setTimeout( async () => {
+		searchBtn.innerHTML = loadingLoopIcon
 		await server.searchUsers({
 			searchKeyWord,
 			onSuccess: (data) => {
@@ -45,6 +47,7 @@ searchInput.addEventListener('input', () => {
 					const userPreviewDiv = userPreview(user)
 					searchResultsDiv.appendChild(userPreviewDiv)
 				}
+				searchBtn.replaceWith(lucideIcon('search', 'search-btn'))
 				lucide.createIcons()
 			}
 		})

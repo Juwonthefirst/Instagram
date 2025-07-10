@@ -195,6 +195,7 @@ searchInput.addEventListener('input', async () => {
                         chatPreviewDiv.addEventListener('click', () => router.navigateTo(`/chat/${room.parent.name}/`))
                         searchResultDiv.appendChild(chatPreviewDiv)
                     }
+                    lucide.createIcons()
                 }
             })
         }
@@ -208,6 +209,7 @@ searchInput.addEventListener('input', async () => {
                         const friendPreviewDiv = friendPreview(friend)
                         searchResultDiv.appendChild(friendPreviewDiv)
                     }
+                    lucide.createIcons()
                 }
             })
         }
