@@ -940,6 +940,7 @@ form>.submit-btn>iconify-icon {
     gap: var(--vsm);
     justify-content: center;
     align-items: center;
+    align-self: flex-end;
 }
 
 .friends-list>.friend>.friend-icons svg {
