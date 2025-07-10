@@ -45,8 +45,8 @@ class PageRouter {
 	
 	async navigateTo(url) {
 		const path = url.split('/')[1] || '/'
-		history.pushState(null, '', url)
 		await this.render(path)
+		history.pushState(null, '', url)
 	}
 	
 	get currentRoute(){

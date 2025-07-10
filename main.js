@@ -23,7 +23,6 @@ window.addEventListener('load', async () => {
 			onSuccess: (data) => memory.setCurrentUser(data)
 			
 		})
-		console.log(memory.getCurrentUser())
 		
 		socket.connect()
 		socket.listenForNotifications()
