@@ -1,8 +1,9 @@
 import { lucideIcon } from '../components/icon.js';
 import { router } from '../router.js';
 import { server } from '../server.js';
-let searchTimeout
+import { userPreview } from '../components/userComponents.js';
 
+let searchTimeout
 
 const userSearchDiv = document.createElement('div')
 userSearchDiv.className = 'user-search'
@@ -17,13 +18,6 @@ backBtn.addEventListener('click', () => {
 })
 const searchInput = document.createElement('input')
 searchInput.placeholder = 'Who are you looking for'
-searchInput.addEventListener('input', () => {
-	clearTimeout(searchTimeout)
-	const searchKeyWord = searchInput.value.trim()
-	searchTimeout = setTimeout( async () => {
-		await server
-	}, 1000)
-})
 const searchBtn = lucideIcon('search', 'search-btn')
 userSearchBarDiv.append(backBtn, searchInput, searchBtn)
 
@@ -37,3 +31,21 @@ userSearchDiv.appendChild(searchResultsDiv)
 export default function userSearchPage() {
 	return userSearchDiv
 }
+
+//Page actions
+searchInput.addEventListener('input', () => {
+	clearTimeout(searchTimeout)
+	const searchKeyWord = searchInput.value.trim()
+	searchTimeout = setTimeout( async () => {
+		await server.searchUsers({
+			searchKeyWord,
+			onSuccess: (data) => {
+				searchResultsDiv.innerHTML = ''
+				for (const user of data.results) {
+					const userPreviewDiv = userPreview(user)
+					searchResultsDiv.appendChild(userPreviewDiv)
+				}
+			}
+		})
+	}, 1000)
+})

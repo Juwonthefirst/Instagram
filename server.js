@@ -231,6 +231,15 @@ class Server {
             onError
         })
     }
+    
+    async searchUsers({onSuccess, onError, searchKeyWord}){
+        const data = await this.#baseFetch({
+            path: `users/?search=${searchKeyWord}`,
+            auth: true,
+            onSuccess,
+            onError
+        })
+    }
 }
 
 const server = new Server()
