@@ -911,8 +911,8 @@ form>.submit-btn>iconify-icon {
     display: flex;
     flex-direction: column;
     overflow-y: auto;
-    /*padding: var(--md);*/
-    gap: var(--md);
+    padding: var(--md);
+    gap: var(--sm);
     position: relative;
 }
 
@@ -931,8 +931,9 @@ form>.submit-btn>iconify-icon {
     
 }
 .friends-list>.friend>.username {
-    
+    padding-right: var(--sm);
 }
+
 .friends-list>.friend>.friend-icons {
     display: flex;
     gap: var(--sm);
