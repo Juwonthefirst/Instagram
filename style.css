@@ -911,9 +911,9 @@ form>.submit-btn>iconify-icon {
     display: flex;
     flex-direction: column;
     overflow-y: auto;
-    padding: var(--md);
+    /*padding: var(--md);*/
     gap: var(--md);
-    /*position: relative;*/
+    position: relative;
 }
 
 .friends-list>.friend {
