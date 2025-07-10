@@ -657,7 +657,7 @@ form>.submit-btn>iconify-icon {
     padding: var(--sm);
     background: var(--light-main);
     border-radius: var(--md);
-    border: 1px solid black;
+    border: .5px solid black;
     justify-content: flex-end;
     width: 100%;
 }
@@ -1002,7 +1002,7 @@ form>.submit-btn>iconify-icon {
     background-color: var(--light-main);
     width: 95%;
     border-radius: var(--md);
-    border: 1px solid black;
+    border: .5px solid black;
 }
 
 .user-search>.user-search-bar:focus-within {
