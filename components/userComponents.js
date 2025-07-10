@@ -62,15 +62,16 @@ const userPreview = function(userObject) {
 			friendId: userObject.id,
 			onSuccess: (data) => {
 				if (data.status === 'ok'){
-					addFriendBtn.replaceWith(lucideIcon('user-check', 'add-friend sent'))
+					addFriendBtn.replaceWith(lucideIcon('user-check', 'add-friend sent', true))
 				}
+				lucide.createIcons()
 			},
 			onError: () => {
 				addFriendBtn.disabled = false
 				addFriendBtn.innerHTML = addFriendIcon
 			}
 		})
-		lucide.createIcons()
+		
 	})
 	
 	userPreviewDiv.appendChild(addFriendBtn)

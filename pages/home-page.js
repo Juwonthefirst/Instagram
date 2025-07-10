@@ -84,7 +84,6 @@ const showUserChats = async function() {
 showUserChats()
 homeDiv.appendChild(chatDiv)
 
-
 //Friend
 const friendDiv = document.createElement('div')
 friendDiv.className = 'friends-list'
