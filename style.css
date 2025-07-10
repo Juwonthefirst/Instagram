@@ -933,7 +933,7 @@ form>.submit-btn>iconify-icon {
 
 .friends-list>.friend>.friend-icons {
     display: flex;
-    gap: var(--sub);
+    gap: var(--sm);
     justify-content: center;
     align-items: center;
 }
