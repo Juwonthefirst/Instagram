@@ -61,6 +61,7 @@ const userPreview = function(userObject) {
 		await server.sendFriendRequest({
 			friendId: userObject.id,
 			onSuccess: (data) => {
+				alert(data.status)
 				if (data.status === 'ok'){
 					addFriendBtn.replaceWith(lucideIcon('user-check', 'add-friend sent', true))
 				}
