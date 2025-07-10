@@ -35,7 +35,7 @@ const searchInput = document.createElement('input')
 searchInput.className = 'search-input'
 searchInput.placeholder = 'What are you looking for'
 searchBar.appendChild(searchInput)
-const searchIcon = lucideIcon('search', 'search-btn')
+const searchIcon = lucideIcon('search', 'search-btn', true)
 searchBar.appendChild(searchIcon)
 const logoHeader = document.createElement('h2')
 logoHeader.textContent = 'Beep'

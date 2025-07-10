@@ -19,7 +19,7 @@ backBtn.addEventListener('click', () => {
 })
 const searchInput = document.createElement('input')
 searchInput.placeholder = 'Who are you looking for'
-const searchBtn = lucideIcon('search', 'search-btn')
+const searchBtn = lucideIcon('search', 'search-btn', true)
 const searchIcon = searchBtn.innerHTML
 userSearchBarDiv.append(backBtn, searchInput, searchBtn)
 
