@@ -1080,7 +1080,6 @@ form>.submit-btn>iconify-icon {
 
 .search-results>.result>.add-friend {
     padding: var(--sm);
-    margin-left: var(--vlg);
     color: var(--accent-color);
 }
 .search-results>.result>.add-friend.sent{
