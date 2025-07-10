@@ -36,9 +36,10 @@ export default function userSearchPage() {
 //Page actions
 searchInput.addEventListener('input', () => {
 	clearTimeout(searchTimeout)
+	const currentSearchBtn = userSearchBarDiv.children[2]
 	const searchKeyWord = searchInput.value.trim()
 	searchTimeout = setTimeout( async () => {
-		searchBtn.innerHTML = loadingLoopIcon
+		currentSearchBtn.innerHTML = loadingLoopIcon
 		await server.searchUsers({
 			searchKeyWord,
 			onSuccess: (data) => {
@@ -47,7 +48,7 @@ searchInput.addEventListener('input', () => {
 					const userPreviewDiv = userPreview(user)
 					searchResultsDiv.appendChild(userPreviewDiv)
 				}
-				searchBtn.replaceWith(lucideIcon('search', 'search-btn'))
+				currentSearchBtn.replaceWith(lucideIcon('search', 'search-btn'))
 				lucide.createIcons()
 			}
 		})
