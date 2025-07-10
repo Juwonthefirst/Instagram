@@ -20,9 +20,8 @@ const friendPreview = (friendObject) => {
 	const friendIconDiv = document.createElement('div')
 	friendIconDiv.className = 'friend-icons'
 	const messageIcon = lucideIcon('message-circle', '')
-	messageIcon.addEventListener('click', () => { 
-		router.navigateTo(`/chat/${friendObject.username}/`) 
-		alert('messsageIcon clicked')
+	messageIcon.addEventListener('click', async () => { 
+		await router.navigateTo(`/chat/${friendObject.username}/`) 
 	})
 	const videoIcon = lucideIcon('video')
 	const callIcon = lucideIcon('phone')
