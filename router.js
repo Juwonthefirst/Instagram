@@ -5,7 +5,8 @@ const routes = {
 	'signup': () => import('/pages/signup-page.js'),
 	'finish-signup': () => import('/pages/username-page.js'),
 	'verify-email': () => import('/pages/verify-email.js'),
-	'chat': () => import('/pages/chat-page.js')
+	'chat': () => import('/pages/chat-page.js'),
+	'search': () => import('/pages/search-page.js'),
 }
 
 
@@ -14,7 +15,7 @@ class PageRouter {
 	constructor(routes) {
 		this.routes = routes
 		this.blockedRoutes = ['login', 'signup', 'finish-signup']
-		this.protectedRoutes = ['/', 'chat']
+		this.protectedRoutes = ['/', 'chat', 'search']
 		this.main = document.querySelector('.root')
 	}
 	
@@ -46,6 +47,10 @@ class PageRouter {
 		const path = url.split('/')[1] || '/'
 		history.pushState(null, '', url)
 		await this.render(path)
+	}
+	
+	get currentRoute(){
+		return location.pathname
 	}
 }
 

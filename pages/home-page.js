@@ -88,8 +88,15 @@ homeDiv.appendChild(chatDiv)
 //Friend
 const friendDiv = document.createElement('div')
 friendDiv.className = 'friends-list'
-const addFriendIcon = lucideIcon('user-plus', 'add-friend-btn')
+const addFriendIcon = lucideIcon('user-plus', 'add-friend-btn new-desig')
+addFriendIcon.addEventListener('click', () => {
+    const previousRoute = router.currentRoute
+    localStorage.setItem('previousRoute', previousRoute)
+    router.navigateTo('/search')
+})
+
 friendDiv.appendChild(addFriendIcon)
+
 
 
 const showUserFriends = async () => {
@@ -104,10 +111,8 @@ showUserFriends()
 //Search
 const searchResultDiv = document.createElement('div')
 searchResultDiv.className = 'search-results'
-
 const resultsDiv = document.createElement('div')
 resultsDiv.className = 'results'
-resultsDiv.textContent = 'searching'
 searchResultDiv.appendChild(resultsDiv)
 
 const bottomNavBar = document.createElement('div')
@@ -117,12 +122,8 @@ const friendIcon = lucideIcon('users', '')
 const messageIcon = lucideIcon('message-circle', 'current')
 const thoughtIcon = iconifyIcon('mingcute:thought-line');
 
-/*const currentSectionIconMap = {
-	chat: messageIcon,
-	friend: friendIcon,
-	memory: thoughtIcon,
-}*/
 
+//Bottom navbar
 let currentSectionIcon = messageIcon
 
 const updateCurrentSection = (newCurrentIcon, newSection) => {
@@ -131,6 +132,7 @@ const updateCurrentSection = (newCurrentIcon, newSection) => {
     currentSectionIcon = newCurrentIcon
     currentSectionIcon.classList.toggle('current')
     homeDiv.children[1].replaceWith(newSection)
+    lucide.createIcons()
 }
 
 friendIcon.addEventListener('click', () => {
@@ -152,6 +154,7 @@ thoughtIcon.addEventListener('click', () => {
 bottomNavBar.append(friendIcon, messageIcon, thoughtIcon)
 homeDiv.appendChild(bottomNavBar)
 
+//Export function
 export default function homePage() {
     return homeDiv
 }

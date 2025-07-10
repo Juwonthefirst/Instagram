@@ -616,7 +616,7 @@ form>.submit-btn>iconify-icon {
     box-sizing: border-box;
 }
 
-.home-header > h2{
+.home-header>h2 {
     font-family: "Grand Hotel";
     letter-spacing: .3px;
     font-weight: 400;
@@ -630,7 +630,7 @@ form>.submit-btn>iconify-icon {
 }
 
 
-.home-header > .search-bar{
+.home-header>.search-bar {
     display: flex;
     align-items: center;
     height: 48px;
@@ -638,38 +638,40 @@ form>.submit-btn>iconify-icon {
     gap: var(--sm);
 }
 
-.home-header > .search-bar > .back-btn,
-.home-header > .search-bar > .search-input{
+.home-header>.search-bar>.back-btn,
+.home-header>.search-bar>.search-input {
     display: none;
 }
 
-.home-header > .search-bar svg{
+.home-header>.search-bar svg {
     width: var(--icon);
     height: var(--icon);
     padding: var(--sm);
 }
 
-.home-header > .search-bar.opened {
+.home-header>.search-bar.opened {
     padding: var(--sm);
     background: var(--light-main);
     border-radius: var(--md);
+    border: 1px solid black;
     justify-content: flex-end;
     width: 100%;
 }
 
-.home-header > .search-bar.opened:focus-within{
+.home-header>.search-bar.opened:focus-within {
     border-color: var(--accent-color);
     box-shadow: 0 0 var(--vsm) var(--accent-color);
+    
 }
 
-.home-header > .search-bar.opened > .back-btn,
-.home-header > .search-bar.opened > .search-input{
+.home-header>.search-bar.opened>.back-btn,
+.home-header>.search-bar.opened>.search-input {
     display: block;
     caret-color: var(--link-color);
 }
 
 
-.home-header > .search-bar.opened > .search-btn{
+.home-header>.search-bar.opened>.search-btn {
     background: black;
     display: flex;
     justify-content: center;
@@ -677,7 +679,7 @@ form>.submit-btn>iconify-icon {
     margin: -4px 0;
     border-radius: 50%;
     color: var(--accent-color);
-
+    
 }
 
 .chats-main {
@@ -756,7 +758,7 @@ form>.submit-btn>iconify-icon {
     box-sizing: border-box;
 }
 
-.message-header>.icons{
+.message-header>.icons {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -769,7 +771,7 @@ form>.submit-btn>iconify-icon {
     padding: var(--sm);
 }
 
-.message-header > .icons > .phone-icon{
+.message-header>.icons>.phone-icon {
     height: 22px;
     width: 22px;
 }
@@ -792,7 +794,7 @@ form>.submit-btn>iconify-icon {
     font-size: var(--sub);
 }
 
-.status.online{
+.status.online {
     color: var(--accent-color);
 }
 
@@ -804,11 +806,11 @@ form>.submit-btn>iconify-icon {
 
 .message-main {
     /*background: var(--main-colour);*/
-	/*background-color: #0b1a2a;
+    /*background-color: #0b1a2a;
 	background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='40' height='40'><rect width='100%' height='100%' fill='none'/><circle cx='10' cy='10' r='2' fill='%23fff'/><circle cx='30' cy='10' r='2' fill='%23fff'/><circle cx='10' cy='30' r='2' fill='%23fff'/><circle cx='30' cy='30' r='2' fill='%23fff'/><path d='M0 20 H40 M20 0 V40' stroke='%23fff' stroke-width='1'/></svg>");
 	background-size: 40px 40px;*/
-
-
+    
+    
     max-height: calc(100dvh - 116px);
     position: relative;
     padding: var(--sub);
@@ -826,15 +828,15 @@ form>.submit-btn>iconify-icon {
     text-align: left;
 }
 
-.message-main>.chat-bubble *:first-child{
+.message-main>.chat-bubble *:first-child {
     padding-bottom: var(--vsm);
 }
 
-.message-main > .chat-bubble > .timestamp{
+.message-main>.chat-bubble>.timestamp {
     font-size: 10px;
 }
 
-.message-main > .chat-bubble.sender > .timestamp{
+.message-main>.chat-bubble.sender>.timestamp {
     text-align: right;
 }
 
@@ -900,16 +902,17 @@ form>.submit-btn>iconify-icon {
     caret-color: var(--link-color);
 }
 
-.friends-list{
+.friends-list {
     height: calc(100dvh - 108px);
     display: flex;
     flex-direction: column;
     overflow-y: auto;
     padding: var(--md);
     gap: var(--md);
+    position: relative;
 }
 
-.friends-list > .friend{
+.friends-list>.friend {
     gap: var(--icon);
     display: flex;
     align-items: center;
@@ -917,38 +920,66 @@ form>.submit-btn>iconify-icon {
     border-width: .5px 0;
 }
 
-.friends-list > .friend > .profile-picture{
+.friends-list>.friend>.profile-picture {
     width: var(--profile);
     height: var(--profile);
     border-radius: 50%;
-
+    
 }
 
-.friends-list > .friend > .friend-icons{
+.friends-list>.friend>.friend-icons {
     display: flex;
     gap: var(--sub);
     justify-content: center;
     align-items: center;
 }
 
-.friends-list > .friend > .friend-icons svg{
-    /*background-color: var(--accent-color);*/
+.friends-list>.friend>.friend-icons svg {
     padding: var(--vsm);
     margin-left: var(--sm);
     color: var(--accent-color);
     border-radius: var(--sm);
 }
 
-.friends-list > .friend > .friend-icons svg[data-lucide="video"]{
+.friends-list>.friend>.friend-icons svg[data-lucide="video"] {
     width: 30px;
     height: 30px;
 }
 
-.search-results{
+.friends-list>.add-friend-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    bottom: 5%;
+    right: 5%;
+    background: var(--accent-color);
+    padding: var(--vsm);
+    border-radius: 50%;
+    color: black;
+}
+
+.friends-list>.add-friend-btn svg {
+    width: var(--icon);
+    height: var(--icon);
+    padding: var(--sm);
+    fill: black;
+}
+
+.friends-list > .add-friend-btn.new-design{
+    background-color: rgba(70, 100, 219, 0.4);
+}
+
+.friends-list > .add-friend-btn.new-design svg{
+    color: var(--link-color);
+    fill: var(--link-color);
+}
+
+.search-results {
     height: calc(100dvh - 108px);
 }
 
-.user-search{
+.user-search {
     flex: 1;
     height: 100dvh;
     display: flex;
@@ -959,7 +990,7 @@ form>.submit-btn>iconify-icon {
     gap: 24px;
 }
 
-.user-search > .user-search-bar{
+.user-search>.user-search-bar {
     display: flex;
     align-items: center;
     gap: var(--sm);
@@ -970,33 +1001,33 @@ form>.submit-btn>iconify-icon {
     border: 1px solid black;
 }
 
-.user-search > .user-search-bar:focus-within{
+.user-search>.user-search-bar:focus-within {
     border-color: var(--accent-color);
     box-shadow: 0 0 var(--vsm) var(--accent-color);
-
+    
 }
 
-.user-search > .user-search-bar > input{
+.user-search>.user-search-bar>input {
     caret-color: var(--accent-color);
 }
 
-.user-search > .user-search-bar .back-btn{
+.user-search>.user-search-bar .back-btn {
     margin-bottom: -2px;
     
 }
 
-.user-search > .user-search-bar .back-btn svg{
+.user-search>.user-search-bar .back-btn svg {
     padding-right: 0;
 }
 
 
-.user-search > .user-search-bar svg{
+.user-search>.user-search-bar svg {
     width: var(--icon);
     height: var(--icon);
     padding: 6px;
 }
 
-.user-search > .user-search-bar > .search-btn{
+.user-search>.user-search-bar>.search-btn {
     background: black;
     display: flex;
     justify-content: center;
@@ -1004,9 +1035,10 @@ form>.submit-btn>iconify-icon {
     margin: -4px 0;
     border-radius: 50%;
     color: var(--accent-color);
-
+    
 }
-.user-search > .search-results{
+
+.user-search>.search-results {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -1014,20 +1046,20 @@ form>.submit-btn>iconify-icon {
     padding: var(--md) 0;
 }
 
-.user-search > .search-results > .result{
+.user-search>.search-results>.result {
     display: flex;
     align-items: center;
     gap: var(--sm);
     
 }
 
-.search-results > .result > .profile-picture{
+.search-results>.result>.profile-picture {
     width: var(--profile);
     height: var(--profile);
     border-radius: 50%;
 }
 
-.search-results > .result > .details{
+.search-results>.result>.details {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -1035,13 +1067,14 @@ form>.submit-btn>iconify-icon {
     padding: var(--sm);
     
 }
-.search-results > .result > .details > .email{
+
+.search-results>.result>.details>.email {
     font-size: 12px;
     opacity: .7;
     font-weight: 300;
 }
 
-.search-results > .result > .add-friend{
+.search-results>.result>.add-friend {
     padding: var(--sm);
     margin-left: var(--vlg);
     color: var(--accent-color);
@@ -1083,7 +1116,7 @@ form>.submit-btn>iconify-icon {
     }
 }
 
-.call-notification{
+.call-notification {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -1100,19 +1133,19 @@ form>.submit-btn>iconify-icon {
     animation: 0.5s dropDown 0s;
 }
 
-.call-notification > .caller-profile-pic{
+.call-notification>.caller-profile-pic {
     width: var(--profile);
     height: var(--profile);
     border-radius: 50%;
 }
 
-.call-notification > .caller{
+.call-notification>.caller {
     font-size: 20px;
     font-weight: 600;
     letter-spacing: .3px;
 }
 
-.call-notification > .call-answer-btn{
+.call-notification>.call-answer-btn {
     border-radius: 50%;
     background-color: #38FF54D9;
     width: 42px;
@@ -1122,7 +1155,7 @@ form>.submit-btn>iconify-icon {
     align-items: center;
 }
 
-.call-notification > .call-deny-btn{
+.call-notification>.call-deny-btn {
     border-radius: 50%;
     background-color: #FF3838;
     width: 42px;
@@ -1133,12 +1166,12 @@ form>.submit-btn>iconify-icon {
     transform: rotateZ(135deg);
 }
 
-.call-notification svg{
+.call-notification svg {
     fill: white;
     stroke-width: 1px;
 }
 
-.chat-notification{
+.chat-notification {
     display: grid;
     grid-template-columns: auto;
     grid-template-rows: auto;
@@ -1158,18 +1191,18 @@ form>.submit-btn>iconify-icon {
     animation: 0.5s dropDown 0s;
 }
 
-.chat-notification > .sender-profile-pic{
+.chat-notification>.sender-profile-pic {
     width: var(--lg);
     height: var(--lg);
     border-radius: 50%;
 }
 
-.chat-notification > .message-sender{
+.chat-notification>.message-sender {
     font-size: 18px;
     font-weight: 600;
 }
 
-.chat-notification > .message-body{
+.chat-notification>.message-body {
     grid-row-start: 2;
     grid-column: span 4;
     padding: 0 var(--sm);
@@ -1179,19 +1212,19 @@ form>.submit-btn>iconify-icon {
     line-height: 20px;
 }
 
-.chat-notification > .timestamp{
+.chat-notification>.timestamp {
     color: var(--link-color);
     grid-column-end: 5;
     font-size: var(--sub);
 }
 
-@keyframes dropDown{
-    from{
+@keyframes dropDown {
+    from {
         opacity: 0;
         transform: translateY(-100px);
     }
     
-    to{
+    to {
         opacity: 1;
         transform: translateY(0px);
     }
