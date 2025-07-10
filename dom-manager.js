@@ -15,6 +15,14 @@ class DomManager{
 		this.chatDom[key] = domElementList
 	}
 	
+	getChatPreviewDom(key){
+		return this.chatPreviewDom[key]
+	}
+	
+	getChatDom(key){
+		return this.chatDom[key]
+	}
+	
 	updateChatPreview(domKey, callback){
 		const domElement = this.chatPreviewDom[domKey]
 		callback(domElement)

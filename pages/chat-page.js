@@ -10,6 +10,31 @@ const currentUser = memory.getCurrentUser()
 const urlPath = location.pathname.split('/')
 const friend_username = urlPath.at(-1) || urlPath.at(-2)
 
+(async () => {
+	if (Object.keys(domManager.chatDom).length) {
+		const chatDomElements = domManager.getChatDom(friend_username)
+		return messageMainDiv.append(...chatDomElements)
+	}
+	const room = await server.getRoomAndMessage({
+		friend_username,
+		onSuccess: (data) => {
+			const chatBubbleElements = []
+			memory.currentRoom = data.name
+			usernameTag.textContent = (data.is_group) ? data.parent.name : data.parent.username
+			const messages = data.messages
+			for (const message of messages) {
+				const isSender = message.sender_id === currentUser.id
+				const chatBubbleDiv = chatBubble(isSender, message.body, message.timestamp)
+				chatBubbleElements.push(chatBubbleDiv)
+				messageMainDiv.appendChild(chatBubbleDiv)
+			}
+			
+			domManager.createChatDom(friend_username, chatBubbleElements)
+		}
+		
+	})
+})()
+
 const messagesDiv = document.createElement('div')
 messagesDiv.className = 'chat-message'
 
@@ -25,7 +50,7 @@ chatDetailsDiv.className = 'chat-details'
 const chatPictureTag = document.createElement('img')
 chatPictureTag.src = '/img/profile.jpg'
 chatPictureTag.className = 'chat-picture'
-chatPictureTag.alt = `${username} profile`
+chatPictureTag.alt = `${friend_username} profile`
 chatDetailsDiv.appendChild(chatPictureTag)
 
 const nameAndStatusDiv = document.createElement('div')
@@ -96,24 +121,6 @@ messageInput.addEventListener('input', () => {
 export default function chatPage() {
 	return messagesDiv
 }
-
-(async () => {
-	const room = await server.getRoomAndMessage({
-		friend_username,
-		onSuccess: (data) => {
-			memory.currentRoom = data.name
-			usernameTag.textContent = (data.is_group) ? data.parent.name : data.parent.username
-			const messages = data.messages
-			for (const message of messages) {
-				const isSender = message.sender_id === currentUser.id
-				const chatBubbleDiv = chatBubble(isSender, message.body, message.timestamp)
-				messageMainDiv.appendChild(chatBubbleDiv)
-				domManager.createChatDom(message.id, chatBubbleDiv)
-			}
-		}
-		
-	})
-})()
 
 socket.onRoomMessage = (data) => {
 	if (data.sender_username !== currentUser.username) {
