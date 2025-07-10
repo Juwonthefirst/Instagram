@@ -20,7 +20,7 @@ const friendPreview = (friendObject) => {
 	const friendIconDiv = document.createElement('div')
 	friendIconDiv.className = 'friend-icons'
 	const messageIcon = lucideIcon('message-circle')
-	messageIcon.addEventListener('click', () => { router.navigateTo(`/chat/${friendObject.username}/`)})
+	messageIcon.addEventListener('click', () => { router.navigateTo(`/chat/${friendObject.username}/`) })
 	const videoIcon = lucideIcon('video')
 	const callIcon = lucideIcon('phone')
 	friendIconDiv.append(messageIcon, videoIcon, callIcon)
@@ -52,7 +52,14 @@ const userPreview = function(userObject) {
 	
 	userPreviewDiv.appendChild(userDetailsDiv)
 	
-	const addFriendBtn = lucideIcon('user-plus', 'add-friend')
+	if (userObject.is_followed_by_me) {
+		const friendIcon = (userObject.is_following_me)? lucideIcon('users', 'add-friend', true) : lucideIcon('user-check', 'add-friend sent', true)
+		userPreviewDiv.appendChild(friendIcon)
+		return userPreviewDiv
+	}
+	
+	const iconName = (userObject.is_following_me)? 'mail' : 'user-plus'
+	const addFriendBtn = lucideIcon(iconName, 'add-friend')
 	const addFriendIcon = addFriendBtn.innerHTML
 	
 	addFriendBtn.addEventListener('click', async (event) => {
@@ -63,8 +70,9 @@ const userPreview = function(userObject) {
 			friendId: userObject.id,
 			onSuccess: (data) => {
 				alert(data.status)
-				if (data.status === 'ok'){
-					addFriendBtn.replaceWith(lucideIcon('user-check', 'add-friend sent', true))
+				if (data.status === 'ok') {
+					const friendIcon = (userObject.is_following_me)? lucideIcon( 'users', 'add-friend', true) : lucideIcon( 'user-check', 'add-friend sent', true)
+					addFriendBtn.replaceWith(friendIcon)
 				}
 				
 			},
@@ -77,6 +85,7 @@ const userPreview = function(userObject) {
 	})
 	
 	userPreviewDiv.appendChild(addFriendBtn)
+	
 	return userPreviewDiv
 }
 
