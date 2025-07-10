@@ -913,7 +913,7 @@ form>.submit-btn>iconify-icon {
     overflow-y: auto;
     padding: var(--md);
     gap: var(--md);
-    position: relative;
+    /*position: relative;*/
 }
 
 .friends-list>.friend {
