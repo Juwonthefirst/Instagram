@@ -884,7 +884,7 @@ form>.submit-btn>iconify-icon {
     min-height: 22px;
     min-width: 22px;
     border-radius: 50%;
-    padding: var(--sm);
+    padding: var(--vsm);
     background-color: var(--main-colour);
     color: var(--link-color);
     margin: -4px 0;
