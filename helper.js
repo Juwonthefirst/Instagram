@@ -1,15 +1,15 @@
 const google_client_id = '333616956580-ehlrhiisjvgupkm594kettrev856vdtu.apps.googleusercontent.com'
 
 const onRefreshError = (router) => {
-        router.navigateTo('/login')
+    router.navigateTo('/login')
 }
 const onLoginError = (errorTag, data) => {
-    error = data.error
+    const error = data.error
     errorTag.style.display = 'flex'
     errorTag.textContent = error.error || error.non_field_errors[0]
 }
 
-const onLoginSuccess = ( data, router, server, memory ) => {
+const onLoginSuccess = (data, router, server, memory) => {
     server.get_csrf()
     server.startAutoRefreshAccessToken((response) => onRefreshError(response, router))
     memory.setCurrentUser(data.user)
@@ -21,7 +21,7 @@ const onLoginSuccess = ( data, router, server, memory ) => {
 
 
 
-const onFree = ( inputField ) => {
+const onFree = (inputField) => {
     inputField.style.borderColor = 'green'
 }
 
