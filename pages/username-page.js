@@ -52,6 +52,7 @@ form.addEventListener('submit', async (event) => {
 			onSuccess: (data) => {
 				memory.setCurrentUser(data.user)
 				router.navigateTo('/')
+				localStorage.removeItem('new_user')
 			}
 		})
 	}

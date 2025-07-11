@@ -6,7 +6,23 @@ import { memory } from '../appMemory.js';
 import { google_client_id, onRefreshError, onLoginError, onLoginSuccess } from '../helper.js';
 import { iconifyIcon, loadingLoopIcon } from '../components/icon.js';
 
-let googleClient
+let googleClient;
+(() => {
+	googleClient = google.accounts.oauth2.initCodeClient({
+		client_id: google_client_id,
+		scope: 'email profile openid',
+		redirect_uri: 'postmessage',
+		ux_mode: 'popup',
+		code_challenge_method: 'S256',
+		callback: async (code) => {
+			await server.googleLoginByCode({
+				googleTokenObject: code,
+				onError: (data) => onLoginError(errorTag, data),
+				onSuccess: (data) => onLoginSuccess( data, router, server, memory )
+			})
+		}
+	})
+})();
 
 const loginDiv = document.createElement('div')
 loginDiv.className = 'login'
@@ -86,22 +102,7 @@ form.addEventListener('submit', async (event) => {
 })
 form.addEventListener('input', () => loginBtn.disabled = !form.checkValidity());
 
-(() => {
-	googleClient = google.accounts.oauth2.initCodeClient({
-		client_id: google_client_id,
-		scope: 'email profile openid',
-		redirect_uri: 'postmessage',
-		ux_mode: 'popup',
-		code_challenge_method: 'S256',
-		callback: async (code) => {
-			await server.googleLoginByCode({
-				googleTokenObject: code,
-				onError: (data) => onLoginError(errorTag, data),
-				onSuccess: (data) => onLoginSuccess( data, router, server, memory )
-			})
-		}
-	})
-})();
+
 
 export default function login() {
 	return loginDiv

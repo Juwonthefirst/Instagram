@@ -18,7 +18,10 @@ let pageScrollLimit = 54 + (70 * 15)
 
 
 //Page render
-
+if (localStorage.getItem('new_user')) {
+    return router.render('finish-signup')
+    
+}
 const homeDiv = document.createElement('div')
 homeDiv.className = 'home'
 

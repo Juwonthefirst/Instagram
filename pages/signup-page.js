@@ -56,12 +56,10 @@ signupDiv.appendChild(header)
 
 const form = document.createElement('form')
 form.noValidate = true
-const usernameField = inputField('text', 'username-field', 'Enter a username')
 const emailField = inputField('email', 'email-field', 'Enter your email address')
 const passField = passwordField('pass-field', 'Enter a password')
 const confirmPassField = passwordField('confirm-pass-field', 'Confirm the password')
 
-const usernameInput = usernameField.firstChild
 const emailInput = emailField.firstElementChild
 const passInput = passField.firstElementChild
 const confirmPassInput = confirmPassField.firstElementChild
@@ -73,12 +71,11 @@ signupBtn.textContent = 'Next'
 signupBtn.disabled = true
 
 
-form.append(usernameField, emailField, passField, confirmPassField, signupBtn)
+form.append(emailField, passField, confirmPassField, signupBtn)
 signupDiv.appendChild(form)
 
 
 const formValidator = new FormValidator([emailField, passField, confirmPassField], signupBtn)
-formValidator.errors.patternMismatch = 'Your username should only have letters and numbers'
 formValidator.addCustomErrorHandler(confirmPassInput, () => {
 	const isValid = confirmPassInput.value.trim() === passInput.value.trim()
 	const errorMessage = 'This field should be the same as your password'
@@ -86,7 +83,7 @@ formValidator.addCustomErrorHandler(confirmPassInput, () => {
 })
 
 const onSignupSuccess = () => {
-	router.render('/verify-email');
+	router.navigateTo('/verify-email');
 	localStorage.setItem('pending_verified_mail', emailInput.value)
 }
 
@@ -116,7 +113,7 @@ form.addEventListener('submit', async (event) => {
 	
 		const email = emailInput.value.trim()
 		const password = passInput.value.trim()
-		const username = '!!!' + email.replace('@gmail.com', String(Math.random() * 1000))
+		const username = email.replace('@gmail.com', String(Math.random() * 10000))
 		
 		signupBtn.firstChild.replaceWith(iconifyIcon('line-md:loading-loop'))
 		await server.signup({
