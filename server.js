@@ -296,6 +296,7 @@ class Socket {
         
         this.#chatsocket.onmessage = (event) => {
             const data = event.data
+            alert(data)
             if (data.typing && this.onTyping) {
                 this.onTyping()
             }
