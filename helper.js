@@ -4,8 +4,9 @@ const onRefreshError = (router) => {
         router.navigateTo('/login')
 }
 const onLoginError = (errorTag, data) => {
+    error = data.error
     errorTag.style.display = 'flex'
-    errorTag.textContent = data.error || data.non_field_errors[0]
+    errorTag.textContent = error.error || error.non_field_errors[0]
 }
 
 const onLoginSuccess = ( data, router, server, memory ) => {
