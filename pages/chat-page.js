@@ -100,8 +100,6 @@ sendBtn.addEventListener('click', () => {
 	const temporary_id = crypto.randomUUID()
 	
 	socket.send({
-		sender_id: currentUser.id,
-		sender_username: currentUser.username,
 		message,
 		action: 'chat',
 		room: memory.currentRoom,
