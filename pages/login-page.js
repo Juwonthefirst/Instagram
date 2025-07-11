@@ -45,6 +45,7 @@ loginBtn.type = 'submit'
 loginBtn.className = 'submit-btn'
 loginBtn.textContent = 'Log in'
 loginBtn.disabled = true
+const loginBtnIcon = loginBtn.firstElementChild
 form.appendChild(loginBtn)
 
 const errorTag = document.createElement('p')
@@ -72,11 +73,13 @@ form.addEventListener('submit', async (event) => {
 			onLoginSuccess( data, router, server, memory)
 			credentialsField.firstElementChild.value = ''
 			passField.firstElementChild.value = ''
+			loginBtn.innerHTML = ''
+			loginBtn.appendChild(loginBtnIcon)
 		};
 		data.onError = (data) => onLoginError(errorTag, data);
 		
 		(credentials.includes('@')) ? data.email = credentials : data.username = credentials;
-		loginBtn.firstChild.replaceWith(loadingLoopIcon)
+		loginBtn.innerHTML = loadingLoopIcon
 		await server.login(data)
 		loginBtn.textContent = 'Log in'
 		loginBtn.disabled = false
