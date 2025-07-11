@@ -30,6 +30,7 @@ const passwordField = function (id, title){
 	label.for = id
 	label.textContent = title
 	let icon = lucideIcon('eye-closed', 'password-icon')
+	icon.type = 'button'
 	icon.style.visibility = 'hidden'
 	icon.addEventListener('click', () => {
 		if(icon.firstElementChild.dataset.lucide === 'eye'){
