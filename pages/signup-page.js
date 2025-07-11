@@ -1,4 +1,4 @@
-import { lucideIcon, iconifyIcon } from '../components/icon.js';
+import { lucideIcon, iconifyIcon, loadingLoopIcon } from '../components/icon.js';
 import { inputField, passwordField } from '../components/Inputs.js';
 import { googleButton } from '../components/buttons.js';
 import { basicPopUp } from '../components/popup.js';
@@ -115,7 +115,7 @@ form.addEventListener('submit', async (event) => {
 		const password = passInput.value.trim()
 		const username = email.replace('@gmail.com', String(Math.random() * 10000))
 		
-		signupBtn.firstChild.replaceWith(iconifyIcon('line-md:loading-loop'))
+		signupBtn.innerHTML
 		await server.signup({
 			username,
 			email,
