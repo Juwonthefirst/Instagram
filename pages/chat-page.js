@@ -98,7 +98,7 @@ const cameraIcon = lucideIcon('camera', 'camera')
 const messageInput = document.createElement('input')
 messageInput.type = 'text'
 messageInput.name = 'chat-message'
-messageInput.placeholder = 'Send them that text'
+messageInput.placeholder = 'Beep them'
 messageBoxDiv.append(cameraIcon, messageInput)
 messageInputDiv.appendChild(messageBoxDiv)
 const sendBtn = lucideIcon('mic', 'send-btn')
