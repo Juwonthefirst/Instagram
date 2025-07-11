@@ -113,7 +113,7 @@ sendBtn.addEventListener('click', () => {
 	
 	const newMessageBubbleDiv = chatBubble(true, message, 'pending', temporary_id)
 	domManager.updateChatDom(memory.currentRoom, (domElementsList) => {
-		domElementsList.push(newMessageBubbleDiv)
+		domElementsList.push?.(newMessageBubbleDiv)
 	})
 	messageMainDiv.appendChild(newMessageBubbleDiv)
 	messageInput.value = ''
