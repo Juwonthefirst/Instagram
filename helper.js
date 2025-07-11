@@ -5,7 +5,7 @@ const onRefreshError = (router) => {
 }
 const onLoginError = (errorTag, data) => {
     errorTag.style.display = 'flex'
-    errorTag.textContent = data.error || data.non_field_errors
+    errorTag.textContent = data.error || data.non_field_errors[0]
 }
 
 const onLoginSuccess = ( data, router, server, memory ) => {
