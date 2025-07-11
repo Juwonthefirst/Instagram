@@ -110,7 +110,6 @@ const onSignupError = (data) => {
 form.addEventListener('submit', async (event) => {
 	event.preventDefault()
 	if (formValidator.validate()) {
-	
 		const email = emailInput.value.trim()
 		const password = passInput.value.trim()
 		const username = email.replace('@gmail.com', String(Math.random() * 10000))
