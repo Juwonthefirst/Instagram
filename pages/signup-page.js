@@ -108,6 +108,7 @@ const onSignupError = (data) => {
 }
 
 form.addEventListener('submit', async (event) => {
+	console.log('help')
 	event.preventDefault()
 	if (formValidator.validate()) {
 		const email = emailInput.value.trim()
