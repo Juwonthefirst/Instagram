@@ -10,7 +10,7 @@ const currentUser = memory.getCurrentUser()
 const urlPath = location.pathname.split('/')
 const friend_username = urlPath.at(-1) || urlPath.at(-2);
 
-memory.currentRoom = 'chat_4_5'
+memory.currentRoom = 'chat_4_5';
 (async () => {
 	if (Object.keys(domManager.chatDom).length) {
 		const chatDomElements = domManager.getChatDom(friend_username)
