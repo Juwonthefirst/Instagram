@@ -49,7 +49,7 @@ const chatDetailsDiv = document.createElement('div')
 chatDetailsDiv.className = 'chat-details'
 
 const chatPictureTag = document.createElement('img')
-chatPictureTag.src = './img/profile.jpg'
+chatPictureTag.src = '/img/profile.jpg'
 chatPictureTag.className = 'chat-picture'
 chatPictureTag.alt = `${friend_username} profile`
 chatDetailsDiv.appendChild(chatPictureTag)
