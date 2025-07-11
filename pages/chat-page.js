@@ -97,17 +97,22 @@ const sendBtn = lucideIcon('mic', 'send-btn')
 sendBtn.addEventListener('click', () => {
 	const message = messageInput.value.trim()
 	if (!message) { return }
-		socket.send({
-			sender_id: currentUser.id,
-			sender_username: currentUser.username,
-			message,
-			action: 'chat',
-			room: memory.currentRoom
-		})
-		
-		const newMessageDiv = chatBubble(true, message, 'pending')
-		messageMainDiv.appendChild(newMessageDiv)
+	const temporary_id = crypto.randomUUID()
+	
+	socket.send({
+		sender_id: currentUser.id,
+		sender_username: currentUser.username,
+		message,
+		action: 'chat',
+		room: memory.currentRoom,
+		temporary_id
+	})
+	
+	const newMessageBubbleDiv = chatBubble(true, message, 'pending', temporary_id)
+	domManager.getChatDom(friend_username).push(newMessageBubbleDiv)
+	messageMainDiv.appendChild(newMessageBubbleDiv)
 })
+
 messageInputDiv.appendChild(sendBtn)
 messageMainDiv.appendChild(messageInputDiv)
 messagesDiv.appendChild(messageMainDiv)
@@ -128,7 +133,7 @@ socket.onRoomMessage = (data) => {
 		messageMainDiv.appendChild(chatBubbleDiv)
 	}
 	else {
-		
+		messageMainDiv.querySelector(`div[data-temporary_id = ${data.temporary_id}] > .timestamp`).textContent = data.timestamp
 	}
 }
 

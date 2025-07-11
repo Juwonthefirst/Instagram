@@ -32,17 +32,17 @@ const chatPreview = function({ profileImage, username, timestamp, message }) {
 	return chatPreviewDiv
 }
 
-const chatBubble = function (isSender, message, timestamp) {
+const chatBubble = function (isSender, message, timestamp, temporary_id) {
 	const messageDiv = document.createElement('div')
-	messageDiv.classList.add('chat-bubble')
-	messageDiv.classList.add(
-		(isSender)? 'sender' : 'receiver'
-	)
-	const messageTag = document.querySelector('p')
+	const chatBubbleClassName = (isSender)? 'sender' : 'receiver'
+	messageDiv.classList.add('chat-bubble', chatBubbleClassName)
+	messageDiv.dataset.temporary_id = temporary_id
+	
+	const messageTag = document.createElement('p')
 	messageTag.textContent = message 
 	messageDiv.appendChild(messageTag)
 	
-	const timestampTag = document.querySelector('p')
+	const timestampTag = document.createElement('p')
 	timestampTag.className = 'timestamp'
 	timestampTag.textContent = timestamp
 	messageDiv.appendChild(timestampTag)
