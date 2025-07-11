@@ -4,7 +4,7 @@ import { memory } from '../appMemory.js';
 import { chatBubble } from '../components/chat.js';
 import domManager from '../dom-manager.js';
 import { showNotification } from '../components/notification.js';
-
+import { router } from '../router.js';
 
 const currentUser = memory.getCurrentUser()
 const urlPath = location.pathname.split('/')
@@ -33,7 +33,7 @@ const friend_username = urlPath.at(-1) || urlPath.at(-2);
 		}
 		
 	})
-})()
+})();
 
 const messagesDiv = document.createElement('div')
 messagesDiv.className = 'chat-message'
@@ -41,8 +41,9 @@ messagesDiv.className = 'chat-message'
 const messageHeader = document.createElement('div')
 messageHeader.className = 'message-header'
 
-const icon = lucideIcon('arrow-left')
-messageHeader.appendChild(icon)
+const backBtn = lucideIcon('arrow-left')
+backBtn.addEventListener('click', () => {router.navigateTo('/')})
+messageHeader.appendChild(backBtn)
 
 const chatDetailsDiv = document.createElement('div')
 chatDetailsDiv.className = 'chat-details'
@@ -66,7 +67,7 @@ statusTag.textContent = ''
 
 nameAndStatusDiv.append(usernameTag, statusTag)
 chatDetailsDiv.appendChild(nameAndStatusDiv)
-
+messageHeader.appendChild(chatDetailsDiv)
 
 const iconDiv = document.createElement('div')
 iconDiv.className = 'icons'
