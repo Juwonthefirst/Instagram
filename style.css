@@ -875,14 +875,14 @@ form>.submit-btn>iconify-icon {
     align-items: center;
     background-color: black;
     border-radius: var(--sub);
-    padding: 8px;
+    padding: 4px;
     gap: var(--sm);
     background: var(--light-main);
 }
 
 .message-main>.input-area>.input-box svg {
-    min-height: var(--icon);
-    min-width: var(--icon);
+    min-height: 22px;
+    min-width: 22px;
     border-radius: 50%;
     padding: var(--sm);
     background-color: var(--main-colour);
