@@ -96,7 +96,6 @@ messageInputDiv.appendChild(messageBoxDiv)
 const sendBtn = lucideIcon('mic', 'send-btn')
 sendBtn.addEventListener('click', () => {
 	const message = messageInput.value.trim()
-	alert(message)
 	if (!message) { return }
 	const temporary_id = crypto.randomUUID()
 	

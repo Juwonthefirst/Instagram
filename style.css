@@ -766,7 +766,7 @@ form>.submit-btn>iconify-icon {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: var(--sub);
+    gap: var(--sm);
 }
 
 .message-header>.icons svg {
@@ -775,7 +775,7 @@ form>.submit-btn>iconify-icon {
     padding: var(--sm);
 }
 
-.message-header>.icons>.phone-icon {
+.message-header>.icons>.phone-icon svg{
     height: 22px;
     width: 22px;
 }
