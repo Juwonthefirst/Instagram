@@ -241,13 +241,14 @@ class Server {
         })
     }
     
-    async sendFriendRequest({friendId, onSuccess, onError}){
+    async sendFriendRequest({friendId, action, onSuccess, onError}){
         const data = await this.#baseFetch({
             path: `auth/user/friend-requests/send/`,
             method: 'POST',
             auth: true,
             body: {
-                user_ids: [friendId]
+                friend_id: friendId,
+                action,
             },
             onSuccess,
             onError
@@ -371,7 +372,7 @@ class Socket {
     }
     
     
-    send(...body){
+    send(body){
         this.#chatsocket.send(JSON.stringify(body))
     }
     

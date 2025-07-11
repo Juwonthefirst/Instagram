@@ -1,6 +1,7 @@
 import { lucideIcon, loadingLoopIcon } from './icon.js';
 import { router } from '../router.js';
 import { server } from '../server.js';
+import domManager from '../dom-manager.js';
 
 const friendPreview = (friendObject) => {
 	const friendPreviewDiv = document.createElement('div')
@@ -20,8 +21,8 @@ const friendPreview = (friendObject) => {
 	const friendIconDiv = document.createElement('div')
 	friendIconDiv.className = 'friend-icons'
 	const messageIcon = lucideIcon('message-circle', '')
-	messageIcon.addEventListener('click', async () => { 
-		await router.navigateTo(`/chat/${friendObject.username}/`) 
+	messageIcon.addEventListener('click', async () => {
+		await router.navigateTo(`/chat/${friendObject.username}/`)
 	})
 	const videoIcon = lucideIcon('video')
 	const callIcon = lucideIcon('phone')
@@ -55,24 +56,30 @@ const userPreview = function(userObject) {
 	userPreviewDiv.appendChild(userDetailsDiv)
 	
 	if (userObject.is_followed_by_me) {
-		const friendIcon = (userObject.is_following_me)? lucideIcon('users', 'add-friend', true) : lucideIcon('user-check', 'add-friend sent', true)
+		const friendIcon = (userObject.is_following_me) ? lucideIcon('users', 'add-friend', true) : lucideIcon('user-check', 'add-friend sent', true)
 		userPreviewDiv.appendChild(friendIcon)
 		return userPreviewDiv
 	}
 	
-	const iconName = (userObject.is_following_me)? 'mail' : 'user-plus'
+	const iconName = (userObject.is_following_me) ? 'mail' : 'user-plus'
 	const addFriendBtn = lucideIcon(iconName, 'add-friend')
 	const addFriendIcon = addFriendBtn.innerHTML
+	let action = 'send'
+	let friendIcon = lucideIcon('user-check', 'add-friend sent', true)
+	
 	
 	addFriendBtn.addEventListener('click', async (event) => {
 		addFriendBtn.disabled = true
 		addFriendBtn.innerHTML = loadingLoopIcon
-		
+		if (userObject.is_following_me) {
+			action = 'accept'
+			friendIcon = lucideIcon('users', 'add-friend', true)
+		}
 		await server.sendFriendRequest({
 			friendId: userObject.id,
+			action,
 			onSuccess: (data) => {
 				if (data.status === 'ok') {
-					const friendIcon = (userObject.is_following_me)? lucideIcon( 'users', 'add-friend', true) : lucideIcon( 'user-check', 'add-friend sent', true)
 					addFriendBtn.replaceWith(friendIcon)
 				}
 				

@@ -1,10 +1,18 @@
 import { socket } from './server.js';
 import { chatBubble, chatPreview } from './components/chat.js';
+import { friendPreview } from './components/userComponents.js';
 
 class DomManager{
 	constructor(){
 		this.chatPreviewDom = {}
 		this.chatDom = {}
+		this.friendListDom = null
+		this.fr
+	}
+	
+	addToFriendListDom(friendObject){
+		const friendPreviewDiv = friendPreview(friendObject)
+		this.friendListDom.insertBefore(friendPreviewDiv, friendListDom.children[0])
 	}
 	
 	createChatPreviewDom(key, domElement){
