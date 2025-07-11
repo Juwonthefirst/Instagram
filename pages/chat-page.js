@@ -30,6 +30,10 @@ const friend_username = urlPath.at(-1) || urlPath.at(-2);
 			}
 			
 			domManager.createChatDom(friend_username, chatBubbleElements)
+			socket.send({
+				action: 'group_join',
+				room_name: data.name
+			})
 		}
 		
 	})
@@ -108,7 +112,9 @@ sendBtn.addEventListener('click', () => {
 	})
 	
 	const newMessageBubbleDiv = chatBubble(true, message, 'pending', temporary_id)
-	domManager.getChatDom(friend_username).push(newMessageBubbleDiv)
+	domManager.updateChatDom(memory.currentRoom, (domElementsList) => {
+		domElementsList.push(newMessageBubbleDiv)
+	})
 	messageMainDiv.appendChild(newMessageBubbleDiv)
 	messageInput.value = ''
 })

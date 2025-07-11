@@ -31,12 +31,12 @@ class DomManager{
 		return this.chatDom[key]
 	}
 	
-	updateChatPreview(domKey, callback){
+	updateChatPreviewDom(domKey, callback){
 		const domElement = this.chatPreviewDom[domKey]
 		callback(domElement)
 	}
 	
-	updateChat(domKey, callback){
+	updateChatDom(domKey, callback){
 		const domElement = this.chatDom[domKey]
 		callback(domElement)
 	}
