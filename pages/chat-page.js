@@ -96,6 +96,7 @@ messageInputDiv.appendChild(messageBoxDiv)
 const sendBtn = lucideIcon('mic', 'send-btn')
 sendBtn.addEventListener('click', () => {
 	const message = messageInput.value.trim()
+	alert(message)
 	if (!message) { return }
 	const temporary_id = crypto.randomUUID()
 	
@@ -120,8 +121,11 @@ messagesDiv.appendChild(messageMainDiv)
 messageInput.addEventListener('input', () => {
 	if (messageInput.value.trim()) {
 		sendBtn.children[0].dataset.lucide = 'send'
-		lucide.createIcons()
 	}
+	else {
+		sendBtn.children[0].dataset.lucide = 'mic'
+	}
+	lucide.createIcons()
 })
 
 export default function chatPage() {
