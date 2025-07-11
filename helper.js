@@ -31,7 +31,11 @@ class FormValidator {
         this.inputs = this.inputFields.map((inputField) => inputField.firstElementChild)
         this.button = button
         this.customErrorHandlers = new Map()
-        this.errors = {
+    }
+    
+    
+    getErrorMessage(input) {
+        const errors = {
             valueMissing: 'This field can\'t be empty',
             typeMismatch: `Input a valid ${input.type}`,
             patternMismatch: 'This does not match the set format',
@@ -39,28 +43,16 @@ class FormValidator {
             rangeUnderflow: `Your input can not be less than ${input.min}`,
             stepMismatch: 'invalid number'
         }
-    }
-    
-    
-    getErrorMessage(input) {
         
         
-        for (let error in this.errors) {
+        for (let error in errors) {
             if (input.validity[error]) {
-                return this.errors[error]
+                return errors[error]
             }
         }
         return ''
     }
     
-    /*mustBeEqual(errorMessage, ...inputs){
-        for(let input of inputs){
-            this.(input, () => {
-                const isValid = inputs.every((input) => input.value === inputs[0].value)
-                return { isValid, errorMessage }
-            })
-        }
-    }*/
     
     getCustomErrorMessage(input) {
         const callback = this.customErrorHandlers.get(input)
