@@ -10,6 +10,7 @@ const currentUser = memory.getCurrentUser()
 const urlPath = location.pathname.split('/')
 const friend_username = urlPath.at(-1) || urlPath.at(-2);
 
+memory.currentRoom = 'chat_4_5'
 (async () => {
 	if (Object.keys(domManager.chatDom).length) {
 		const chatDomElements = domManager.getChatDom(friend_username)
@@ -113,7 +114,7 @@ sendBtn.addEventListener('click', () => {
 	
 	const newMessageBubbleDiv = chatBubble(true, message, 'pending', temporary_id)
 	domManager.updateChatDom(memory.currentRoom, (domElementsList) => {
-		domElementsList.push?.(newMessageBubbleDiv)
+		domElementsList?.push(newMessageBubbleDiv)
 	})
 	messageMainDiv.appendChild(newMessageBubbleDiv)
 	messageInput.value = ''
