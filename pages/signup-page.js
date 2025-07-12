@@ -68,7 +68,6 @@ const signupBtn = document.createElement('button')
 signupBtn.type = 'submit'
 signupBtn.className = 'submit-btn'
 signupBtn.textContent = 'Next'
-signupBtn.disabled = true
 
 
 form.append(emailField, passField, confirmPassField, signupBtn)
