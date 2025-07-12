@@ -22,7 +22,8 @@ const refreshAccessTokenErrorHandler = async (response, initial) => {
             socket.chatsocket.close()
             socket.notificationSocket.close()
             this.stopAutoRefreshAccessToken()
-            await router.navigateTo('/login')
+            memory.deleteCurrentUser()
+            location.pathname = '/login'
         })
         error_popup.showModal()
     }
