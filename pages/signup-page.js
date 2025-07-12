@@ -107,13 +107,11 @@ const onSignupError = (data) => {
 }
 
 form.addEventListener('submit', async (event) => {
-	console.log('help')
 	event.preventDefault()
 	if (formValidator.validate()) {
 		const email = emailInput.value.trim()
 		const password = passInput.value.trim()
-		const username = email.replace('@gmail.com', String(Math.random() * 10000))
-		alert(username)
+		const username = email.replace('@gmail.com', String(Math.round(Math.random() * 10000)))
 		
 		signupBtn.innerHTML = loadingLoopIcon
 		await server.signup({

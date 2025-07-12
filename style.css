@@ -512,7 +512,7 @@ form>.submit-btn>iconify-icon {
 .signup .social-login-box {
     border-top: 1px solid rgba(255, 255, 255, .2);
     padding: var(--md) 0;
-    width: 80%;
+    display: flex;
 }
 
 .signup .social-login-box .social-login {
@@ -521,6 +521,7 @@ form>.submit-btn>iconify-icon {
 
 .signup .input-error {
     display: none;
+    width: 80%;
     color: red;
     margin: calc(var(--sub) * -1) 0 0;
     font-size: var(--sub);
