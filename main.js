@@ -3,19 +3,16 @@ import { server, socket } from './server.js';
 import { onRefreshError } from './helper.js';
 import { memory } from './appMemory.js';
 
-let loginFailed = false
+
 window.addEventListener('popstate', router.route)
 
 window.addEventListener('load', async () => {
 	const response = await server.get_csrf()
 	if (response.error) { return await router.navigateTo('/login') }
 	else {
-		await server.startAutoRefreshAccessToken((response) => {
-			onRefreshError(response, router)
-			loginFailed = true
-		})
+		await server.startAutoRefreshAccessToken()
 		
-		if (loginFailed) return
+		if (!server.getAccessToken()) return
 		
 		await server.getUser({
 			onSuccess: (data) => memory.setCurrentUser(data)

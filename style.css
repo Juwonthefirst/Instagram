@@ -296,7 +296,7 @@ button:focus {
     align-items: center;
     justify-content: center;
     padding: var(--lg);
-    padding-top: var(--md);
+    padding-top: var(--sm);
     max-width: 400px;
 }
 
@@ -426,13 +426,12 @@ form>.submit-btn {
     font-weight: 600;
     padding: var(--sm);
     border-radius: var(--sm);
-    border: 0;
     background: var(--accent-color);
     color: white;
     cursor: pointer;
     text-align: center;
     box-sizing: border-box;
-    height: var(--icon);
+    height: var(--lg);
 }
 
 .login>form>.submit-btn:disabled {
@@ -533,21 +532,22 @@ form>.submit-btn>iconify-icon {
 }
 
 .basic-popup {
+    display: flex;
+    flex-direction: column;
     padding: 0;
     color: inherit;
     font: inherit;
     font-weight: 400;
-    width: 60%;
+    width: 65%;
     border-radius: var(--sub);
     /*border: 2px solid white;*/
     font-size: var(--sub);
-    background: #262829;
+    background: var(--light-main);
     border: 0;
 }
 
 .basic-popup .main-text {
-    font-size: var(--md);
-    padding: var(--lg) var(--md)
+    padding: var(--sub) var(--sm)
 }
 
 .basic-popup button {
@@ -556,7 +556,6 @@ form>.submit-btn>iconify-icon {
     background: inherit;
     color: var(--accent-color);
     padding: var(--sm);
-    width: 100%;
     outline: 0;
     font-size: var(--md);
 }
@@ -564,10 +563,6 @@ form>.submit-btn>iconify-icon {
 .basic-popup button:hover {
     background: var(--accent-color);
     color: white;
-}
-
-.basic-popup.error {
-    border: 1px solid red;
 }
 
 .verify-email {

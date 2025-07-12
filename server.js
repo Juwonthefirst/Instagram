@@ -1,6 +1,6 @@
 import { memory } from './appMemory.js';
 import { showNotification } from './components/notification.js';
-
+import {} from '../components/popup.js';
 const access_token_lifetime = 60 * 30 * 1000
 const backendUrl = 'https://beep-me-api.onrender.com/api/'
 
@@ -9,6 +9,9 @@ class Server {
     constructor() {
         this.access_token = null
         this.csrf_token = null
+        this.maxRetry = 3
+        this.retryTimeout = 3000
+        this.retryCount = 1
     }
     
     async #baseFetch({ path, method = 'GET', auth = false, cred = false, body = null, onError = null, onSuccess = null }) {
@@ -36,17 +39,30 @@ class Server {
         }
     }
     
-    async startAutoRefreshAccessToken(onError) {
+    async startAutoRefreshAccessToken() {
         const response = await this.tokenRefresh()
-        if (response === 'no refresh') return onError()
+        if ((response.status >= 500 && response.status < 600 || response.status === 429) && this.retryCount <= this.maxRetry) {
+            await new Promise((resolve, reject) => {
+                setTimeout(async () => {
+                    this.retryCount++
+                    resolve(await this.startAutoRefreshAccessToken())
+                }, this.retryTimeout * this.retryCount)
+            })
+        }
+        
+        else if (400 <= response.status && response.status < 500 && !initial) {
+            
+        }
         
         
-        let refreshIntervalKey = setInterval(async () => {
-            const response = await this.tokenRefresh()
-            if (response === 'no refresh') {
-                clearInterval(refreshIntervalKey)
-                onError()
-            }
+        const refreshIntervalKey = setInterval(async () => {
+            const response = await this.tokenRefresh({
+                onError: (response) => {
+                    clearInterval(refreshIntervalKey)
+                    onError(response)
+                }
+            })
+            
         }, access_token_lifetime)
         
     }
@@ -218,7 +234,7 @@ class Server {
         
     }
     
-    async getUserFriends({onSuccess, onError, pageNumber = 1, searchKeyWord = ''}){
+    async getUserFriends({ onSuccess, onError, pageNumber = 1, searchKeyWord = '' }) {
         const data = await this.#baseFetch({
             path: `auth/user/friends/?page=${pageNumber}&search=${searchKeyWord}`,
             auth: true,
@@ -227,7 +243,7 @@ class Server {
         })
     }
     
-    async getUser({onSuccess, onError}){
+    async getUser({ onSuccess, onError }) {
         const data = await this.#baseFetch({
             path: 'auth/user/',
             auth: true,
@@ -236,7 +252,7 @@ class Server {
         })
     }
     
-    async searchUsers({onSuccess, onError, searchKeyWord}){
+    async searchUsers({ onSuccess, onError, searchKeyWord }) {
         const data = await this.#baseFetch({
             path: `users/?search=${searchKeyWord}`,
             auth: true,
@@ -245,7 +261,7 @@ class Server {
         })
     }
     
-    async sendFriendRequest({friendId, action, onSuccess, onError}){
+    async sendFriendRequest({ friendId, action, onSuccess, onError }) {
         const data = await this.#baseFetch({
             path: `auth/user/friend-requests/send/`,
             method: 'POST',
@@ -300,7 +316,6 @@ class Socket {
         
         this.#chatsocket.onmessage = (event) => {
             const data = event.data
-            alert(data)
             if (data.typing && this.onTyping) {
                 this.onTyping()
             }
@@ -310,10 +325,10 @@ class Socket {
             
             else if (memory.currentRoom && memory.currentRoom !== data.room) {
                 showNotification('chat', {
-                        message: data.message,
-                        sender: data.sender_username,
-                        timestamp: data.timestamp
-                    })
+                    message: data.message,
+                    sender: data.sender_username,
+                    timestamp: data.timestamp
+                })
             }
             if (this.onPreviewMessage) this.onPreviewMessage(data)
         }
@@ -323,7 +338,6 @@ class Socket {
     connectNotificationSocket() {
         this.#notificationSocket = new WebSocket(`wss://beep-me-api.onrender.com/ws/notification/?token=${server.getAccessToken()}`)
         this.#notificationSocket.onclose = (event) => {
-            console.log('connection')
             if (!(event.code === 1000 || event.code === 1001) && this.notificationRetryCount < this.maxRetry) {
                 this.notificationRetryCount++
                 console.warn('Notification socket closed retrying connection')
@@ -370,14 +384,14 @@ class Socket {
                 case 'friend_notification':
                     showNotification
                     break;
-                
+                    
             }
             
         }
     }
     
     
-    send(body){
+    send(body) {
         this.#chatsocket.send(JSON.stringify(body))
     }
     
