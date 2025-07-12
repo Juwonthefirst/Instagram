@@ -116,5 +116,26 @@ class FormValidator {
     }
 }
 
+const getTimePassed = (date) => {
+    const date = new Date(date)
+    const now = new Date()
+    const secondsPassed = date - now
+    return convertSecondToString(secondsPassed)
+}
 
-export { google_client_id, onRefreshError, onLoginError, onLoginSuccess, FormValidator }
+const convertSecondToString = (seconds) => {
+    if (3600 * 24 <= seconds < 3600 * 24 * 7) {
+        return `${Math.floor(seconds / 3600 * 24)} days ago`
+    }
+    if (3600 <= seconds < 3600 * 24) {
+        return `${Math.floor(seconds / 3600)} hours ago`
+    }
+    else if (60 <= seconds < 3600) {
+        return `${Math.floor(seconds / 60)} minutes ago`
+    }
+    else if (seconds < 60) {
+        return `${seconds} seconds ago`
+    }
+}
+
+export { google_client_id, onRefreshError, onLoginError, onLoginSuccess, FormValidator, getTimePassed }

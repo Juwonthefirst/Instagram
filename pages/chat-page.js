@@ -5,6 +5,7 @@ import { chatBubble } from '../components/chat.js';
 import domManager from '../dom-manager.js';
 import { showNotification } from '../components/notification.js';
 import { router } from '../router.js';
+import { getTimePassed } from '../helper.js';
 
 const currentUser = memory.getCurrentUser()
 const urlPath = location.pathname.split('/')
@@ -35,6 +36,15 @@ memory.currentRoom = 'chat_4_5';
 				action: 'group_join',
 				room_name: data.name
 			})
+			
+			if (data.parent.is_online) {
+				statusTag.textContent = 'online' 
+			}
+			else {
+				const last_online_date = new Date(data.parent.last_online)
+				statusTag.textContent = getTimePassed(data.parent.last_online)
+			}
+			
 		}
 		
 	})
@@ -150,5 +160,10 @@ socket.onRoomMessage = (data) => {
 }
 
 socket.onTyping = () => {
+	const statusTagTextContent = statusTag.textContent
 	statusTag.textContent = 'typing...'
+	setTimeout(() => {
+		statusTag.textContent = statusTagTextContent
+	}, 3000)
+	
 }
