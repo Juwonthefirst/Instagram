@@ -66,12 +66,13 @@ class Server {
     }
     
     async startAutoRefreshAccessToken() {
-        const response = await this.tokenRefresh({
+        await this.tokenRefresh({
             onError: (response) => {refreshAccessTokenErrorHandler.call(this, response, true)}
         })
+        if (this.refreshIntervalKey) this.stopAutoRefreshAccessToken()
         
         this.refreshIntervalKey = setInterval(async () => {
-            const response = await this.tokenRefresh({
+            await this.tokenRefresh({
                 onError: (response) => {
                     clearInterval(this.refreshIntervalKey)
                     refreshAccessTokenErrorHandler.call(this, response, false)
