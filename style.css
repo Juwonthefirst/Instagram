@@ -432,6 +432,7 @@ form>.submit-btn {
     cursor: pointer;
     text-align: center;
     box-sizing: border-box;
+    height: var(--icon);
 }
 
 .login>form>.submit-btn:disabled {
@@ -506,7 +507,9 @@ form>.submit-btn>iconify-icon {
 }
 
 .signup .submit-btn {
+    height: var(--icon);
     padding: var(--sub);
+    box-sizing: border-box;
 }
 
 .signup .social-login-box {

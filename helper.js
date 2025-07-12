@@ -13,7 +13,7 @@ const onLoginSuccess = (data, router, server, memory) => {
     server.get_csrf()
     server.startAutoRefreshAccessToken((response) => onRefreshError(response, router))
     memory.setCurrentUser(data.user)
-    if (data.new_user) {
+    if (data.new_user || localStorage.getItem('new_user')) {
         return router.render('finish-signup')
     }
     router.navigateTo('/')

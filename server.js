@@ -23,9 +23,11 @@ class Server {
             const response = await fetch(backendUrl + path, fetchData)
             const data = await response.json()
             if (!response.ok) {
-                if (onError) onError({ error: data })
-                return { error: data }
+                const error_data = { error: data, status: response.status }
+                if (onError) onError(error_data)
+                return error_data
             }
+            
             if (onSuccess) onSuccess(data)
             return data
             
@@ -118,7 +120,9 @@ class Server {
             onError,
             onSuccess
         })
+        
         this.access_token = data.access
+        return data
     }
     
     async googleLoginByID({ googleTokenObject, onError = null, onSuccess = null }) {

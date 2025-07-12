@@ -5,23 +5,20 @@ import { memory } from './appMemory.js';
 
 let loginFailed = false
 window.addEventListener('popstate', router.route)
-//window.addEventListener('hashchange', router.route)
-//window.addEventListener('load', router.route)
 
 window.addEventListener('load', async () => {
 	const response = await server.get_csrf()
 	if (response.error) { return await router.navigateTo('/login') }
 	else {
-		await server.startAutoRefreshAccessToken(() => {
-			onRefreshError(router)
+		await server.startAutoRefreshAccessToken((response) => {
+			onRefreshError(response, router)
 			loginFailed = true
 		})
 		
-		if (loginFailed) return 
-
+		if (loginFailed) return
+		
 		await server.getUser({
 			onSuccess: (data) => memory.setCurrentUser(data)
-			
 		})
 		
 		socket.connect()
