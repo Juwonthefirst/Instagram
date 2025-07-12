@@ -7,7 +7,7 @@ import { google_client_id, onRefreshError, onLoginError, onLoginSuccess } from '
 import { iconifyIcon, loadingLoopIcon } from '../components/icon.js';
 
 let googleClient;
-(() => {
+/*(() => {
 	googleClient = google.accounts.oauth2.initCodeClient({
 		client_id: google_client_id,
 		scope: 'email profile openid',
@@ -22,7 +22,7 @@ let googleClient;
 			})
 		}
 	})
-})();
+})();*/
 
 const loginDiv = document.createElement('div')
 loginDiv.className = 'login'

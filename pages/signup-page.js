@@ -11,7 +11,7 @@ import { google_client_id, FormValidator } from '../helper.js';
 let googleClient
 const signupErrorPopup = basicPopUp('');
 
-(() => {
+/*(() => {
 	googleClient = google.accounts.oauth2.initCodeClient({
 		client_id: google_client_id,
 		scope: 'email profile openid',
@@ -34,7 +34,7 @@ const signupErrorPopup = basicPopUp('');
 			})
 		}
 	})
-})();
+})();*/
 
 const signupDiv = document.createElement('div')
 signupDiv.className = 'signup'
