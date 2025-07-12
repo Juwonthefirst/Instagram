@@ -1,8 +1,33 @@
 import { memory } from './appMemory.js';
 import { showNotification } from './components/notification.js';
-import {} from '../components/popup.js';
+import { basicPopUp } from './components/popup.js';
+import { router } from './router.js';
 const access_token_lifetime = 60 * 30 * 1000
 const backendUrl = 'https://beep-me-api.onrender.com/api/'
+
+const refreshAccessTokenErrorHandler = async (response, initial) => {
+    
+    if ((response.status >= 500 && response.status < 600 || response.status === 429) && this.retryCount <= this.maxRetry) {
+        await new Promise((resolve, reject) => {
+            setTimeout(async () => {
+                this.retryCount++
+                resolve(await this.startAutoRefreshAccessToken())
+            }, this.retryTimeout * this.retryCount)
+        })
+    }
+    
+    else if ((400 <= response.status && response.status < 500 || this.retryCount > this.maxRetry) && !initial) {
+        const error_popup = basicPopUp('We are sorry to interrupt your chat but it seems like something went wrong and we need you to relogin')
+        error_popup.lastElementChild.addEventListener('click', async () => {
+            socket.chatsocket.close()
+            socket.notificationSocket.close()
+            this.stopAutoRefreshAccessToken()
+            await router.navigateTo('/login')
+        })
+        error_popup.showModal()
+    }
+    
+}
 
 class Server {
     
@@ -40,31 +65,24 @@ class Server {
     }
     
     async startAutoRefreshAccessToken() {
-        const response = await this.tokenRefresh()
-        if ((response.status >= 500 && response.status < 600 || response.status === 429) && this.retryCount <= this.maxRetry) {
-            await new Promise((resolve, reject) => {
-                setTimeout(async () => {
-                    this.retryCount++
-                    resolve(await this.startAutoRefreshAccessToken())
-                }, this.retryTimeout * this.retryCount)
-            })
-        }
+        const response = await this.tokenRefresh({
+            onError: (response) => {refreshAccessTokenErrorHandler.call(this, response, true)}
+        })
         
-        else if (400 <= response.status && response.status < 500 && !initial) {
-            
-        }
-        
-        
-        const refreshIntervalKey = setInterval(async () => {
+        this.refreshIntervalKey = setInterval(async () => {
             const response = await this.tokenRefresh({
                 onError: (response) => {
-                    clearInterval(refreshIntervalKey)
-                    onError(response)
+                    clearInterval(this.refreshIntervalKey)
+                    refreshAccessTokenErrorHandler.call(this, response, false)
                 }
             })
             
         }, access_token_lifetime)
         
+    }
+    
+    stopAutoRefreshAccessToken(){
+        clearInterval(this.refreshIntervalKey)
     }
     
     getHeader({ auth = false, cred = false } = {}) {

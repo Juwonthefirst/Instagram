@@ -8,7 +8,7 @@ const onLoginError = (errorTag, data) => {
 
 const onLoginSuccess = (data, router, server, memory) => {
     server.get_csrf()
-    server.startAutoRefreshAccessToken((response) => onRefreshError(response, router))
+    server.startAutoRefreshAccessToken()
     memory.setCurrentUser(data.user)
     if (data.new_user || localStorage.getItem('new_user')) {
         return router.render('finish-signup')
@@ -135,4 +135,4 @@ const convertSecondToString = (seconds) => {
     }
 }
 
-export { google_client_id, onRefreshError, onLoginError, onLoginSuccess, FormValidator, getTimePassed }
+export { google_client_id, onLoginError, onLoginSuccess, FormValidator, getTimePassed }

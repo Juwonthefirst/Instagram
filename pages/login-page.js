@@ -3,7 +3,7 @@ import { googleButton } from '../components/buttons.js';
 import {server} from '../server.js'
 import { router } from '../router.js';
 import { memory } from '../appMemory.js';
-import { google_client_id, onRefreshError, onLoginError, onLoginSuccess } from '../helper.js';
+import { google_client_id, onLoginError, onLoginSuccess } from '../helper.js';
 import { iconifyIcon, loadingLoopIcon } from '../components/icon.js';
 
 let googleClient;
@@ -74,6 +74,7 @@ signupLink.addEventListener('click', (event) => {
 	event.preventDefault()
 	router.navigateTo('/signup')
 })
+
 signupLink.innerHTML = 'Don\'t have an account? <a data-link>Sign up</a>'
 loginDiv.appendChild(signupLink);
 
