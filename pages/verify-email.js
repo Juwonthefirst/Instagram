@@ -16,8 +16,11 @@ if(uid && token){
 		uid, 
 		token,
 		onSuccess: () => {
-			localStorage.setItem('new_user', true)
-			router.navigateTo('/login')
+			verifyEmailDiv.classList.add('success')
+			pendingVerificationIcon.replacewith(iconifyIcon('carbon:checkmark-outline'))
+			status.textContent = 'Email verified'
+			verifyEmailText.textContent = 'Congratulations!!, Your email has been verified now you can finally beep your friends'
+			resendLink.replacewith(redirectLink)
 		}, 
 		onError:  () => errorEmailSentPopup.showModal()
 	})
@@ -36,7 +39,11 @@ status.textContent = 'Email verification pending'
 const verifyEmailText = document.createElement('p')
 verifyEmailText.textContent = 'Congratulations!!, You are almost done just verify your email by clicking the verification link sent to your mail'
 
-const resendVerificationEmail = document.createElement('p')
+const redirectLink = document.createElement('button')
+redirectLink.textContent = 'Login to your new account'
+redirectLink.className = 'resend-btn'
+redirectLink.addEventListener('click', async (event) => { await router.navigateTo('/login')})
+
 const resendLink = document.createElement('button')
 const resendLinkText = 'request a new verification link'
 resendLink.className = 'resend-btn'
