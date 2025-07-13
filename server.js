@@ -117,8 +117,7 @@ class Server {
             body: {
                 username,
                 email,
-                password1: password,
-                password2: password
+                password,
             },
             onError,
             onSuccess
