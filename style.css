@@ -507,7 +507,7 @@ form>.submit-btn>iconify-icon {
 
 .signup .submit-btn {
     height: var(--lg);
-    padding: var(--sub);
+    padding: var(--sm);
     box-sizing: border-box;
 }
 
@@ -523,6 +523,10 @@ form>.submit-btn>iconify-icon {
 
 .signup .social-login-box .social-login {
     padding: var(--sm);
+}
+.input-field{
+    display: flex;
+    align-items: center;
 }
 
 .signup .input-error {

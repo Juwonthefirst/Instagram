@@ -57,6 +57,8 @@ signupDiv.appendChild(header)
 const form = document.createElement('form')
 form.noValidate = true
 const usernameField = inputField('text', 'username-field', 'Enter your preferred username')
+const loadingLoopDiv = document.createElement('div')
+loadingLoopDiv.innerHTML = loadingLoopIcon
 const emailField = inputField('email', 'email-field', 'Enter your email address')
 const passField = passwordField('pass-field', 'Enter a password')
 const confirmPassField = passwordField('confirm-pass-field', 'Confirm the password')
@@ -113,7 +115,7 @@ usernameInput.addEventListener('input', async () => {
 	usernameTimeout = setTimeout(async () => {
 		const username = usernameInput.value.trim().toLowerCase()
 		if (username.length < 3) return 
-		
+		usernameField.appendChild(loadingLoopDiv)
 		await server.userExists({
 			username,
 			onExist: () => {
@@ -129,6 +131,7 @@ usernameInput.addEventListener('input', async () => {
 				signupBtn.disabled = false
 			}
 		})
+		usernameField.removeChild(loadingLoopDiv)
 	}, 300)
 })
 
