@@ -511,6 +511,10 @@ form>.submit-btn>iconify-icon {
     box-sizing: border-box;
 }
 
+.signup .submit-btn:disabled {
+    opacity: .7;
+}
+
 .signup .social-login-box {
     border-top: 1px solid rgba(255, 255, 255, .2);
     padding: var(--md) 0;
@@ -529,6 +533,10 @@ form>.submit-btn>iconify-icon {
     font-size: var(--sub);
     overflow-wrap: break-word;
     text-align: center;
+}
+
+#username-input.success .input-error{
+    
 }
 
 .basic-popup {
@@ -586,8 +594,16 @@ form>.submit-btn>iconify-icon {
     padding-bottom: 0;
 }
 
+.verify-email.success iconify-icon{
+    color: #38FF54D9;
+}
+
 .verify-email .verification-status {
     color: #DFE723;
+}
+
+.verify-email.success .verification-status {
+    color: #38FF54D9;
 }
 
 .resend-btn {
@@ -806,11 +822,6 @@ form>.submit-btn>iconify-icon {
 }
 
 .message-main {
-    /*background: var(--main-colour);*/
-    /*background-color: #0b1a2a;
-	background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='40' height='40'><rect width='100%' height='100%' fill='none'/><circle cx='10' cy='10' r='2' fill='%23fff'/><circle cx='30' cy='10' r='2' fill='%23fff'/><circle cx='10' cy='30' r='2' fill='%23fff'/><circle cx='30' cy='30' r='2' fill='%23fff'/><path d='M0 20 H40 M20 0 V40' stroke='%23fff' stroke-width='1'/></svg>");
-	background-size: 40px 40px;*/
-    
     
     max-height: calc(100dvh - 116px);
     position: relative;

@@ -7,7 +7,7 @@ import {server} from '../server.js';
 import { memory } from '../appMemory.js';
 import { google_client_id, FormValidator } from '../helper.js';
 
-
+let usernameTimeout
 let googleClient
 const signupErrorPopup = basicPopUp('');
 
@@ -56,10 +56,12 @@ signupDiv.appendChild(header)
 
 const form = document.createElement('form')
 form.noValidate = true
+const usernameField = inputField('text', 'username-field', 'Enter your preferred username')
 const emailField = inputField('email', 'email-field', 'Enter your email address')
 const passField = passwordField('pass-field', 'Enter a password')
 const confirmPassField = passwordField('confirm-pass-field', 'Confirm the password')
 
+const usernameInput = usernameField.firstElementChild
 const emailInput = emailField.firstElementChild
 const passInput = passField.firstElementChild
 const confirmPassInput = confirmPassField.firstElementChild
@@ -68,9 +70,9 @@ const signupBtn = document.createElement('button')
 signupBtn.type = 'submit'
 signupBtn.className = 'submit-btn'
 signupBtn.textContent = 'Next'
+signupBtn.disabled = true
 
-
-form.append(emailField, passField, confirmPassField, signupBtn)
+form.append(usernameField, emailField, passField, confirmPassField, signupBtn)
 signupDiv.appendChild(form)
 
 
@@ -106,12 +108,32 @@ const onSignupError = (data) => {
 	}
 }
 
+usernameInput.addEventListener('input', async () => {
+	clearTimeout(usernameTimeout)
+	usernameTimeout = setTimeout(async () => {
+		const username = usernameInput.value.trim()
+		await server.userExists({
+			username,
+			onExist: () => {
+				formValidator.appendErrorMessage(usernameField, 'Sorry, someone already picked this')
+				usernameField.nextElementSibling.style.color = 'red'
+				signupBtn.disabled = true
+			},
+			onFree: () => {
+				formValidator.appendErrorMessage(usernameField, 'Wow, nice name you should take it')
+				usernameField.nextElementSibling.style.color = 'green'
+				signupBtn.disabled = false
+			}
+		})
+	}, 300)
+})
+
 form.addEventListener('submit', async (event) => {
 	event.preventDefault()
 	if (formValidator.validate()) {
 		const email = emailInput.value.trim()
 		const password = passInput.value.trim()
-		const username = email.replace('@gmail.com', String(Math.round(Math.random() * 100000)))
+		const username = usernameInput.value.trim()
 		
 		signupBtn.innerHTML = loadingLoopIcon
 		await server.signup({
