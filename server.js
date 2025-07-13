@@ -103,6 +103,7 @@ class Server {
         return await this.#baseFetch({
             path: 'auth/login/',
             method: 'POST',
+            cred: true,
             body: { username, email, password },
             onError,
             onSuccess
@@ -166,6 +167,7 @@ class Server {
         const data = await this.#baseFetch({
             path: 'auth/social/google/ID/',
             method: 'POST',
+            cred: true,
             body: { token: googleTokenObject.credential },
             onError,
             onSuccess
@@ -177,6 +179,7 @@ class Server {
         const data = await this.#baseFetch({
             path: 'auth/social/google/code/',
             method: 'POST',
+            cred: true,
             body: { code: googleTokenObject.code },
             onError,
             onSuccess
