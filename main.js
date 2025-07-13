@@ -10,7 +10,7 @@ window.addEventListener('load', async () => {
 	if (response.error) { return await router.navigateTo('/login') }
 	else {
 		await server.startAutoRefreshAccessToken()
-		
+		alert('it continues')
 		if (!server.getAccessToken()) return
 		
 		await server.getUser({
