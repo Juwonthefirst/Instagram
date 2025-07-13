@@ -9,7 +9,8 @@ window.addEventListener('load', async () => {
 	const response = await server.get_csrf()
 	if (response.error) { return await router.navigateTo('/login') }
 	await server.startAutoRefreshAccessToken()
-	alert('it continues')
+	
+	
 	if (server.getAccessToken()) {
 		await server.getUser({
 			onSuccess: (data) => memory.setCurrentUser(data)

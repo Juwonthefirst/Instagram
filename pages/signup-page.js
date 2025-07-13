@@ -112,16 +112,21 @@ usernameInput.addEventListener('input', async () => {
 	clearTimeout(usernameTimeout)
 	usernameTimeout = setTimeout(async () => {
 		const username = usernameInput.value.trim()
+		if (username.length < 3) {
+			return 
+		}
 		await server.userExists({
 			username,
 			onExist: () => {
 				formValidator.appendErrorMessage(usernameField, 'Sorry, someone already picked this')
 				usernameField.nextElementSibling.style.color = 'red'
+				usernameField.style.borderColor = 'red'
 				signupBtn.disabled = true
 			},
 			onFree: () => {
 				formValidator.appendErrorMessage(usernameField, 'Wow, nice name you should take it')
 				usernameField.nextElementSibling.style.color = 'green'
+				usernameField.style.borderColor = 'green'
 				signupBtn.disabled = false
 			}
 		})
