@@ -5,23 +5,23 @@ import { router } from './router.js';
 const access_token_lifetime = 60 * 30 * 1000
 const backendUrl = 'https://beep-me-api.onrender.com/api/'
 
-const refreshAccessTokenErrorHandler = async (response, initial) => {
+const refreshAccessTokenErrorHandler = async (context, response, initial) => {
     
-    if ((response.status >= 500 && response.status < 600 || response.status === 429) && this.retryCount <= this.maxRetry) {
+    if ((response.status >= 500 && response.status < 600 || response.status === 429) && context.retryCount <= context.maxRetry) {
         await new Promise((resolve, reject) => {
             setTimeout(async () => {
-                this.retryCount++
-                resolve(await this.startAutoRefreshAccessToken())
-            }, this.retryTimeout * this.retryCount)
+                context.retryCount++
+                resolve(await context.startAutoRefreshAccessToken())
+            }, context.retryTimeout * context.retryCount)
         })
     }
     
-    else if ((400 <= response.status && response.status < 500 || this.retryCount > this.maxRetry) && !initial) {
+    else if ((400 <= response.status && response.status < 500 || context.retryCount > context.maxRetry) && !initial) {
         const error_popup = basicPopUp('We are sorry to interrupt your chat but it seems like something went wrong and we need you to relogin')
         error_popup.lastElementChild.addEventListener('click', async () => {
             socket.chatsocket.close()
             socket.notificationSocket.close()
-            this.stopAutoRefreshAccessToken()
+            contexty.stopAutoRefreshAccessToken()
             memory.deleteCurrentUser()
             location.pathname = '/login'
         })
@@ -67,13 +67,13 @@ class Server {
     
     async startAutoRefreshAccessToken() {
         await this.tokenRefresh({
-            onError: (response) => { refreshAccessTokenErrorHandler.call(this, response, true) },
+            onError: (response) => { refreshAccessTokenErrorHandler(this, response, true) },
             onSuccess: () => {
                 this.refreshIntervalKey = setInterval(async () => {
                     await this.tokenRefresh({
                         onError: (response) => {
                             clearInterval(this.refreshIntervalKey)
-                            refreshAccessTokenErrorHandler.call(this, response, false)
+                            refreshAccessTokenErrorHandler(this, response, false)
                         }
                     })
                     
@@ -223,7 +223,6 @@ class Server {
         const data = await this.#baseFetch({
             path: 'users/exists/',
             method: 'POST',
-            auth: true,
             body: { username },
             onError: onExist,
             onSuccess: onFree
