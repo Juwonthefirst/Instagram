@@ -532,8 +532,6 @@ form>.submit-btn>iconify-icon {
 }
 
 .basic-popup {
-    display: flex;
-    flex-direction: column;
     padding: 0;
     color: inherit;
     font: inherit;
