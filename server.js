@@ -67,23 +67,24 @@ class Server {
     
     async startAutoRefreshAccessToken() {
         await this.tokenRefresh({
-            onError: (response) => {refreshAccessTokenErrorHandler.call(this, response, true)}
+            onError: (response) => { refreshAccessTokenErrorHandler.call(this, response, true) },
+            onSuccess: () => {
+                this.refreshIntervalKey = setInterval(async () => {
+                    await this.tokenRefresh({
+                        onError: (response) => {
+                            clearInterval(this.refreshIntervalKey)
+                            refreshAccessTokenErrorHandler.call(this, response, false)
+                        }
+                    })
+                    
+                }, access_token_lifetime)
+            }
         })
         if (this.refreshIntervalKey) this.stopAutoRefreshAccessToken()
         
-        this.refreshIntervalKey = setInterval(async () => {
-            await this.tokenRefresh({
-                onError: (response) => {
-                    clearInterval(this.refreshIntervalKey)
-                    refreshAccessTokenErrorHandler.call(this, response, false)
-                }
-            })
-            
-        }, access_token_lifetime)
-        
     }
     
-    stopAutoRefreshAccessToken(){
+    stopAutoRefreshAccessToken() {
         clearInterval(this.refreshIntervalKey)
     }
     
