@@ -112,7 +112,7 @@ class Server {
     
     async signup({ username, email, password, onError = null, onSuccess = null }) {
         return await this.#baseFetch({
-            path: 'auth/registration/',
+            path: 'auth/users/',
             method: 'POST',
             body: {
                 username,
@@ -127,7 +127,7 @@ class Server {
     
     async resendVerificationLink({ email, onError = null, onSuccess = null }) {
         return await this.#baseFetch({
-            path: 'auth/registration/resend-email/',
+            path: 'auth/users/resend_activation/',
             method: 'POST',
             body: { email },
             onError,
@@ -137,7 +137,7 @@ class Server {
     
     async changePassword({ password, onError = null, onSuccess = null }) {
         return await this.#baseFetch({
-            path: 'auth/password/change/',
+            path: 'auth/users/reset_password/',
             method: 'POST',
             auth: true,
             body: {
@@ -187,11 +187,11 @@ class Server {
         this.access_token = data.access
     }
     
-    async verifyEmail({ key, onSuccess = null, onError = null }) {
+    async verifyEmail({ uid, token, onSuccess = null, onError = null }) {
         return await this.#baseFetch({
-            path: 'auth/registration/verify-email/',
+            path: 'auth/users/activation/',
             method: 'POST',
-            body: { key },
+            body: { uid, token },
             onError,
             onSuccess
         })
@@ -210,7 +210,7 @@ class Server {
     
     async updateUserField({ fields, onError, onSuccess }) {
         const data = await this.#baseFetch({
-            path: 'auth/user/',
+            path: 'auth/users/me/',
             method: 'PATCH',
             auth: true,
             body: fields,
@@ -269,7 +269,7 @@ class Server {
     
     async getUser({ onSuccess, onError }) {
         const data = await this.#baseFetch({
-            path: 'auth/user/',
+            path: 'auth/users/me/',
             auth: true,
             onSuccess,
             onError

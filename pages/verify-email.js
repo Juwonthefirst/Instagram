@@ -7,11 +7,14 @@ import { lucideIcon, iconifyIcon } from '../components/icon.js';
 const emailSentPopup = basicPopUp('A new verification email has been sent to you click on it to verify your Email')
 const invalidVerificationKeyPopup = basicPopUp('We can\'t verify you with the key you provided, please request for a new link', true)
 const errorEmailSentPopup = basicPopUp('it seems like something is wrong and we are unable to send you a new verification email')
-const verificationKey = new URLSearchParams(location.search).get('key')
+const params = new URLSearchParams(location.search)
+const uid = params.get('uid')
+const token = params.get('token')
 
-if(verificationKey){
+if(uid && token){
 	server.verifyEmail({ 
-		key: verificationKey, 
+		uid, 
+		token,
 		onSuccess: () => {
 			localStorage.setItem('new_user', true)
 			router.navigateTo('/login')

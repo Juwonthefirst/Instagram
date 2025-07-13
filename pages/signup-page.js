@@ -111,7 +111,7 @@ form.addEventListener('submit', async (event) => {
 	if (formValidator.validate()) {
 		const email = emailInput.value.trim()
 		const password = passInput.value.trim()
-		const username = email.replace('@gmail.com', String(Math.round(Math.random() * 10000)))
+		const username = email.replace('@gmail.com', String(Math.round(Math.random() * 100000)))
 		
 		signupBtn.innerHTML = loadingLoopIcon
 		await server.signup({
