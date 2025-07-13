@@ -11,14 +11,15 @@ window.addEventListener('load', async () => {
 	else {
 		await server.startAutoRefreshAccessToken()
 		alert('it continues')
-		if (!server.getAccessToken()) return
+		if (server.getAccessToken()) {
+			await server.getUser({
+				onSuccess: (data) => memory.setCurrentUser(data)
+			})
+			
+			socket.connect()
+			socket.listenForNotifications()
+		}
 		
-		await server.getUser({
-			onSuccess: (data) => memory.setCurrentUser(data)
-		})
-		
-		socket.connect()
-		socket.listenForNotifications()
 	}
 	await router.route()
 })
