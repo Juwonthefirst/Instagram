@@ -111,10 +111,9 @@ const onSignupError = (data) => {
 usernameInput.addEventListener('input', async () => {
 	clearTimeout(usernameTimeout)
 	usernameTimeout = setTimeout(async () => {
-		const username = usernameInput.value.trim()
-		if (username.length < 3) {
-			return 
-		}
+		const username = usernameInput.value.trim().toLowerCase()
+		if (username.length < 3) return 
+		
 		await server.userExists({
 			username,
 			onExist: () => {

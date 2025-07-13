@@ -506,7 +506,7 @@ form>.submit-btn>iconify-icon {
 }
 
 .signup .submit-btn {
-    height: var(--icon);
+    height: var(--lg);
     padding: var(--sub);
     box-sizing: border-box;
 }
@@ -533,10 +533,6 @@ form>.submit-btn>iconify-icon {
     font-size: var(--sub);
     overflow-wrap: break-word;
     text-align: center;
-}
-
-#username-input.success .input-error{
-    
 }
 
 .basic-popup {
