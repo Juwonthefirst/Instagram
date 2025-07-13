@@ -14,7 +14,8 @@ const routes = {
 class PageRouter {
 	constructor(routes) {
 		this.routes = routes
-		this.blockedRoutes = ['login', 'signup', 'finish-signup']
+		this.invalidRoutes = ['finish-signup']
+		this.blockedRoutes = ['login', 'signup']
 		this.protectedRoutes = ['/', 'chat', 'search']
 		this.main = document.querySelector('.root')
 	}
@@ -22,12 +23,16 @@ class PageRouter {
 	async route() {
 		let path = location.pathname.split('/')[1] || '/'
 		
-		if (this.protectedRoutes.includes(path) && !memory.getCurrentUser()) {
+		if (this.invalidRoutes.includes(path)) {
+			path = ''
+		}
+		
+		else if (this.protectedRoutes.includes(path) && !memory.getCurrentUser()) {
 			path = 'login'
 			history.pushState(null, 'Login nigga', '/login')
 		}
 		
-		else if (this.blockedRoutes.includes(path)) {
+		else if (this.blockedRoutes.includes(path) && memory.getCurrentUser()) {
 			path = '/'
 			history.pushState(null, 'Beep', '/')
 			
