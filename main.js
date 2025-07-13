@@ -19,6 +19,6 @@ window.addEventListener('load', async () => {
 		
 		socket.connect()
 		socket.listenForNotifications()
-		await router.route()
 	}
+	await router.route()
 })
