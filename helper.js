@@ -137,4 +137,9 @@ const convertSecondToString = (seconds) => {
     }
 }
 
+const convertTimeToString = (date) => {
+    const parsedDate = new Date(date)
+    return parsedDate.getHours() + ':' + parsedDate.getMinutes()
+}
+
 export { google_client_id, onLoginError, onLoginSuccess, FormValidator, getTimePassed }

@@ -25,7 +25,7 @@ const friend_username = urlPath.at(-1) || urlPath.at(-2);
 			usernameTag.textContent = (data.is_group) ? data.parent.name : data.parent.username
 			const messages = data.messages
 			for (const message of messages) {
-				const isSender = message.sender_id === currentUser.id
+				const isSender = message.sender === currentUser.id
 				const chatBubbleDiv = chatBubble(isSender, message.body, message.timestamp)
 				chatBubbleElements.push(chatBubbleDiv)
 				messageMainDiv.appendChild(chatBubbleDiv)

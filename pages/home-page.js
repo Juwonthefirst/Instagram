@@ -5,6 +5,7 @@ import domManager from '../dom-manager.js'
 import { showNotification } from '../components/notification.js';
 import { router } from '../router.js';
 import { friendPreview } from '../components/userComponents.js';
+import { getTimePassed } from '../helper.js';
 
 // 54px is the chat header size
 //70px is the size of each chat preview + gap
@@ -242,12 +243,12 @@ friendDiv.addEventListener('scroll', async (event) => {
 
 socket.onPreviewMessage = (data) => {
     if (data.room in domManager.chatPreviewDom) {
-        domManager.updateChatPreview(data.room, (element) => {
-            element.querySelector('.timestamp').textContent = data.timestamp
+        domManager.updateChatPreviewDom(data.room, (element) => {
+            element.querySelector('.timestamp').textContent = getTimePassed(data.timestamp)
             element.querySelector('.message').textContent = data.message
         })
         chatDiv.removeChild(element)
-        chatDiv.children[0].insertBefore(element)
+        chatDiv.insertBefore(element, chatDiv.children[0])
         
     }
     
@@ -261,7 +262,7 @@ socket.onPreviewMessage = (data) => {
 
 socket.onTyping = () => {
     if (data.room in domManager.chatPreviewDom) {
-        domManager.updateChatPreview(data.room, (element) => {
+        domManager.updateChatPreviewDom(data.room, (element) => {
             const messageTag = element.querySelector('.message')
             const last_message = messageTag.textContent
             
