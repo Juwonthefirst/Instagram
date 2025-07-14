@@ -253,7 +253,8 @@ socket.onPreviewMessage = (data) => {
     
     else {
         const chatPreviewDiv = chatPreview({ profileImage: '/img/profile.jpg', username: data.sender_username, timestamp: data.timestamp, message: data.message })
-        chatDiv.children[0].insertBefore(chatPreviewDiv)
+        if (chatDiv.children[0]) chatDiv.insertBefore(chatPreviewDiv, chatDiv.children[0])
+        else chatDiv.appendChild(chatPreviewDiv)
         domManager.createChatPreviewDom(data.room, chatPreviewDiv)
     }
 }
