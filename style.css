@@ -916,7 +916,9 @@ form>.submit-btn>iconify-icon {
 .message-main>.input-area>.input-box textarea {
     font: inherit;
     caret-color: var(--link-color);
-    
+    background: var(--light-main);
+    min-height: var(--lg);
+    height: aut;
 }
 
 .friends-list {
