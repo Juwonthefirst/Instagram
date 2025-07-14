@@ -1,3 +1,4 @@
+import { getTimePassed } from '../helper.js';
 const chatPreview = function({ profileImage, username, timestamp, message }) {
 	const chatPreviewDiv = document.createElement('div')
 	chatPreviewDiv.className = 'chat-preview'
@@ -18,7 +19,7 @@ const chatPreview = function({ profileImage, username, timestamp, message }) {
 	
 	const timestampTag = document.createElement('p')
 	timestampTag.className = 'timestamp'
-	timestampTag.textContent = timestamp
+	timestampTag.textContent = getTimePassed(timestamp)
 	
 	const messageTag = document.createElement('p')
 	messageTag.className = 'message'
@@ -42,7 +43,7 @@ const chatBubble = function (isSender, message, timestamp, temporary_id) {
 	
 	const timestampTag = document.createElement('p')
 	timestampTag.className = 'timestamp'
-	timestampTag.textContent = timestamp
+	timestampTag.textContent = getTimePassed(timestamp)
 	messageDiv.appendChild(timestampTag)
 	
 	return messageDiv
