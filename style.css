@@ -603,6 +603,7 @@ form>.submit-btn>iconify-icon {
 
 .verify-email .verification-status {
     color: #DFE723;
+    margin-bottom: var(--lg);
 }
 
 .verify-email.success .verification-status {
