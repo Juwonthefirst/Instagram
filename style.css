@@ -853,7 +853,7 @@ form>.submit-btn>iconify-icon {
 
 .message-main>.chat-bubble>.timestamp {
     text-align: right;
-    font-size: 10px;
+    font-size: 12px;
 }
 
 .message-main>.chat-bubble.sender {
