@@ -11,7 +11,7 @@ let usernameTimeout
 let googleClient
 const signupErrorPopup = basicPopUp('');
 
-/*(() => {
+(() => {
 	googleClient = google.accounts.oauth2.initCodeClient({
 		client_id: google_client_id,
 		scope: 'email profile openid',
@@ -34,7 +34,7 @@ const signupErrorPopup = basicPopUp('');
 			})
 		}
 	})
-})();*/
+})();
 
 const signupDiv = document.createElement('div')
 signupDiv.className = 'signup'
@@ -114,7 +114,7 @@ usernameInput.addEventListener('input', async () => {
 	clearTimeout(usernameTimeout)
 	usernameTimeout = setTimeout(async () => {
 		const username = usernameInput.value.trim().toLowerCase()
-		if (username.length < 3) return 
+		if (username.length < 4) return 
 		usernameField.appendChild(loadingLoopDiv)
 		await server.userExists({
 			username,

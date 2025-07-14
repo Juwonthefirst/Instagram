@@ -10,19 +10,27 @@ const errorEmailSentPopup = basicPopUp('it seems like something is wrong and we 
 const params = new URLSearchParams(location.search)
 const uid = params.get('uid')
 const token = params.get('token')
+const onSuccess = () => {
+	verifyEmailDiv.classList.add('success')
+	pendingVerificationIcon.replaceWith(iconifyIcon('carbon:checkmark-outline'))
+	status.textContent = 'Email verified'
+	verifyEmailText.textContent = 'Congratulations!!, Your email has been verified now you can finally beep your friends'
+	resendLink.replacewith(redirectLink)
+}
 
 if(uid && token){
 	server.verifyEmail({ 
 		uid, 
 		token,
-		onSuccess: () => {
-			verifyEmailDiv.classList.add('success')
-			pendingVerificationIcon.replaceWith(iconifyIcon('carbon:checkmark-outline'))
-			status.textContent = 'Email verified'
-			verifyEmailText.textContent = 'Congratulations!!, Your email has been verified now you can finally beep your friends'
-			resendLink.replacewith(redirectLink)
-		}, 
-		onError:  () => invalidVerificationKeyPopup.showModal()
+		onSuccess, 
+		onError:  (data) => {
+			if (data.status === 403) {
+				return onSuccess()
+			}
+			
+			invalidVerificationKeyPopup.showModal()
+			
+		}
 	})
 }
 
