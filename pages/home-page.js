@@ -54,8 +54,8 @@ chatDiv.className = 'chats-main'
 const onUserChatsFetchSuccess = (data) => {
     for (let room of data.results) {
         const username = (room.is_group) ? room.parent.name : room.parent.username
-        const chatPreviewDiv = chatPreview({ profileImage: '/img/profile.jpg', username, timestamp: room.last_message_time, message: room.last_message.body })
-        chatPreviewDiv.addEventListener('click', () => router.navigateTo(`/chat/${room.parent.name}/`))
+        const chatPreviewDiv = chatPreview({ profileImage: '/img/profile.jpg', username, timestamp: room.last_message.timestamp, message: room.last_message.body })
+        chatPreviewDiv.addEventListener('click', () => router.navigateTo(`/chat/${room.parent.username}/`))
         domManager.createChatPreviewDom(room.name, chatPreviewDiv)
         chatDiv.appendChild(chatPreviewDiv)
     }
