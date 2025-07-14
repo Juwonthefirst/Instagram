@@ -78,7 +78,8 @@ const showUserChats = async function() {
     }
     
     await server.getUserChat({
-        onSuccess: onUserChatsFetchSuccess
+        onSuccess: onUserChatsFetchSuccess,
+        onError: (data) => { alert (JSON.stringify(data))}
     })
 }
 showUserChats()
@@ -100,7 +101,7 @@ friendDiv.appendChild(addFriendIcon)
 
 const showUserFriends = async () => {
     await server.getUserFriends({
-        onSuccess: onUserFriendsFetchSuccess
+        onSuccess: onUserFriendsFetchSuccess,
     })
 }
 
