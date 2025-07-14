@@ -5,7 +5,7 @@ import { chatBubble } from '../components/chat.js';
 import domManager from '../dom-manager.js';
 import { showNotification } from '../components/notification.js';
 import { router } from '../router.js';
-import { getTimePassed, getTime } from '../helper.js';
+import { getTimePassed, getReadableTime } from '../helper.js';
 
 const currentUser = memory.getCurrentUser()
 const urlPath = location.pathname.split('/')
