@@ -122,17 +122,17 @@ const getTimePassed = (date) => {
 }
 
 const convertSecondToString = (seconds) => {
-    if ((3600 * 24) <= seconds && seconds < (3600 * 24 * 7)) {
-        return `${Math.floor(seconds / (3600 * 24))} days ago`
-    }
-    else if (3600 <= seconds && seconds < (3600 * 24)) {
-        return `${Math.floor(seconds / 3600)} hours ago`
+    if (seconds < 60) {
+        return `${seconds} seconds ago`
     }
     else if (60 <= seconds && seconds < 3600) {
         return `${Math.floor(seconds / 60)} minutes ago`
     }
-    else if (seconds < 60) {
-        return `${seconds} seconds ago`
+    else if (3600 <= seconds && seconds < (3600 * 24)) {
+        return `${Math.floor(seconds / 3600)} hours ago`
+    }
+    else if ((3600 * 24) <= seconds && seconds < (3600 * 24 * 7)) {
+        return `${Math.floor(seconds / (3600 * 24))} days ago`
     }
 }
 
