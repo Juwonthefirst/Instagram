@@ -34,7 +34,7 @@ const friend_username = urlPath.at(-1) || urlPath.at(-2);
 			domManager.createChatDom(friend_username, chatBubbleElements)
 			socket.send({
 				action: 'group_join',
-				room_name: data.name
+				room: data.name
 			})
 			
 			if (data.parent.is_online) {
