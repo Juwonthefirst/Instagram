@@ -117,7 +117,7 @@ class FormValidator {
 const getTimePassed = (date) => {
     const parsedDate = new Date(date)
     const now = new Date()
-    const secondsPassed = parsedDate - now
+    const secondsPassed = now - parsedDate
     return convertSecondToString(secondsPassed)
 }
 
