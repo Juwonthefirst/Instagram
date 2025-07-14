@@ -337,8 +337,11 @@ class Socket {
         }
         
         this.#chatsocket.onmessage = (event) => {
-            const data = event.data
-            if (data.typing && this.onTyping) {
+            const data = JSON.parse(event.data)
+            if (data.error) {
+                alert(data.error)
+            }
+            else if (data.typing && this.onTyping) {
                 this.onTyping()
             }
             else if (memory.currentRoom === data.room && this.onRoomMessage) {
@@ -386,7 +389,7 @@ class Socket {
     
     listenForNotifications() {
         this.#notificationSocket.onmessage = () => {
-            const data = event.data
+            const data = JSON.parse(event.data)
             switch (data.type) {
                 case 'chat_notification':
                     showNotification('chat', {
