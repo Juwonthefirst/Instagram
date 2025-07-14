@@ -17,12 +17,12 @@ if(uid && token){
 		token,
 		onSuccess: () => {
 			verifyEmailDiv.classList.add('success')
-			pendingVerificationIcon.replacewith(iconifyIcon('carbon:checkmark-outline'))
+			pendingVerificationIcon.replaceWith(iconifyIcon('carbon:checkmark-outline'))
 			status.textContent = 'Email verified'
 			verifyEmailText.textContent = 'Congratulations!!, Your email has been verified now you can finally beep your friends'
 			resendLink.replacewith(redirectLink)
 		}, 
-		onError:  () => errorEmailSentPopup.showModal()
+		onError:  () => invalidVerificationKeyPopup.showModal()
 	})
 }
 
