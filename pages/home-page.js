@@ -79,7 +79,6 @@ const showUserChats = async function() {
     
     await server.getUserChat({
         onSuccess: onUserChatsFetchSuccess,
-        onError: (data) => { alert (JSON.stringify(data))}
     })
 }
 showUserChats()

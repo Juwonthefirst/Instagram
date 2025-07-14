@@ -20,7 +20,7 @@ const chatPreview = function({ profileImage, username, timestamp, message }) {
 	
 	const timestampTag = document.createElement('p')
 	timestampTag.className = 'timestamp'
-	timestampTag.textContent = getReadableTimePassed(timestamp)
+	timestampTag.textContent = getTimePassed(timestamp)
 	
 	const messageTag = document.createElement('p')
 	messageTag.className = 'message'
