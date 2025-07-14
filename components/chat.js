@@ -7,9 +7,7 @@ const chatPreview = function({ profileImage, username, timestamp, message }) {
 	profileImageTag.className = 'profile-picture'
 	profileImageTag.src = profileImage
 	profileImageTag.alt = 'user\'s profile picture'
-	const onlineStatusTag = document.createElement('p')
-	onlineStatusTag.classList.add('status', 'online')
-	profileFieldDiv.append(profileImageTag, onlineStatusTag)
+	profileFieldDiv.append(profileImageTag)
 	chatPreviewDiv.appendChild(profileFieldDiv)
 	
 	const chatPreviewDetailsDiv = document.createElement('div')
