@@ -43,7 +43,6 @@ const friend_username = urlPath.at(-1) || urlPath.at(-2);
 			}
 			else {
 				statusTag.classList.remove('online')
-				const last_online_date = new Date(data.parent.last_online)
 				statusTag.textContent = 'was online ' + getTimePassed(data.parent.last_online)
 			}
 			

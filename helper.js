@@ -131,7 +131,7 @@ const convertSecondToString = (seconds) => {
     else if (3600 <= seconds && seconds < (3600 * 24)) {
         return `${Math.floor(seconds / 3600)} hours ago`
     }
-    else if ((3600 * 24) <= seconds && seconds < (3600 * 24 * 7)) {
+    else if ((3600 * 24) <= seconds /*&& seconds < (3600 * 24 * 7)*/) {
         return `${Math.floor(seconds / (3600 * 24))} days ago`
     }
 }
