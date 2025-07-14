@@ -509,6 +509,9 @@ form>.submit-btn>iconify-icon {
     height: var(--lg);
     padding: var(--sm);
     box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .signup .submit-btn:disabled {
