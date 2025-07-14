@@ -917,8 +917,7 @@ form>.submit-btn>iconify-icon {
     font: inherit;
     caret-color: var(--link-color);
     background: var(--light-main);
-    min-height: var(--lg);
-    height: auto;
+    min-height: var(--md);
     flex: 1;
 }
 
