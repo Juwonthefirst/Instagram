@@ -81,6 +81,9 @@ const userPreview = function(userObject) {
 			onSuccess: (data) => {
 				if (data.status === 'ok') {
 					addFriendBtn.replaceWith(friendIcon)
+					if (userObject.is_following_me) {
+						domManager.addToFriendListDom(userObject)
+					}
 				}
 				
 			},

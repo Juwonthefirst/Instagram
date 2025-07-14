@@ -7,12 +7,11 @@ class DomManager{
 		this.chatPreviewDom = {}
 		this.chatDom = {}
 		this.friendListDom = null
-		this.fr
 	}
 	
 	addToFriendListDom(friendObject){
 		const friendPreviewDiv = friendPreview(friendObject)
-		this.friendListDom.insertBefore(friendPreviewDiv, friendListDom.children[0])
+		this.friendListDom?.insertBefore(friendPreviewDiv, friendListDom.children[0])
 	}
 	
 	createChatPreviewDom(key, domElement){
