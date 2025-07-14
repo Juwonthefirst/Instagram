@@ -814,10 +814,12 @@ form>.submit-btn>iconify-icon {
 .status {
     opacity: 1;
     font-size: var(--sub);
+    font-size: 12px;
 }
 
 .status.online {
     color: var(--accent-color);
+    font-size: var(--sub);
 }
 
 .chat-message .chat-picture {
