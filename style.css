@@ -716,6 +716,7 @@ form>.submit-btn>iconify-icon {
     height: 54px;
     gap: var(--md);
     padding: var(--sub) var(--md);
+    align-items: center;
 }
 
 .chat-preview-details {
