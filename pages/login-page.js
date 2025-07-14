@@ -79,12 +79,11 @@ signupLink.innerHTML = 'Don\'t have an account? <a data-link>Sign up</a>'
 loginDiv.appendChild(signupLink);
 
 form.addEventListener('submit', async (event) => {
-	loginBtn.innerHTML = loadingLoopIcon
 	event.preventDefault()
 	const credentials = credentialsField.firstElementChild.value.trim()
 	const password = passField.firstElementChild.value.trim()
 	if (credentials && password) {
-		
+		loginBtn.innerHTML = loadingLoopIconl
 		loginBtn.disabled = true
 		const data = { password: password };
 		data.onSuccess = (data) => {
@@ -92,7 +91,7 @@ form.addEventListener('submit', async (event) => {
 			credentialsField.firstElementChild.value = ''
 			passField.firstElementChild.value = ''
 		};
-		data.onError = (data) => onLoginError(errorTag, data);
+		data.onError = (data) => onLoginError(errorTag, data, server, router);
 		
 		(credentials.includes('@')) ? data.email = credentials : data.username = credentials;
 		

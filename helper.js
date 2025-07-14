@@ -1,26 +1,27 @@
 const google_client_id = '333616956580-ehlrhiisjvgupkm594kettrev856vdtu.apps.googleusercontent.com'
 
-const onLoginError = (errorTag, data) => {
-    const error = data.error
+const onLoginError = async (errorTag, data, server, router) => {
+    if (data.status === 403) {
+        await server.resendVerificationLink({
+            email: data.email,
+            onSuccess: () => {router.navigateTo('/verify-email')}
+        })
+    }
+    const error = data.error.error
     errorTag.style.display = 'flex'
-    errorTag.textContent = error.error || error.non_field_errors[0]
+    errorTag.textContent = error 
 }
 
 const onLoginSuccess = (data, router, server, memory) => {
     server.get_csrf()
     server.startAutoRefreshAccessToken()
     memory.setCurrentUser(data.user)
-    if (data.new_user || localStorage.getItem('new_user')) {
+    if (data.new_user) {
         return router.render('finish-signup')
     }
     router.navigateTo('/')
 }
 
-
-
-const onFree = (inputField) => {
-    inputField.style.borderColor = 'green'
-}
 
 class FormValidator {
     constructor(inputFields, button) {
