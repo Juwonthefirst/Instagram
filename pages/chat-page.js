@@ -5,7 +5,7 @@ import { chatBubble } from '../components/chat.js';
 import domManager from '../dom-manager.js';
 import { showNotification } from '../components/notification.js';
 import { router } from '../router.js';
-import { getTimePassed } from '../helper.js';
+import { getTimePassed, getTime } from '../helper.js';
 
 const currentUser = memory.getCurrentUser()
 const urlPath = location.pathname.split('/')
@@ -39,7 +39,7 @@ const friend_username = urlPath.at(-1) || urlPath.at(-2);
 			
 			if (data.parent.is_online) {
 				statusTag.classList.add('online')
-				statusTag.textContent = 'online' 
+				statusTag.textContent = 'online'
 			}
 			else {
 				statusTag.classList.remove('online')
@@ -58,7 +58,7 @@ const messageHeader = document.createElement('div')
 messageHeader.className = 'message-header'
 
 const backBtn = lucideIcon('arrow-left')
-backBtn.addEventListener('click', () => {router.navigateTo('/')})
+backBtn.addEventListener('click', () => { router.navigateTo('/') })
 messageHeader.appendChild(backBtn)
 
 const chatDetailsDiv = document.createElement('div')
@@ -153,10 +153,13 @@ export default function chatPage() {
 socket.onRoomMessage = (data) => {
 	if (data.sender_username !== currentUser.username) {
 		const chatBubbleDiv = chatBubble(false, data.message, data.timestamp)
+		domManager.updateChatDom(memory.currentRoom, (domElementsList) => {
+			domElementsList?.push(newMessageBubbleDiv)
+		})
 		messageMainDiv.appendChild(chatBubbleDiv)
 	}
 	else {
-		messageMainDiv.querySelector(`div[data-temporary_id = "${data.temporary_id}"] > .timestamp`).textContent = getTimePassed(data.timestamp)
+		messageMainDiv.querySelector(`div[data-temporary_id = "${data.temporary_id}"] > .timestamp`).textContent = getReadableTime(data.timestamp)
 	}
 }
 
