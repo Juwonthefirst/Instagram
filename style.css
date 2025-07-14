@@ -802,12 +802,13 @@ form>.submit-btn>iconify-icon {
     display: flex;
     gap: var(--sm);
     margin-left: calc(var(--lg) * -1);
+    align-items: center;
 }
 
 .chat-details>.name-and-status {
     display: flex;
     flex-direction: column;
-    gap: var(--vsm);
+    gap: var(--sm);
     justify-content: center;
 }
 
