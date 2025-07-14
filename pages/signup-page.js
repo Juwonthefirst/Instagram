@@ -118,8 +118,9 @@ usernameInput.addEventListener('input', async () => {
 		usernameField.appendChild(loadingLoopDiv)
 		await server.userExists({
 			username,
-			onExist: () => {
-				formValidator.appendErrorMessage(usernameField, 'Sorry, someone already picked this')
+			onExist: (data) => {
+				const errorText = data.error.error || 'Sorry, someone already picked this'
+				formValidator.appendErrorMessage(usernameField, errorText)
 				usernameField.nextElementSibling.style.color = 'red'
 				usernameField.style.borderColor = 'red'
 				signupBtn.disabled = true

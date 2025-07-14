@@ -22,9 +22,9 @@ usernameInput.addEventListener('input', () => {
 		const username = usernameInput.value.trim()
 		await server.userExists({
 			username,
-			onExist: () => {
+			onExist: (data) => {
 				usernameErrorTag.className = 'input-error'
-				usernameErrorTag.textContent = 'Sorry, someone already picked this'
+				usernameErrorTag.textContent = data.error.error || 'Sorry, someone already picked this'
 				signupBtn.disabled = true
 			},
 			onFree: () => {
