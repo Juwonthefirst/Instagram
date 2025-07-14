@@ -918,7 +918,8 @@ form>.submit-btn>iconify-icon {
     caret-color: var(--link-color);
     background: var(--light-main);
     min-height: var(--lg);
-    height: aut;
+    height: auto;
+    flex: 1;
 }
 
 .friends-list {
