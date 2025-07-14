@@ -50,7 +50,7 @@ class Server {
         
         try {
             const response = await fetch(backendUrl + path, fetchData)
-            const data = await response.json()
+            const data = (response.status === 204)? '' : await response.json()
             if (!response.ok) {
                 const error_data = { error: data, status: response.status }
                 if (onError) onError(error_data)

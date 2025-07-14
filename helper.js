@@ -2,14 +2,14 @@ const google_client_id = '333616956580-ehlrhiisjvgupkm594kettrev856vdtu.apps.goo
 
 const onLoginError = async (errorTag, data, server, router) => {
     if (data.status === 403) {
-        return await server.resendVerificationLink({
+        await server.resendVerificationLink({
             email: data.error.email,
-            onSuccess: () => {router.navigateTo('/verify-email')}
         })
+        return router.navigateTo('/verify-email')
     }
     const error = data.error.error
     errorTag.style.display = 'flex'
-    errorTag.textContent = error 
+    errorTag.textContent = error
 }
 
 const onLoginSuccess = (data, router, server, memory) => {
