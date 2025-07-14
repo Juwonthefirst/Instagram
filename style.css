@@ -788,14 +788,14 @@ form>.submit-btn>iconify-icon {
 }
 
 .message-header>.icons svg {
-    height: 22px;
-    width: 22px;
+    height: var(--icon);
+    width: var(--icon);
     padding: 6px;
 }
 
 .message-header>.icons>.phone-icon svg{
-    height: 20px;
-    width: 20px;
+    height: 22px;
+    width: 22px;
 }
 
 .chat-details {
