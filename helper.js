@@ -122,6 +122,7 @@ const getTimePassed = (date) => {
 }
 
 const convertSecondToString = (seconds) => {
+    seconds /= 1000
     if (seconds < 60) {
         return `${seconds} seconds ago`
     }
