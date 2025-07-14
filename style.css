@@ -77,7 +77,7 @@ input {
     width: 100%;
 }
 
-button{
+textarea, button{
     all: unset;
 }
 
