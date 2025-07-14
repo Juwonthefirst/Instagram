@@ -83,7 +83,7 @@ form.addEventListener('submit', async (event) => {
 	const credentials = credentialsField.firstElementChild.value.trim()
 	const password = passField.firstElementChild.value.trim()
 	if (credentials && password) {
-		loginBtn.innerHTML = loadingLoopIconl
+		loginBtn.innerHTML = loadingLoopIcon
 		loginBtn.disabled = true
 		const data = { password: password };
 		data.onSuccess = (data) => {
