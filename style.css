@@ -721,6 +721,7 @@ form>.submit-btn>iconify-icon {
 
 .chat-preview-details {
     display: grid;
+    grid-row-gap: var(--sm);
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr;
 }
@@ -912,9 +913,10 @@ form>.submit-btn>iconify-icon {
     color: var(--link-color);
 }
 
-.message-main>.input-area>.input-box input {
+.message-main>.input-area>.input-box textarea {
     font: inherit;
     caret-color: var(--link-color);
+    
 }
 
 .friends-list {
