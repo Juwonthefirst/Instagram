@@ -1,4 +1,5 @@
 import { getTimePassed, getReadableTime } from '../helper.js';
+
 const chatPreview = function({ profileImage, username, timestamp, message }) {
 	const chatPreviewDiv = document.createElement('div')
 	chatPreviewDiv.className = 'chat-preview'
