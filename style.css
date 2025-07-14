@@ -784,23 +784,23 @@ form>.submit-btn>iconify-icon {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: var(--sm);
+    gap: var(--vsm);
 }
 
 .message-header>.icons svg {
-    height: var(--icon);
-    width: var(--icon);
-    padding: var(--sm);
+    height: 20px;
+    width: 20px;
+    padding: 6px;
 }
 
 .message-header>.icons>.phone-icon svg{
-    height: 22px;
-    width: 22px;
+    height: 18px;
+    width: 18px;
 }
 
 .chat-details {
     display: flex;
-    gap: var(--sub);
+    gap: var(--sm);
     margin-left: calc(var(--lg) * -1);
 }
 
@@ -813,8 +813,7 @@ form>.submit-btn>iconify-icon {
 
 .status {
     opacity: 1;
-    font-size: var(--sub);
-    font-size: 12px;
+    font-size: var(--sm);
 }
 
 .status.online {
@@ -823,8 +822,8 @@ form>.submit-btn>iconify-icon {
 }
 
 .chat-message .chat-picture {
-    width: calc(var(--lg) + var(--sm));
-    height: calc(var(--lg) + var(--sm));
+    width: calc(var(--lg) + var(--vsm));
+    height: calc(var(--lg) + var(--vsm));
     border-radius: 50%;
 }
 
@@ -852,11 +851,8 @@ form>.submit-btn>iconify-icon {
 }
 
 .message-main>.chat-bubble>.timestamp {
-    font-size: 10px;
-}
-
-.message-main>.chat-bubble.sender>.timestamp {
     text-align: right;
+    font-size: var(--sm);
 }
 
 .message-main>.chat-bubble.sender {
