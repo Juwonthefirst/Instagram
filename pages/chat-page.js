@@ -38,9 +38,11 @@ memory.currentRoom = 'chat_4_5';
 			})
 			
 			if (data.parent.is_online) {
+				statusTag.classList.add('online')
 				statusTag.textContent = 'online' 
 			}
 			else {
+				statusTag.classList.remove('online')
 				const last_online_date = new Date(data.parent.last_online)
 				statusTag.textContent = getTimePassed(data.parent.last_online)
 			}
