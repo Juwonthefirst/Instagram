@@ -10,12 +10,13 @@ const errorEmailSentPopup = basicPopUp('it seems like something is wrong and we 
 const params = new URLSearchParams(location.search)
 const uid = params.get('uid')
 const token = params.get('token')
+
 const onSuccess = () => {
 	verifyEmailDiv.classList.add('success')
 	pendingVerificationIcon.replaceWith(iconifyIcon('carbon:checkmark-outline'))
 	status.textContent = 'Email verified'
 	verifyEmailText.textContent = 'Congratulations!!, Your email has been verified now you can finally beep your friends'
-	resendLink.replacewith(redirectLink)
+	resendLink.replaceWith(redirectLink)
 }
 
 if(uid && token){
