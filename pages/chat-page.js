@@ -106,8 +106,7 @@ const messageBoxDiv = document.createElement('div')
 messageBoxDiv.className = 'input-box'
 
 const cameraIcon = lucideIcon('camera', 'camera')
-const messageInput = document.createElement('input')
-messageInput.type = 'text'
+const messageInput = document.createElement('textarea')
 messageInput.name = 'chat-message'
 messageInput.placeholder = 'Beep them'
 messageBoxDiv.append(cameraIcon, messageInput)

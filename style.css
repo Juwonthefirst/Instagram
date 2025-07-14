@@ -808,7 +808,7 @@ form>.submit-btn>iconify-icon {
 .chat-details>.name-and-status {
     display: flex;
     flex-direction: column;
-    gap: var(--sm);
+    gap: var(--vsm);
     justify-content: center;
 }
 
