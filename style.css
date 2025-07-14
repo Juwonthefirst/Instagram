@@ -852,7 +852,7 @@ form>.submit-btn>iconify-icon {
 
 .message-main>.chat-bubble>.timestamp {
     text-align: right;
-    font-size: var(--sm);
+    font-size: 10px;
 }
 
 .message-main>.chat-bubble.sender {
@@ -872,10 +872,8 @@ form>.submit-btn>iconify-icon {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 54px;
     position: fixed;
     bottom: 0%;
-    box-sizing: border-box;
 }
 
 
