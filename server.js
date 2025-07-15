@@ -50,7 +50,7 @@ class Server {
         
         try {
             const response = await fetch(backendUrl + path, fetchData)
-            const data = (response.status === 204)? '' : await response.json()
+            const data = (response.status === 204) ? '' : await response.json()
             if (!response.ok) {
                 const error_data = { error: data, status: response.status }
                 if (onError) onError(error_data)
@@ -324,6 +324,7 @@ class Socket {
     connectChatSocket() {
         this.#chatsocket = new WebSocket(`wss://beep-me-api.onrender.com/ws/chat/?token=${server.getAccessToken()}`)
         this.#chatsocket.onclose = (event) => {
+            clearInterval(this.pingInterval)
             if (!(event.code === 1000 || event.code === 1001) && this.chatRetryCount < this.maxRetry) {
                 this.chatRetryCount++
                 console.warn('Chat socket closed retrying connection')
@@ -334,6 +335,8 @@ class Socket {
         this.#chatsocket.onopen = () => {
             this.chatRetryCount = 0
             console.log('Chat socket opened')
+            this.ping()
+            this.pingInterval = setInterval(this.ping, 45000)
         }
         
         this.#chatsocket.onmessage = (event) => {
@@ -420,6 +423,42 @@ class Socket {
         this.#chatsocket.send(JSON.stringify(body))
     }
     
+    groupJoin(group_name) {
+        this.send({
+            'room': group_name,
+            'action': 'group_join'
+        })
+    }
+    
+    groupLeave(group_name) {
+        this.send({
+            'room': group_name || memory.currentRoom,
+            'action': 'group_leave'
+        })
+    }
+    
+    typing(group_name) {
+        this.send({
+            'room': group_name || memory.currentRoom,
+            'action': 'typing'
+        })
+    }
+    
+    sendMessage(message, group_name) {
+        const temporary_id = crypto.randomUUID()
+        this.send({
+            message,
+            action: 'chat',
+            room: group_name || memory.currentRoom,
+            temporary_id
+        })
+    }
+    
+    ping() {
+        this.send({
+            'action': 'ping'
+        })
+    }
 }
 
 const socket = new Socket()

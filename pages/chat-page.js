@@ -19,7 +19,6 @@ const friend_username = urlPath.at(-1) || urlPath.at(-2);
 	const room = await server.getRoomAndMessage({
 		friend_username,
 		onSuccess: (data) => {
-			alert(JSON.stringify(data))
 			const chatBubbleElements = []
 			memory.currentRoom = data.name
 			usernameTag.textContent = (data.is_group) ? data.parent.name : data.parent.username
@@ -32,10 +31,7 @@ const friend_username = urlPath.at(-1) || urlPath.at(-2);
 			}
 			
 			domManager.createChatDom(friend_username, chatBubbleElements)
-			socket.send({
-				action: 'group_join',
-				room: data.name
-			})
+			socket.groupJoin(data.name)
 			
 			if (data.parent.is_online) {
 				statusTag.classList.add('online')
@@ -58,7 +54,10 @@ const messageHeader = document.createElement('div')
 messageHeader.className = 'message-header'
 
 const backBtn = lucideIcon('arrow-left')
-backBtn.addEventListener('click', () => { router.navigateTo('/') })
+backBtn.addEventListener('click', () => { 
+	router.navigateTo('/')
+	socket.groupLeave()
+})
 messageHeader.appendChild(backBtn)
 
 const chatDetailsDiv = document.createElement('div')
@@ -116,14 +115,8 @@ const sendBtn = lucideIcon('mic', 'send-btn')
 sendBtn.addEventListener('click', () => {
 	const message = messageInput.value.trim()
 	if (!message) { return }
-	const temporary_id = crypto.randomUUID()
 	
-	socket.send({
-		message,
-		action: 'chat',
-		room: memory.currentRoom,
-		temporary_id
-	})
+	socket.sendMessage(message)
 	
 	const newMessageBubbleDiv = chatBubble(true, message, 'pending', temporary_id)
 	domManager.updateChatDom(memory.currentRoom, (domElementsList) => {
@@ -145,6 +138,7 @@ messageInput.addEventListener('input', () => {
 	}
 	messageInput.style.height = 'auto'
 	messageInput.style.height = messageInput.scrollHeight + 'px'
+	socket.typing()
 	lucide.createIcons()
 })
 
