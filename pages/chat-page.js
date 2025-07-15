@@ -108,6 +108,7 @@ messageBoxDiv.className = 'input-box'
 const cameraIcon = lucideIcon('camera', 'camera')
 const messageInput = document.createElement('textarea')
 messageInput.name = 'chat-message'
+messageInput.rows = 1
 messageInput.placeholder = 'Beep them'
 messageBoxDiv.append(cameraIcon, messageInput)
 messageInputDiv.appendChild(messageBoxDiv)
@@ -142,6 +143,8 @@ messageInput.addEventListener('input', () => {
 	else {
 		sendBtn.children[0].dataset.lucide = 'mic'
 	}
+	messageInput.style.height = 'auto'
+	messageInput.style.height = messageInput.scrollHeight + 'px'
 	lucide.createIcons()
 })
 
