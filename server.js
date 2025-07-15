@@ -344,11 +344,11 @@ class Socket {
             if (data.error) {
                 alert(data.error)
             }
-            else if (data.typing && this.onTyping) {
-                this.onTyping()
+            else if (data.typing) {
+                if (this.onTyping && data.sender_username !== memory.getCurrentUser({field: 'username'})) this.onTyping()
             }
-            else if (memory.currentRoom === data.room && this.onRoomMessage) {
-                this.onRoomMessage(data)
+            else if (memory.currentRoom === data.room) {
+                if (this.onRoomMessage) this.onRoomMessage(data)
             }
             
             else if (memory.currentRoom && memory.currentRoom !== data.room) {
