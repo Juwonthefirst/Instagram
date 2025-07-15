@@ -30,7 +30,7 @@ const friend_username = urlPath.at(-1) || urlPath.at(-2);
 				messageMainDiv.appendChild(chatBubbleDiv)
 			}
 			
-			domManager.createChatDom(friend_username, chatBubbleElements)
+			domManager.createChatDom(memory.currentRoom, chatBubbleElements)
 			socket.groupJoin(data.name)
 			
 			if (data.parent.is_online) {
