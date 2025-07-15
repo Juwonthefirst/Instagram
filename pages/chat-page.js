@@ -116,7 +116,7 @@ sendBtn.addEventListener('click', () => {
 	const message = messageInput.value.trim()
 	if (!message) { return }
 	
-	socket.sendMessage(message)
+	const temporary_id = socket.sendMessage(message)
 	
 	const newMessageBubbleDiv = chatBubble(true, message, 'pending', temporary_id)
 	domManager.updateChatDom(memory.currentRoom, (domElementsList) => {

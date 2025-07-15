@@ -453,6 +453,8 @@ class Socket {
             room: group_name || memory.currentRoom,
             temporary_id
         })
+        
+        return temporary_id
     }
     
     ping() {
