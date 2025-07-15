@@ -445,7 +445,6 @@ class Socket {
     }
     
     sendMessage(message, group_name) {
-        alert(memory.currentRoom)
         const temporary_id = crypto.randomUUID()
         this.send({
             message,
