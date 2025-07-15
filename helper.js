@@ -124,7 +124,7 @@ const getTimePassed = (date) => {
 const convertSecondToString = (seconds) => {
     seconds /= 1000
     if (seconds < 60) {
-        return `${seconds} seconds ago`
+        return 'less than a minute ago'
     }
     else if (60 <= seconds && seconds < 3600) {
         return `${Math.floor(seconds / 60)} minutes ago`
@@ -139,7 +139,11 @@ const convertSecondToString = (seconds) => {
 
 const getReadableTime = (date) => {
     const parsedDate = new Date(date)
-    return parsedDate.getHours() + ':' + parsedDate.getMinutes()
+    let minutes = parsedDate.getMinutes()
+    let hours = parsedDate.getHours()
+    if (minutes < 10) minutes = '0' + minutes
+    if (hours < 10) hours = '0' + hours
+    return hours + ':' + minutes
 }
 
 export { google_client_id, onLoginError, onLoginSuccess, FormValidator, getTimePassed, getReadableTime }

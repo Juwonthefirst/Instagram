@@ -246,9 +246,9 @@ socket.onPreviewMessage = (data) => {
         domManager.updateChatPreviewDom(data.room, (element) => {
             element.querySelector('.timestamp').textContent = getTimePassed(data.timestamp)
             element.querySelector('.message').textContent = data.message
+            chatDiv.removeChild(element)
+            chatDiv.insertBefore(element, chatDiv.children[0])
         })
-        chatDiv.removeChild(element)
-        chatDiv.insertBefore(element, chatDiv.children[0])
         
     }
     
