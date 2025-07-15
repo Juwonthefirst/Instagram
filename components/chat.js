@@ -42,10 +42,10 @@ const chatBubble = function (isSender, message, timestamp, temporary_id) {
 	messageTag.textContent = message 
 	messageDiv.appendChild(messageTag)
 	
-	const timestampTag = document.createElement('p')
+	/*const timestampTag = document.createElement('p')
 	timestampTag.className = 'timestamp'
 	timestampTag.textContent = getReadableTime(timestamp)
-	messageDiv.appendChild(timestampTag)
+	messageDiv.appendChild(timestampTag)*/
 	
 	return messageDiv
 }

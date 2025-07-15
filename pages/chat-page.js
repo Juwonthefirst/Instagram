@@ -158,7 +158,7 @@ socket.onRoomMessage = (data) => {
 		messageMainDiv.appendChild(chatBubbleDiv)
 	}
 	else {
-		messageMainDiv.querySelector(`div[data-temporary_id = "${data.temporary_id}"] > .timestamp`).textContent = getReadableTime(data.timestamp)
+		//messageMainDiv.querySelector(`div[data-temporary_id = "${data.temporary_id}"] > .timestamp`).textContent = getReadableTime(data.timestamp)
 	}
 }
 
