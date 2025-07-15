@@ -844,14 +844,11 @@ form>.submit-btn>iconify-icon {
 
 .message-main>.chat-bubble {
     border-radius: var(--icon);
-    padding: 10px;
+    padding: var(--sm);
     width: 40%;
     text-align: left;
 }
 
-.message-main>.chat-bubble *:first-child {
-    padding-bottom: var(--vsm);
-}
 
 .message-main>.chat-bubble>.timestamp {
     text-align: right;
