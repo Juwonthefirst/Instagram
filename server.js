@@ -345,7 +345,6 @@ class Socket {
                 this.onTyping()
             }
             else if (memory.currentRoom === data.room && this.onRoomMessage) {
-                alert('help me')
                 this.onRoomMessage(data)
             }
             
