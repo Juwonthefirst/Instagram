@@ -129,6 +129,8 @@ sendBtn.addEventListener('click', () => {
 messageInputDiv.appendChild(sendBtn)
 messageMainDiv.appendChild(messageInputDiv)
 messagesDiv.appendChild(messageMainDiv)
+
+let typingSignalSent = false
 messageInput.addEventListener('input', () => {
 	if (messageInput.value.trim()) {
 		sendBtn.children[0].dataset.lucide = 'send'
@@ -138,8 +140,12 @@ messageInput.addEventListener('input', () => {
 	}
 	messageInput.style.height = 'auto'
 	messageInput.style.height = messageInput.scrollHeight + 'px'
-	socket.typing()
 	lucide.createIcons()
+	
+	if (typingSignalSent) return
+	socket.typing()
+	typingSignalSent = true
+	setTimeout(() => typingSignalSent = false, 3000)
 })
 
 export default function chatPage() {
