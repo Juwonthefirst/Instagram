@@ -425,26 +425,27 @@ class Socket {
     
     groupJoin(group_name) {
         this.send({
-            'room': group_name,
-            'action': 'group_join'
+            room: group_name,
+            action: 'group_join'
         })
     }
     
     groupLeave(group_name) {
         this.send({
-            'room': group_name || memory.currentRoom,
-            'action': 'group_leave'
+            room: group_name || memory.currentRoom,
+            action: 'group_leave'
         })
     }
     
     typing(group_name) {
         this.send({
-            'room': group_name || memory.currentRoom,
-            'action': 'typing'
+            room: group_name || memory.currentRoom,
+            action: 'typing'
         })
     }
     
     sendMessage(message, group_name) {
+        alert(memory.currentRoom)
         const temporary_id = crypto.randomUUID()
         this.send({
             message,
@@ -456,7 +457,7 @@ class Socket {
     
     ping() {
         this.send({
-            'action': 'ping'
+            action : 'ping'
         })
     }
 }
