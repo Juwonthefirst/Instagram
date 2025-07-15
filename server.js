@@ -336,7 +336,7 @@ class Socket {
             this.chatRetryCount = 0
             console.log('Chat socket opened')
             this.ping()
-            this.pingInterval = setInterval(this.ping, 45000)
+            this.pingInterval = setInterval(() => this.ping(), 45000)
         }
         
         this.#chatsocket.onmessage = (event) => {
