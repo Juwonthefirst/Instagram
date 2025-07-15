@@ -153,7 +153,7 @@ socket.onRoomMessage = (data) => {
 	if (data.sender_username !== currentUser.username) {
 		const chatBubbleDiv = chatBubble(false, data.message, data.timestamp)
 		domManager.updateChatDom(memory.currentRoom, (domElementsList) => {
-			domElementsList?.push(newMessageBubbleDiv)
+			domElementsList.push(newMessageBubbleDiv)
 		})
 		messageMainDiv.appendChild(chatBubbleDiv)
 	}
