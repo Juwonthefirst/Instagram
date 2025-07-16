@@ -265,7 +265,7 @@ socket.onTyping = () => {
         domManager.updateChatPreviewDom(data.room, (element) => {
             const messageTag = element.querySelector('.message')
             const last_message = messageTag.textContent
-            
+            messageTag.textContent = 'typing...'
             setTimeout(() => {
                 messageTag.textContent = last_message
             }, 3000)

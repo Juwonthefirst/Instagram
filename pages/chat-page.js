@@ -155,14 +155,13 @@ export default function chatPage() {
 socket.onRoomMessage = (data) => {
 	if (data.sender_username !== currentUser.username) {
 		const chatBubbleDiv = chatBubble(false, data.message, data.timestamp)
-		/*domManager.updateChatDom(memory.currentRoom, (domElementsList) => {
-			domElementsList.push(newMessageBubbleDiv)
-		})*/
+		domManager.updateChatDom(memory.currentRoom, (domElementsList) => {
+			domElementsList?.push(newMessageBubbleDiv)
+			alert(JSON.stringify(domElementsList))
+		})
 		messageMainDiv.appendChild(chatBubbleDiv)
 	}
-	else {
-		//messageMainDiv.querySelector(`div[data-temporary_id = "${data.temporary_id}"] > .timestamp`).textContent = getReadableTime(data.timestamp)
-	}
+	messageMainDiv.scrollTop = messageMainDiv.scrollHeight
 }
 
 socket.onTyping = () => {
