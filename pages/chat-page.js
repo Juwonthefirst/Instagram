@@ -153,7 +153,6 @@ export default function chatPage() {
 }
 
 socket.onRoomMessage = (data) => {
-	alert(data.sender_username)
 	if (data.sender_username !== currentUser.username) {
 		const chatBubbleDiv = chatBubble(false, data.message, data.timestamp)
 		domManager.updateChatDom(memory.currentRoom, (domElementsList) => {
@@ -171,6 +170,6 @@ socket.onTyping = () => {
 	statusTag.textContent = 'typing...'
 	setTimeout(() => {
 		statusTag.textContent = statusTagTextContent
-	}, 3000)
+	}, 2000)
 	
 }
