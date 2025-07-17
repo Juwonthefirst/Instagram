@@ -11,8 +11,6 @@ const inputField = function (type, id, title){
 	const label = document.createElement('label')
 	label.for = id
 	label.textContent = title
-	const errorTag = document.createElement('p')
-	errorTag.className = 'error'
 	
 	fieldDiv.append(input, label)
 	return fieldDiv
