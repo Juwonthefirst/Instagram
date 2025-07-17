@@ -114,6 +114,8 @@ messageInput.addEventListener('input', () => {
 
 export default function chatPage() {
 	usernameTag.textContent = friend_username
+	messageMainDiv.innerHTML = ''
+	messageMainDiv.appendChild(messageInputDiv)
 	(async () => {
 		if (Object.keys(domManager.chatDom).length) {
 			const chatDomElements = domManager.getChatDom(friend_username)
