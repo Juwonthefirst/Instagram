@@ -24,9 +24,12 @@ const friendPreview = (friendObject) => {
 	messageIcon.addEventListener('click', async () => {
 		await router.navigateTo(`/chat/${friendObject.username}/`)
 	})
-	const videoIcon = lucideIcon('video')
-	const callIcon = lucideIcon('phone')
-	friendIconDiv.append(messageIcon, videoIcon, callIcon)
+	const videoBtn = lucideIcon('video')
+	videoBtn.addEventListener('click', () => router.render('/call', { receiverUsername: friendObject.username, type: 'video'}))
+	const callBtn = lucideIcon('phone')
+	callBtn.addEventListener('click', () => router.render('/call', { receiverUsername: friendObject.username, type: 'voice'}))
+	
+	friendIconDiv.append(messageIcon, videoBtn, callBtn)
 	friendPreviewDiv.appendChild(friendIconDiv)
 	
 	return friendPreviewDiv

@@ -90,7 +90,9 @@ const iconDiv = document.createElement('div')
 iconDiv.className = 'icons'
 
 const videoCallBtn = lucideIcon('video', 'video-icon')
+videoCallBtn.addEventListener('click', () => router.render('/call', { receiverUsername: friend_username, type: 'video' }))
 const voiceCallBtn = lucideIcon('phone', 'phone-icon')
+voiceCallBtn.addEventListener('click', () => router.render('/call', { receiverUsername: friend_username, type: 'voice' }))
 const menuBtn = lucideIcon('ellipsis-vertical')
 
 iconDiv.append(videoCallBtn, voiceCallBtn, menuBtn)

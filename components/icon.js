@@ -1,6 +1,6 @@
 const lucideIcon = function(iconName, className, isDiv){
 	const div = (isDiv)? document.createElement('div') : document.createElement('button')
-	div.className = className
+	div.className = className || ''
 	const icon = document.createElement('i')
 	icon.dataset.lucide = iconName
 	div.appendChild(icon)
