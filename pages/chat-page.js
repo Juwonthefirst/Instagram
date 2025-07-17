@@ -7,6 +7,45 @@ import { showNotification } from '../components/notification.js';
 import { router } from '../router.js';
 import { getTimePassed, getReadableTime } from '../helper.js';
 
+const fetchChatMessages = async () => {
+	
+	/*if (Object.keys(domManager.chatDom).length) {
+		const chatDomElements = domManager.getChatDom(friend_username)
+		alert(typeof chatDomElements)
+		return messageMainDiv.append(...chatDomElements)
+	}*/
+	
+	const room = await server.getRoomAndMessage({
+		friend_username,
+		onSuccess: (data) => {
+			const chatBubbleElements = []
+			memory.currentRoom = data.name
+			usernameTag.textContent = (data.is_group) ? data.parent.name : data.parent.username
+			const messages = data.messages
+			for (const message of messages) {
+				const isSender = message.sender === currentUser.id
+				const chatBubbleDiv = chatBubble(isSender, message.body, message.timestamp)
+				chatBubbleElements.push(chatBubbleDiv)
+				messageMainDiv.appendChild(chatBubbleDiv)
+			}
+			
+			domManager.createChatDom(memory.currentRoom, chatBubbleElements)
+			socket.groupJoin(data.name)
+			
+			if (data.parent.is_online) {
+				statusTag.classList.add('online')
+				statusTag.textContent = 'online'
+			}
+			else {
+				statusTag.classList.remove('online')
+				statusTag.textContent = 'was online ' + getTimePassed(data.parent.last_online)
+			}
+			
+		}
+		
+	})
+}
+
 const currentUser = memory.getCurrentUser()
 const urlPath = location.pathname.split('/')
 const friend_username = urlPath.at(-1) || urlPath.at(-2);
@@ -110,49 +149,13 @@ messageInput.addEventListener('input', () => {
 	socket.typing()
 	typingSignalSent = true
 	setTimeout(() => typingSignalSent = false, 3000)
-}) 
+})
 
 export default function chatPage() {
 	usernameTag.textContent = friend_username
 	messageMainDiv.innerHTML = ''
-	messageMainDiv.appendChild(messageInputDiv)
-	(async () => {
-		if (Object.keys(domManager.chatDom).length) {
-			const chatDomElements = domManager.getChatDom(friend_username)
-			return messageMainDiv.append(...chatDomElements)
-		}
-		
-		const room = await server.getRoomAndMessage({
-			friend_username,
-			onSuccess: (data) => {
-				const chatBubbleElements = []
-				memory.currentRoom = data.name
-				usernameTag.textContent = (data.is_group) ? data.parent.name : data.parent.username
-				const messages = data.messages
-				for (const message of messages) {
-					const isSender = message.sender === currentUser.id
-					const chatBubbleDiv = chatBubble(isSender, message.body, message.timestamp)
-					chatBubbleElements.push(chatBubbleDiv)
-					messageMainDiv.appendChild(chatBubbleDiv)
-				}
-				
-				domManager.createChatDom(memory.currentRoom, chatBubbleElements)
-				socket.groupJoin(data.name)
-				
-				if (data.parent.is_online) {
-					statusTag.classList.add('online')
-					statusTag.textContent = 'online'
-				}
-				else {
-					statusTag.classList.remove('online')
-					statusTag.textContent = 'was online ' + getTimePassed(data.parent.last_online)
-				}
-				
-			}
-			
-		})
-	})();
-	
+	messageMainDiv.appendChild(messageInputDiv);
+	fetchChatMessages()
 	socket.onRoomMessage = (data) => {
 		if (data.sender_username !== currentUser.username) {
 			const chatBubbleDiv = chatBubble(false, data.message, data.timestamp)
