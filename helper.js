@@ -12,10 +12,12 @@ const onLoginError = async (errorTag, data, server, router) => {
     errorTag.textContent = error
 }
 
-const onLoginSuccess = async (data, router, server, memory) => {
+const onLoginSuccess = async (data, router, server, memory, socket) => {
     await server.get_csrf()
     await server.startAutoRefreshAccessToken()
     memory.setCurrentUser(data.user)
+    socket.connect()
+	socket.listenForNotifications()
     if (data.new_user) {
         return await router.render('finish-signup')
     }

@@ -11,7 +11,6 @@ const fetchChatMessages = async () => {
 	
 	/*if (Object.keys(domManager.chatDom).length) {
 		const chatDomElements = domManager.getChatDom(friend_username)
-		alert(typeof chatDomElements)
 		return messageMainDiv.append(...chatDomElements)
 	}*/
 	
