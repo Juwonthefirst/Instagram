@@ -157,12 +157,12 @@ export default function chatPage() {
 	fetchChatMessages()
 	socket.onRoomMessage = (data) => {
 		if (data.sender_username !== currentUser.username) {
-			const chatBubbleDiv = chatBubble(false, data.message, data.timestamp)
+			const newMessageBubbleDiv = chatBubble(false, data.message, data.timestamp)
 			domManager.updateChatDom(memory.currentRoom, (domElementsList) => {
 				domElementsList?.push(newMessageBubbleDiv)
 				alert(JSON.stringify(domElementsList))
 			})
-			messageMainDiv.appendChild(chatBubbleDiv)
+			messageMainDiv.appendChild(newMessageBubbleDiv)
 		}
 		messageMainDiv.scrollTop = messageMainDiv.scrollHeight
 	}
