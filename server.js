@@ -413,6 +413,11 @@ class Socket {
                     showNotification
                     break;
                     
+                case 'online_status_notification':
+                    alert(`${data.user} is ${(data.status)? 'online' : 'offline'}`)
+                    break;
+                
+                    
             }
             
         }
