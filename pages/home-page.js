@@ -9,6 +9,7 @@ import { getTimePassed } from '../helper.js';
 
 // 54px is the chat header size
 //70px is the size of each chat preview + gap
+
 let currentChatPage = 1
 let currentFriendPage = 1
 let currentThoughtPage = 1
@@ -273,8 +274,3 @@ friendDiv.addEventListener('scroll', async (event) => {
         pageNumber: currentFriendPage
     })
 })
-
-
-
-//showNotification('chat', { message: 'heeey Nigga my name is jayfKsgxhdhxglxkfzkgdlyxkfzkfzkfzktdltxfkxglxktdlydxggkxgkxtkxgkxg,gxl', sender: 'Juwon33', timestamp: '13:60' })
-//showNotification('call', {caller:'Juwon33', room_name: 'chat_1_2', room_id: 3})

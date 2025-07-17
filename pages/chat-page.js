@@ -119,6 +119,7 @@ export default function chatPage() {
 			const chatDomElements = domManager.getChatDom(friend_username)
 			return messageMainDiv.append(...chatDomElements)
 		}
+		
 		const room = await server.getRoomAndMessage({
 			friend_username,
 			onSuccess: (data) => {
