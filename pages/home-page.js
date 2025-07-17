@@ -155,6 +155,39 @@ homeDiv.appendChild(bottomNavBar)
 
 //Export function
 export default function homePage() {
+    socket.onPreviewMessage = (data) => {
+        if (data.room in domManager.chatPreviewDom) {
+            domManager.updateChatPreviewDom(data.room, (element) => {
+                element.querySelector('.timestamp').textContent = getTimePassed(data.timestamp)
+                element.querySelector('.message').textContent = data.message
+                chatDiv.removeChild(element)
+                chatDiv.insertBefore(element, chatDiv.children[0])
+            })
+            
+        }
+        
+        else {
+            const chatPreviewDiv = chatPreview({ profileImage: '/img/profile.jpg', username: data.sender_username, timestamp: data.timestamp, message: data.message })
+            if (chatDiv.children[0]) chatDiv.insertBefore(chatPreviewDiv, chatDiv.children[0])
+            else chatDiv.appendChild(chatPreviewDiv)
+            domManager.createChatPreviewDom(data.room, chatPreviewDiv)
+        }
+    }
+    
+    socket.onTyping = () => {
+        if (data.room in domManager.chatPreviewDom) {
+            domManager.updateChatPreviewDom(data.room, (element) => {
+                const messageTag = element.querySelector('.message')
+                const last_message = messageTag.textContent
+                messageTag.textContent = 'typing...'
+                setTimeout(() => {
+                    messageTag.textContent = last_message
+                }, 3000)
+            })
+            
+        }
+    }
+    
     return homeDiv
 }
 
@@ -240,40 +273,6 @@ friendDiv.addEventListener('scroll', async (event) => {
         pageNumber: currentFriendPage
     })
 })
-
-socket.onPreviewMessage = (data) => {
-    if (data.room in domManager.chatPreviewDom) {
-        domManager.updateChatPreviewDom(data.room, (element) => {
-            element.querySelector('.timestamp').textContent = getTimePassed(data.timestamp)
-            element.querySelector('.message').textContent = data.message
-            chatDiv.removeChild(element)
-            chatDiv.insertBefore(element, chatDiv.children[0])
-        })
-        
-    }
-    
-    else {
-        const chatPreviewDiv = chatPreview({ profileImage: '/img/profile.jpg', username: data.sender_username, timestamp: data.timestamp, message: data.message })
-        if (chatDiv.children[0]) chatDiv.insertBefore(chatPreviewDiv, chatDiv.children[0])
-        else chatDiv.appendChild(chatPreviewDiv)
-        domManager.createChatPreviewDom(data.room, chatPreviewDiv)
-    }
-}
-
-socket.onTyping = () => {
-    if (data.room in domManager.chatPreviewDom) {
-        domManager.updateChatPreviewDom(data.room, (element) => {
-            const messageTag = element.querySelector('.message')
-            const last_message = messageTag.textContent
-            messageTag.textContent = 'typing...'
-            setTimeout(() => {
-                messageTag.textContent = last_message
-            }, 3000)
-        })
-        
-    }
-}
-
 
 
 

@@ -11,42 +11,6 @@ const currentUser = memory.getCurrentUser()
 const urlPath = location.pathname.split('/')
 const friend_username = urlPath.at(-1) || urlPath.at(-2);
 
-(async () => {
-	if (Object.keys(domManager.chatDom).length) {
-		const chatDomElements = domManager.getChatDom(friend_username)
-		return messageMainDiv.append(...chatDomElements)
-	}
-	const room = await server.getRoomAndMessage({
-		friend_username,
-		onSuccess: (data) => {
-			const chatBubbleElements = []
-			memory.currentRoom = data.name
-			usernameTag.textContent = (data.is_group) ? data.parent.name : data.parent.username
-			const messages = data.messages
-			for (const message of messages) {
-				const isSender = message.sender === currentUser.id
-				const chatBubbleDiv = chatBubble(isSender, message.body, message.timestamp)
-				chatBubbleElements.push(chatBubbleDiv)
-				messageMainDiv.appendChild(chatBubbleDiv)
-			}
-			
-			domManager.createChatDom(memory.currentRoom, chatBubbleElements)
-			socket.groupJoin(data.name)
-			
-			if (data.parent.is_online) {
-				statusTag.classList.add('online')
-				statusTag.textContent = 'online'
-			}
-			else {
-				statusTag.classList.remove('online')
-				statusTag.textContent = 'was online ' + getTimePassed(data.parent.last_online)
-			}
-			
-		}
-		
-	})
-})();
-
 const messagesDiv = document.createElement('div')
 messagesDiv.className = 'chat-message'
 
@@ -54,7 +18,7 @@ const messageHeader = document.createElement('div')
 messageHeader.className = 'message-header'
 
 const backBtn = lucideIcon('arrow-left')
-backBtn.addEventListener('click', () => { 
+backBtn.addEventListener('click', () => {
 	router.navigateTo('/')
 	socket.groupLeave()
 })
@@ -146,30 +110,67 @@ messageInput.addEventListener('input', () => {
 	socket.typing()
 	typingSignalSent = true
 	setTimeout(() => typingSignalSent = false, 3000)
-})
+}) 
 
 export default function chatPage() {
-	return messagesDiv
-}
-
-socket.onRoomMessage = (data) => {
-	if (data.sender_username !== currentUser.username) {
-		const chatBubbleDiv = chatBubble(false, data.message, data.timestamp)
-		domManager.updateChatDom(memory.currentRoom, (domElementsList) => {
-			domElementsList?.push(newMessageBubbleDiv)
-			alert(JSON.stringify(domElementsList))
+	usernameTag.textContent = friend_username
+	(async () => {
+		if (Object.keys(domManager.chatDom).length) {
+			const chatDomElements = domManager.getChatDom(friend_username)
+			return messageMainDiv.append(...chatDomElements)
+		}
+		const room = await server.getRoomAndMessage({
+			friend_username,
+			onSuccess: (data) => {
+				const chatBubbleElements = []
+				memory.currentRoom = data.name
+				usernameTag.textContent = (data.is_group) ? data.parent.name : data.parent.username
+				const messages = data.messages
+				for (const message of messages) {
+					const isSender = message.sender === currentUser.id
+					const chatBubbleDiv = chatBubble(isSender, message.body, message.timestamp)
+					chatBubbleElements.push(chatBubbleDiv)
+					messageMainDiv.appendChild(chatBubbleDiv)
+				}
+				
+				domManager.createChatDom(memory.currentRoom, chatBubbleElements)
+				socket.groupJoin(data.name)
+				
+				if (data.parent.is_online) {
+					statusTag.classList.add('online')
+					statusTag.textContent = 'online'
+				}
+				else {
+					statusTag.classList.remove('online')
+					statusTag.textContent = 'was online ' + getTimePassed(data.parent.last_online)
+				}
+				
+			}
+			
 		})
-		messageMainDiv.appendChild(chatBubbleDiv)
-	}
-	messageMainDiv.scrollTop = messageMainDiv.scrollHeight
-}
-
-socket.onTyping = () => {
-	if (statusTag.textContent === 'typing...') return
-	const statusTagTextContent = statusTag.textContent
-	statusTag.textContent = 'typing...'
-	setTimeout(() => {
-		statusTag.textContent = statusTagTextContent
-	}, 2000)
+	})();
 	
+	socket.onRoomMessage = (data) => {
+		if (data.sender_username !== currentUser.username) {
+			const chatBubbleDiv = chatBubble(false, data.message, data.timestamp)
+			domManager.updateChatDom(memory.currentRoom, (domElementsList) => {
+				domElementsList?.push(newMessageBubbleDiv)
+				alert(JSON.stringify(domElementsList))
+			})
+			messageMainDiv.appendChild(chatBubbleDiv)
+		}
+		messageMainDiv.scrollTop = messageMainDiv.scrollHeight
+	}
+	
+	socket.onTyping = () => {
+		if (statusTag.textContent === 'typing...') return
+		const statusTagTextContent = statusTag.textContent
+		statusTag.textContent = 'typing...'
+		setTimeout(() => {
+			statusTag.textContent = statusTagTextContent
+		}, 2000)
+		
+	}
+	
+	return messagesDiv
 }

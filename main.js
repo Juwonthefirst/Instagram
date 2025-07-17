@@ -3,7 +3,10 @@ import { server, socket } from './server.js';
 import { memory } from './appMemory.js';
 
 
-window.addEventListener('popstate', () => router.route())
+window.addEventListener('popstate', async () => {
+	socket.groupLeave()
+	await router.route()
+})
 
 window.addEventListener('load', async () => {
 	const response = await server.get_csrf()
