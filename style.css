@@ -836,7 +836,7 @@ form>.submit-btn>iconify-icon {
     position: relative;
     padding: var(--sub);
     display: flex;
-    flex-direction: column;
+    flex-direction: column-reverse;
     gap: var(--md);
     overflow-x: auto;
     margin-bottom: var(--profile);
