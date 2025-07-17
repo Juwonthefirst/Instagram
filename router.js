@@ -7,6 +7,7 @@ const routes = {
 	'verify-email': () => import('/pages/verify-email.js'),
 	'chat': () => import('/pages/chat-page.js'),
 	'search': () => import('/pages/search-page.js'),
+	'call': () => import('/pages/call-page.js'),
 }
 
 
