@@ -165,6 +165,7 @@ socket.onRoomMessage = (data) => {
 }
 
 socket.onTyping = () => {
+	if (statusTag.textContent === 'typing...') return
 	const statusTagTextContent = statusTag.textContent
 	statusTag.textContent = 'typing...'
 	setTimeout(() => {
