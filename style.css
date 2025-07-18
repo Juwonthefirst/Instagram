@@ -1252,7 +1252,6 @@ form>.submit-btn>iconify-icon {
     align-items: center;
     height: 100dvh;
     position: relative;
-    z-index: 3;
 }
 
 .call-page > .call-header{
@@ -1329,12 +1328,13 @@ form>.submit-btn>iconify-icon {
     fill: var(--link-color);
 }
 
-video{
+.call-output{
     position: fixed;
     top: 0%;
     right: 0%;
     width: 100%;
     height: 100%;
+    z-index: -1;
     object-fit: cover;
 }
 

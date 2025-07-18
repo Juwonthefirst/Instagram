@@ -45,7 +45,7 @@ class PageRouter {
 	async render(pageURL, options) {
 		const pageModule = this.routes[pageURL] || (() => import('./pages/not-found-page.js'))
 		const page = await pageModule()
-		this.main.children[0].replaceWith(page.default(options))
+		this.main.children[0].replaceWith(await page.default(options))
 		lucide.createIcons()
 	}
 	

@@ -243,7 +243,7 @@ class Server {
             path: `chats/${room_name}/video/auth/`,
             auth: true
         })
-        return data
+        return data.token
     }
     
     async getRoomAndMessage({ friend_username, onSuccess, onError }) {

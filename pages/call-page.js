@@ -1,8 +1,14 @@
-import { Room, RoomEvent } from '../modules/livekit-client.esm.js';
-import { server } from '../server.js';
 import { lucideIcon } from '../components/icon.js';
+
 const callPageDiv = document.createElement('div')
 callPageDiv.className = 'call-page'
+
+const outputVideoTag = document.createElement('video')
+outputVideoTag.className = 'call-output'
+outputVideoTag.playsinline = true
+outputVideoTag.muted = true
+outputVideoTag.autoplay = true
+callPageDiv.appendChild(outputVideoTag)
 
 const callPageHeaderDiv = document.createElement('div')
 callPageHeaderDiv.className = 'call-header'
@@ -45,7 +51,17 @@ const volumeSwitchBtn = lucideIcon('volume-off')
 navigationBtnsDiv.append(screenShareBtn, voiceMicBtn, hangUpBtn, videoSwitchBtn, volumeSwitchBtn)
 callPageDiv.appendChild(navigationBtnsDiv)
 
-export default function callPage({room_name, type}){
-	
+const handleTrackSubsribed = function(track, publication, participant) {
+    track.attach(outputVideoTag)
+}
+
+export default async function callPage({room_name, type}){
+	const callRoom = new Room()
+	callRoom.on(RoomEvent.TrackSubsribed, handleTrackSubsribed)
+	callRoom.on(RoomEvent.Reconnecting, () => {callStatusTag.textContent = 'Reconnecting...'})
+	callRoom.on(RoomEvent.Reconnected, () => {callStatusTag.textContent = 'Connected'})
+	callRoom.on(RoomEvent.Disconnected, () => {callStatusTag.textContent = 'Disconnected'})
+	const token = await server.getLiveKitJWT(room_name)
+	await callRoom.connect(wsURL, token)
 	return callPageDiv
 }
