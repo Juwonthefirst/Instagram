@@ -238,9 +238,9 @@ class Server {
         
     }
     
-    async getLiveKitJWT(room_id) {
+    async getLiveKitJWT(room_name) {
         const data = await this.#baseFetch({
-            path: `chats/${room_id}/video/auth/`,
+            path: `chats/${room_name}/video/auth/`,
             auth: true
         })
         return data

@@ -45,6 +45,7 @@ const volumeSwitchBtn = lucideIcon('volume-off')
 navigationBtnsDiv.append(screenShareBtn, voiceMicBtn, hangUpBtn, videoSwitchBtn, volumeSwitchBtn)
 callPageDiv.appendChild(navigationBtnsDiv)
 
-export default function callPage(/*{receiverUsername, type}*/){
+export default function callPage({room_name, type}){
+	
 	return callPageDiv
 }

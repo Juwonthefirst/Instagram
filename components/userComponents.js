@@ -1,9 +1,11 @@
 import { lucideIcon, loadingLoopIcon } from './icon.js';
 import { router } from '../router.js';
 import { server } from '../server.js';
+import { memory } from '../appMemory.js';
 import domManager from '../dom-manager.js';
 
 const friendPreview = (friendObject) => {
+	const room_name = 'chat-' + [friendObject.id, memory.getCurrentUser({field: 'id'})].sort().join('-')
 	const friendPreviewDiv = document.createElement('div')
 	friendPreviewDiv.className = 'friend'
 	
@@ -25,9 +27,9 @@ const friendPreview = (friendObject) => {
 		await router.navigateTo(`/chat/${friendObject.username}/`)
 	})
 	const videoBtn = lucideIcon('video')
-	videoBtn.addEventListener('click', () => router.render('call', { receiverUsername: friendObject.username, type: 'video'}))
+	videoBtn.addEventListener('click', () => router.render('call', { room_name, type: 'video'}))
 	const callBtn = lucideIcon('phone')
-	callBtn.addEventListener('click', () => router.render('call', { receiverUsername: friendObject.username, type: 'voice'}))
+	callBtn.addEventListener('click', () => router.render('call', { room_name, type: 'voice'}))
 	
 	friendIconDiv.append(messageIcon, videoBtn, callBtn)
 	friendPreviewDiv.appendChild(friendIconDiv)
