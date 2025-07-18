@@ -30,12 +30,12 @@ class PageRouter {
 		
 		else if (this.protectedRoutes.includes(path) && !memory.getCurrentUser()) {
 			path = 'login'
-			history.pushState(null, 'Login nigga', '/login')
+			history.pushState(null, '', '/login')
 		}
 		
 		else if (this.blockedRoutes.includes(path) && memory.getCurrentUser()) {
 			path = '/'
-			history.pushState(null, 'Beep', '/')
+			history.pushState(null, '', '/')
 			
 		}
 		

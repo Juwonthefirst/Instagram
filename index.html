@@ -7,17 +7,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <script src="https://unpkg.com/lucide@latest"></script>
   <script src="https://cdn.jsdelivr.net/npm/iconify-icon@3.0.0/dist/iconify-icon.min.js"></script>
-  <title>Insta</title>
+  <title>Beep</title>
   <link rel="stylesheet" href="/style.css">
   <link rel="preload" href="https://accounts.google.com/gsi/client" as="script" crossorigin="anonymous" />
   <script src="https://accounts.google.com/gsi/client" async defer></script>
-  <scipt type="module" src="/main.js"></script>
+  <script type="module" src="/main.js"></script>
 </head>
 
 <body>
   <div class="root">
     <video class="call-output" preload="none" autoplay muted playsinline></video>
-    <div class="call-page">
+    <!--<div class="call-page">
       <div class="call-header">
         <i data-lucide="chevron-down"></i>
         <i data-lucide="ellipsis"></i>
@@ -37,7 +37,7 @@
         <i data-lucide="video"></i>
         <i data-lucide="volume-off"></i>
       </div>
-    </div>
+    </div>-->
     <!--<adiv class="user-search">
       <div class="user-search-bar">
         <div class="back-btn">
@@ -298,11 +298,6 @@
   
   <script>
     lucide.createIcons()
-    const video = document.querySelector('video')
-    navigator.mediaDevices.getUserMedia({
-      video: true
-    }).then(stream => {video.srcObject = stream; video.play()})
-
   </script>
 </body>
 
