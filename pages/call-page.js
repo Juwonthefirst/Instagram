@@ -64,6 +64,7 @@ const handleTrackSubsribed = function(track, publication, participant) {
 }
 
 export default async function callPage({ room_name, type }) {
+    console.log(type)
 	const callRoom = new CallRoom(type)
 	callRoom.onTrackSubsribed = handleTrackSubsribed
 	callRoom.onReconnecting = () => callStatusTag.textContent = 'Reconnecting'
