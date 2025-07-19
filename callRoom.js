@@ -1,4 +1,9 @@
-import { Room, RoomEvent, createLocalAudioTrack, createLocalVideoTrack, createLocalScreenTracks } from './modules/livekit-client.esm.js';
+import { 
+	Room, RoomEvent, Track, 
+	createLocalAudioTrack, 
+	createLocalVideoTrack, 
+	createLocalScreenTracks,
+} from './modules/livekit-client.esm.js';
 import { server } from '../server.js';
 
 const wsUrl = 'wss://test-8jnftwho.livekit.cloud'
@@ -16,35 +21,38 @@ class CallRoom {
 		this.onAudioMuted = null
 		this.onVideoUnMuted = null
 		this.onAudioUnMuted = null
+		this.onCallEnd = null
+		this.onCallStart = null
 	}
 	
-	createTracks() {
-		this.localAudioTrack = createLocalAudioTrack()
-		this.localVideoTrack = createLocalVideoTrack()
+	async createTracks() {
+		this.localAudioTrack = await createLocalAudioTrack()
+		this.localVideoTrack = await createLocalVideoTrack()
 		if (this.type !== 'video') {
 			this.localVideoTrack.disable()
 		}
-		this.localUser.publish(this.localAudioTrack)
-		this.localUser.publish(this.localVideoTrack)
+		await this.localUser.publish(this.localAudioTrack)
+		await this.localUser.publish(this.localVideoTrack)
 	}
 	
 	connectEventListeners() {
-		this.room.on(RoomEvent.TrackSubscribed, () => this.onTrackSubsribed(track, publication, participant))
-		this.room.on(RoomEvent.Reconnecting, () => this.onReconnecting())
-		this.room.on(RoomEvent.Disconnected, () => this.onDisconnected())
-		this.room.on(RoomEvent.Reconnected, () => this.onReconnected())
+		this.room.on(RoomEvent.TrackSubscribed, () => this.onTrackSubsribed?.(track, publication, participant))
+		this.room.on(RoomEvent.Reconnecting, () => this.onReconnecting?.())
+		this.room.on(RoomEvent.Disconnected, () => this.onDisconnected?.())
+		this.room.on(RoomEvent.Reconnected, () => this.onReconnected?.())
 		this.room.on(RoomEvent.ParticipantConnected, () => {
 			this.callStarted = true;
 			this.callStartedAt = new Date.now()
+			this.onAnswered?.()
 		})
-		this.room.on(RoomEvent.ParticipantDisconnected, () => {
-			this.room.disconnect()
+		this.room.on(RoomEvent.ParticipantDisconnected, async () => {
+			await this.room.disconnect()
 		})
 		this.room.on(RoomEvent.TrackMuted, (track, publication, participant) => {
-			track.kind === 'audio' ? this.onAudioMuted() : this.onVideoMuted()
+			track.kind === 'audio' ? this.onAudioMuted?.() : this.onVideoMuted?.()
 		})
 		this.room.on(RoomEvent.TrackUnMuted, (track, publication, participant) => {
-			track.kind === 'audio' ? this.onAudioUnMuted() : this.onVideoUnMuted()
+			track.kind === 'audio'? this.onAudioUnMuted?.() : this.onVideoUnMuted?.()
 		})
 	}
 	
@@ -54,31 +62,69 @@ class CallRoom {
 		await this.room.connect(wsUrl, token)
 		this.localUser = this.room.localParticipant
 		this.createTracks()
+		this.onCallStart?.()
+	}
+	
+	endCall(){
+		if (!this.callStarted) return 
+		await this.room.disconnect()
+		this.onCallEnd?.()
 	}
 	
 	async openVideo() {
+		if (!this.callStarted) return 
 		await this.localVideoTrack.enable()
 		this.type = 'video'
 	}
 	
 	async closeVideo() {
+		if (!this.callStarted) return 
 		await this.localVideoTrack.disable()
 		this.type = 'audio'
 	}
 	
 	async openScreenSharing() {
-		this.localScreenTrack = createLocalScreenTracks()
-		this.localUser.publish(this.localScreenTrack)
+		if (this.localScreenTrack) return await this.localScreenTrack.enable()
+		
+		const screenTracks = createLocalScreenTracks()
+		for (let track of screenTracks) {
+			if (track.kind === 'video'){
+				this.localScreenTrack = track
+			}
+		}
+		await this.localUser.publish(this.localScreenTrack, {
+			source: Track.Source.ScreenShare
+		})
 	}
 	
 	async closeScreenSharing() {
-		
+		await this.localScreenTrack.disable()
 	}
 	
 	async muteVideo() {
+		if (!this.callStarted) return 
 		await this.localVideoTrack.mute()
 	}
 	async muteAudio() {
+		if (!this.callStarted) return 
 		await this.localAudioTrack.mute()
+	}
+	
+	async unMuteVideo() {
+		if (!this.callStarted) return 
+		await this.localVideoTrack.unmute()
+	}
+	
+	async unMuteAudio() {
+		if (!this.callStarted) return 
+		await this.localAudioTrack.unmute()
+	}
+	
+	async swapCamera(){
+		await this.localVideoTrack.switchCamera()
+	}
+	
+	async captureVideoFrame(){
+		await this.localVideoTrack.captureFrame()
 	}
 }
