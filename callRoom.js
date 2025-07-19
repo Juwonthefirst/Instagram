@@ -24,6 +24,7 @@ class CallRoom {
 		this.onAudioUnMuted = null
 		this.onCallEnd = null
 		this.onCallStart = null
+		this.onAnswered = null
 	}
 	
 	async createTracks() {
@@ -62,11 +63,11 @@ class CallRoom {
 		const token = await server.getLiveKitJWT(room_name)
 		await this.room.connect(wsUrl, token)
 		this.localUser = this.room.localParticipant
-		this.createTracks()
+		await this.createTracks()
 		this.onCallStart?.()
 	}
 	
-	endCall(){
+	async endCall(){
 		if (!this.callStarted) return 
 		await this.room.disconnect()
 		this.onCallEnd?.()

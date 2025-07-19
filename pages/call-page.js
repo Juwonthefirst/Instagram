@@ -1,7 +1,15 @@
 import { lucideIcon } from '../components/icon.js';
 import { CallRoom } from '../callRoom.js';
+
 const callPageDiv = document.createElement('div')
 callPageDiv.className = 'call-page'
+
+const userOutputVideoTag = document.createElement('video')
+userOutputVideoTag.className = 'user-output'
+userOutputVideoTag.playsinline = true
+userOutputVideoTag.muted = true
+userOutputVideoTag.autoplay = true
+callPageDiv.appendChild(userOutputVideoTag)
 
 const outputVideoTag = document.createElement('video')
 outputVideoTag.className = 'call-output'
@@ -46,9 +54,9 @@ const screenShareBtn = lucideIcon('screen-share')
 const voiceMicBtn = lucideIcon('mic')
 const hangUpBtn = lucideIcon('phone', 'cancel-call')
 const videoSwitchBtn = lucideIcon('video')
-const volumeSwitchBtn = lucideIcon('volume-off')
+const cameraSwitchBtn = lucideIcon('switch-camera')
 
-navigationBtnsDiv.append(screenShareBtn, voiceMicBtn, hangUpBtn, videoSwitchBtn, volumeSwitchBtn)
+navigationBtnsDiv.append(screenShareBtn, voiceMicBtn, hangUpBtn, videoSwitchBtn, cameraSwitchBtn)
 callPageDiv.appendChild(navigationBtnsDiv)
 
 const handleTrackSubsribed = function(track, publication, participant) {
@@ -58,7 +66,16 @@ const handleTrackSubsribed = function(track, publication, participant) {
 export default async function callPage({ room_name, type }) {
 	const callRoom = new CallRoom(type)
 	callRoom.onTrackSubsribed = handleTrackSubsribed
+	callRoom.onReconnecting = () => callStatusTag.textContent = 'Reconnecting'
+	callRoom.onReconnected = () => callStatusTag.textContent = 'Connected'
+	callRoom.onDisconnected = () => callStatusTag.textContent = 'Disconnected'
+	callRoom.onAnswered = () => {
+		if (type === 'video')callPageDiv.classList.add('video')
+	}
+	
 	await callRoom.startCall(room_name)
+	if (type === 'video') userOutputVideoTag.srcObject = callRoom.localVideoTrack
+	
 	screenShareBtn.addEventListener('click', async () => {
 		if (callRoom.localScreenTrack) {
 			await callRoom.closeScreenSharing()
@@ -69,7 +86,7 @@ export default async function callPage({ room_name, type }) {
 		screenShareBtn.classList.add('active')
 	})
 	
-	voiceMicBtn.addEventListener('click', () => {
+	voiceMicBtn.addEventListener('click', async () => {
 		if (callRoom.audioMuted) {
 			await callRoom.unMuteAudio()
 			voiceMicBtn.classList.remove('active')
@@ -82,17 +99,19 @@ export default async function callPage({ room_name, type }) {
 	hangUpBtn.addEventListener('click', () => callRoom.endCall())
 	
 	videoSwitchBtn.addEventListener('click', async () => {
-		if (callRoom.videoActive) {
-			if (type === 'audio') await callRoom.openCamera()
-			else await callRoom.unMuteVideo()
-			
+		if (type === 'audio') {
+			if (callRoom.videoActive) await callRoom.closeCamera()
+			else await callRoom.openCamera()
 		}
 		else {
-			if (type === 'audio') await callRoom.closeCamera()
-			else await callRoom.muteVideo()
+			if (callRoom.videoActive) await callRoom.muteVideo()
+			else await callRoom.unMuteVideo()
 		}
-		
+		videoSwitchBtn.classList.toggle('active')
 	})
+	
+	cameraSwitchBtn.addEventListener('click', () => {callRoom.swapCamera()})
+	
 	
 	return callPageDiv
 }

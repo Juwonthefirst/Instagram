@@ -77,7 +77,8 @@ input {
     width: 100%;
 }
 
-textarea, button{
+textarea,
+button {
     all: unset;
 }
 
@@ -527,7 +528,8 @@ form>.submit-btn>iconify-icon {
 .signup .social-login-box .social-login {
     padding: var(--sm);
 }
-.input-field{
+
+.input-field {
     display: flex;
     align-items: center;
 }
@@ -598,7 +600,7 @@ form>.submit-btn>iconify-icon {
     padding-bottom: 0;
 }
 
-.verify-email.success iconify-icon{
+.verify-email.success iconify-icon {
     color: #38FF54D9;
 }
 
@@ -795,7 +797,7 @@ form>.submit-btn>iconify-icon {
     padding: 6px;
 }
 
-.message-header>.icons>.phone-icon svg{
+.message-header>.icons>.phone-icon svg {
     height: 22px;
     width: 22px;
 }
@@ -990,11 +992,11 @@ form>.submit-btn>iconify-icon {
     fill: black;
 }
 
-.friends-list > .add-friend-btn.new-design{
+.friends-list>.add-friend-btn.new-design {
     background-color: rgba(70, 100, 219, 0.4);
 }
 
-.friends-list > .add-friend-btn.new-design svg{
+.friends-list>.add-friend-btn.new-design svg {
     color: var(--link-color);
     fill: var(--link-color);
 }
@@ -1103,9 +1105,11 @@ form>.submit-btn>iconify-icon {
     padding: var(--sm);
     color: var(--accent-color);
 }
-.search-results>.result>.add-friend.sent{
+
+.search-results>.result>.add-friend.sent {
     color: #38FF54D9;
 }
+
 .bottom-navbar {
     border-top: 1px solid rgba(255, 255, 255, .2);
     box-sizing: border-box;
@@ -1252,42 +1256,45 @@ form>.submit-btn>iconify-icon {
     align-items: center;
     height: 100dvh;
     position: relative;
+    z-index: 3;
 }
 
-.call-page > .call-header{
+.call-page>.call-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding-top: var(--sm);
     width: 90%;
 }
-.call-page > .call-header svg{
+
+.call-page>.call-header svg {
     width: 28px;
     height: 28px;
 }
-.call-page > .caller-details{
+
+.call-page>.caller-details {
     display: flex;
     flex-direction: column;
     gap: var(--sm);
     align-items: center;
 }
 
-.call-page > .caller-details > .profile-picture{
+.call-page>.caller-details>.profile-picture {
     width: 116px;
     height: 116px;
     border-radius: 50%;
 }
 
-.call-page > .caller-details > .status{
+.call-page>.caller-details>.status {
     font-size: var(--sub);
 }
 
-.call-page > .caller-details > .username{
+.call-page>.caller-details>.username {
     font-size: 18px;
 }
 
 
-.call-page > .buttons{
+.call-page>.buttons {
     position: absolute;
     bottom: 5%;
     display: flex;
@@ -1298,13 +1305,13 @@ form>.submit-btn>iconify-icon {
     background-color: var(--light-main);
 }
 
-.call-page > .buttons svg{
+.call-page>.buttons svg {
     width: var(--icon);
     height: var(--icon);
     padding: var(--sm);
 }
 
-.call-page > .buttons > .cancel-call{
+.call-page>.buttons>.cancel-call {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -1317,26 +1324,47 @@ form>.submit-btn>iconify-icon {
     margin: -12px;
 }
 
-.call-page > .buttons > .cancel-call svg{
+.call-page>.buttons>.cancel-call svg {
     width: 28px;
     height: 28px;
 }
 
-.call-page > .buttons .active svg{
+.call-page>.buttons .active svg {
     background-color: rgba(70, 100, 219, 0.4);
     color: var(--link-color);
     fill: var(--link-color);
     border-radius: 50%;
 }
 
-.call-output{
+.call-output {
     position: fixed;
     top: 0%;
     right: 0%;
     width: 100%;
     height: 100%;
+    z-index: -2;
+    object-fit: cover;
+}
+
+.user-output {
+    position: fixed;
+    width: 100%;
+    height: 100%;
     z-index: -1;
     object-fit: cover;
+}
+
+.video.call-page>.user-output {
+    display: block;
+    width: 25%;
+    height: 25%;
+    bottom: 15%;
+    right: 5%;
+    transition: all 1s;
+}
+
+.video.call-page > .caller-details{
+    display: none;
 }
 
 @keyframes dropDown {
