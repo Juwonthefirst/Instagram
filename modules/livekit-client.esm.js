@@ -21263,7 +21263,7 @@ class LocalParticipant extends Participant {
       if (existingTrackOfSource && track.source !== Track.Source.Unknown) {
         this.log.info("publishing a second track with the same source: ".concat(track.source), Object.assign(Object.assign({}, this.logContext), getLogContextFromTrack(track)));
       }
-      if (opts.stopMicTrackOnMute && isAudioTrack(track)) {
+      if (opts?.stopMicTrackOnMute && isAudioTrack(track)) {
         track.stopOnMute = true;
       }
       if (track.source === Track.Source.ScreenShare && isFireFox()) {

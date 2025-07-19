@@ -64,8 +64,7 @@ const handleTrackSubsribed = function(track, publication, participant) {
 }
 
 export default async function callPage({ room_name, type }) {
-    console.log(type)
-	const callRoom = new CallRoom(type)
+	(async () => {const callRoom = new CallRoom(type)
 	callRoom.onTrackSubsribed = handleTrackSubsribed
 	callRoom.onReconnecting = () => callStatusTag.textContent = 'Reconnecting'
 	callRoom.onReconnected = () => callStatusTag.textContent = 'Connected'
@@ -113,6 +112,6 @@ export default async function callPage({ room_name, type }) {
 	
 	cameraSwitchBtn.addEventListener('click', () => {callRoom.swapCamera()})
 	
-	
+	})()
 	return callPageDiv
 }

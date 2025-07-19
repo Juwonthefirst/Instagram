@@ -1,7 +1,9 @@
-import { 
-	Room, RoomEvent, Track, 
-	createLocalAudioTrack, 
-	createLocalVideoTrack, 
+import {
+	Room,
+	RoomEvent,
+	Track,
+	createLocalAudioTrack,
+	createLocalVideoTrack,
 	createLocalScreenTracks,
 } from './modules/livekit-client.esm.js';
 import { server } from '../server.js';
@@ -33,8 +35,10 @@ class CallRoom {
 		if (this.type !== 'video') {
 			this.localVideoTrack.disable()
 		}
-		await this.localUser.publish(this.localAudioTrack)
-		await this.localUser.publish(this.localVideoTrack)
+		await this.localUser.publishTrack(this.localAudioTrack, {
+			stopMicTrackOnMute: true
+		})
+		await this.localUser.publishTrack(this.localVideoTrack)
 	}
 	
 	connectEventListeners() {
@@ -54,7 +58,7 @@ class CallRoom {
 			track.kind === 'audio' ? this.onAudioMuted?.() : this.onVideoMuted?.()
 		})
 		this.room.on(RoomEvent.TrackUnMuted, (track, publication, participant) => {
-			track.kind === 'audio'? this.onAudioUnMuted?.() : this.onVideoUnMuted?.()
+			track.kind === 'audio' ? this.onAudioUnMuted?.() : this.onVideoUnMuted?.()
 		})
 	}
 	
@@ -67,20 +71,20 @@ class CallRoom {
 		this.onCallStart?.()
 	}
 	
-	async endCall(){
-		if (!this.callStarted) return 
+	async endCall() {
+		if (!this.callStarted) return
 		await this.room.disconnect()
 		this.onCallEnd?.()
 	}
 	
 	async openCamera() {
-		if (!this.callStarted) return 
+		if (!this.callStarted) return
 		await this.localVideoTrack.enable()
 		this.videoActive = true
 	}
 	
 	async closeCamera() {
-		if (!this.callStarted) return 
+		if (!this.callStarted) return
 		await this.localVideoTrack.disable()
 		this.videoActive = false
 	}
@@ -90,11 +94,11 @@ class CallRoom {
 		
 		const screenTracks = createLocalScreenTracks()
 		for (let track of screenTracks) {
-			if (track.kind === 'video'){
+			if (track.kind === 'video') {
 				this.localScreenTrack = track
 			}
 		}
-		await this.localUser.publish(this.localScreenTrack, {
+		await this.localUser.publishTrack(this.localScreenTrack, {
 			source: Track.Source.ScreenShare
 		})
 	}
@@ -106,33 +110,33 @@ class CallRoom {
 	}
 	
 	async muteVideo() {
-		if (!this.callStarted) return 
+		if (!this.callStarted) return
 		await this.localVideoTrack.mute()
 		this.videoActive = false
 	}
 	async muteAudio() {
-		if (!this.callStarted) return 
+		if (!this.callStarted) return
 		await this.localAudioTrack.mute()
 		this.audioMuted = true
 	}
 	
 	async unMuteVideo() {
-		if (!this.callStarted) return 
+		if (!this.callStarted) return
 		await this.localVideoTrack.unmute()
 		this.videoActive = true
 	}
 	
 	async unMuteAudio() {
-		if (!this.callStarted) return 
+		if (!this.callStarted) return
 		await this.localAudioTrack.unmute()
 		this.audioMuted = false
 	}
 	
-	async swapCamera(){
+	async swapCamera() {
 		await this.localVideoTrack.switchCamera()
 	}
 	
-	async captureVideoFrame(){
+	async captureVideoFrame() {
 		await this.localVideoTrack.captureFrame()
 	}
 	
