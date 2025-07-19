@@ -11,7 +11,8 @@
   <link rel="stylesheet" href="/style.css">
   <link rel="preload" href="https://accounts.google.com/gsi/client" as="script" crossorigin="anonymous" />
   <script src="https://accounts.google.com/gsi/client" async defer></script>
-  <scipt type="module" src="/main.js"></script>
+  <scipt type="module" src="/main.js">
+    </script>
 </head>
 
 <body>
@@ -30,7 +31,9 @@
       
       <div class="buttons">
         <i data-lucide="screen-share"></i>
-        <i data-lucide="mic-off"></i>
+        <div class="active">
+          <i data-lucide="mic-off"></i>
+        </div>
         <div class="cancel-call">
           <i data-lucide="phone"></i>
         </div>

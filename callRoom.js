@@ -9,6 +9,7 @@ import { server } from '../server.js';
 const wsUrl = 'wss://test-8jnftwho.livekit.cloud'
 
 class CallRoom {
+	
 	constructor(type) {
 		this.room = new Room()
 		this.type = type
@@ -71,16 +72,16 @@ class CallRoom {
 		this.onCallEnd?.()
 	}
 	
-	async openVideo() {
+	async openCamera() {
 		if (!this.callStarted) return 
 		await this.localVideoTrack.enable()
-		this.type = 'video'
+		this.videoActive = true
 	}
 	
-	async closeVideo() {
+	async closeCamera() {
 		if (!this.callStarted) return 
 		await this.localVideoTrack.disable()
-		this.type = 'audio'
+		this.videoActive = false
 	}
 	
 	async openScreenSharing() {
@@ -98,26 +99,32 @@ class CallRoom {
 	}
 	
 	async closeScreenSharing() {
-		await this.localScreenTrack.disable()
+		if (!this.localScreenTrack) return
+		await this.localUser.unpublishTrack(this.localScreenTrack)
+		this.localScreenTrack = null
 	}
 	
 	async muteVideo() {
 		if (!this.callStarted) return 
 		await this.localVideoTrack.mute()
+		this.videoActive = false
 	}
 	async muteAudio() {
 		if (!this.callStarted) return 
 		await this.localAudioTrack.mute()
+		this.audioMuted = true
 	}
 	
 	async unMuteVideo() {
 		if (!this.callStarted) return 
 		await this.localVideoTrack.unmute()
+		this.videoActive = true
 	}
 	
 	async unMuteAudio() {
 		if (!this.callStarted) return 
 		await this.localAudioTrack.unmute()
+		this.audioMuted = false
 	}
 	
 	async swapCamera(){
@@ -127,4 +134,7 @@ class CallRoom {
 	async captureVideoFrame(){
 		await this.localVideoTrack.captureFrame()
 	}
+	
 }
+
+export { CallRoom }

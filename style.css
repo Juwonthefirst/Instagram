@@ -1292,7 +1292,7 @@ form>.submit-btn>iconify-icon {
     bottom: 5%;
     display: flex;
     align-items: center;
-    gap: var(--icon);
+    gap: 28px;
     padding: var(--sm);
     border-radius: var(--md);
     background-color: var(--light-main);
@@ -1322,10 +1322,11 @@ form>.submit-btn>iconify-icon {
     height: 28px;
 }
 
-.active svg{
+.call-page > .buttons .active svg{
     background-color: rgba(70, 100, 219, 0.4);
     color: var(--link-color);
     fill: var(--link-color);
+    border-radius: 50%;
 }
 
 .call-output{

@@ -1,5 +1,5 @@
 import { lucideIcon } from '../components/icon.js';
-
+import { CallRoom } from '../callRoom.js';
 const callPageDiv = document.createElement('div')
 callPageDiv.className = 'call-page'
 
@@ -52,16 +52,47 @@ navigationBtnsDiv.append(screenShareBtn, voiceMicBtn, hangUpBtn, videoSwitchBtn,
 callPageDiv.appendChild(navigationBtnsDiv)
 
 const handleTrackSubsribed = function(track, publication, participant) {
-    track.attach(outputVideoTag)
+	track.attach(outputVideoTag)
 }
 
-export default async function callPage({room_name, type}){
-	const callRoom = new Room()
-	callRoom.on(RoomEvent.TrackSubsribed, handleTrackSubsribed)
-	callRoom.on(RoomEvent.Reconnecting, () => {callStatusTag.textContent = 'Reconnecting...'})
-	callRoom.on(RoomEvent.Reconnected, () => {callStatusTag.textContent = 'Connected'})
-	callRoom.on(RoomEvent.Disconnected, () => {callStatusTag.textContent = 'Disconnected'})
-	const token = await server.getLiveKitJWT(room_name)
-	await callRoom.connect(wsURL, token)
+export default async function callPage({ room_name, type }) {
+	const callRoom = new CallRoom(type)
+	callRoom.onTrackSubsribed = handleTrackSubsribed
+	await callRoom.startCall(room_name)
+	screenShareBtn.addEventListener('click', async () => {
+		if (callRoom.localScreenTrack) {
+			await callRoom.closeScreenSharing()
+			screenShareBtn.classList.remove('active')
+			return
+		}
+		await callRoom.openScreenSharing()
+		screenShareBtn.classList.add('active')
+	})
+	
+	voiceMicBtn.addEventListener('click', () => {
+		if (callRoom.audioMuted) {
+			await callRoom.unMuteAudio()
+			voiceMicBtn.classList.remove('active')
+			return
+		}
+		await callRoom.muteAudio()
+		voiceMicBtn.classList.add('active')
+	})
+	
+	hangUpBtn.addEventListener('click', () => callRoom.endCall())
+	
+	videoSwitchBtn.addEventListener('click', async () => {
+		if (callRoom.videoActive) {
+			if (type === 'audio') await callRoom.openCamera()
+			else await callRoom.unMuteVideo()
+			
+		}
+		else {
+			if (type === 'audio') await callRoom.closeCamera()
+			else await callRoom.muteVideo()
+		}
+		
+	})
+	
 	return callPageDiv
 }
