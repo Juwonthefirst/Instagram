@@ -1289,10 +1289,19 @@ form>.submit-btn>iconify-icon {
     font-size: var(--sub);
 }
 
-.call-page>.caller-details>.username {
+.call-page>.caller-details .username {
     font-size: 18px;
 }
 
+.call-page>.caller-details>.username-box svg {
+    color: red;
+    width: var(--md);
+    height: var(--md);
+}
+
+.call-page>.caller-details>.username-box > .muted {
+    display: block;
+}
 
 .call-page>.buttons {
     position: absolute;
@@ -1332,7 +1341,7 @@ form>.submit-btn>iconify-icon {
 .call-page>.buttons .active svg {
     background-color: rgba(70, 100, 219, 0.4);
     color: var(--link-color);
-    fill: var(--link-color);
+    /*fill: var(--link-color);*/
     border-radius: 50%;
 }
 

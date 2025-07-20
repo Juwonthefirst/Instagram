@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="/style.css">
   <link rel="preload" href="https://accounts.google.com/gsi/client" as="script" crossorigin="anonymous" />
   <script src="https://accounts.google.com/gsi/client" async defer></script>
-  <script type="module" src="/main.js">
+  <scipt type="module" src="/main.js">
     </script>
 </head>
 
@@ -20,14 +20,17 @@
     <div class="call-page">
       <p>Hello</p>
       <!--<video class="user-output" preload="none" playsinline></video>
-      <video class="call-output" preload="none" autoplay muted playsinline></video>
+      <video class="call-output" preload="none" autoplay muted playsinline></video>-->
       <div class="call-header">
         <i data-lucide="chevron-down"></i>
         <i data-lucide="ellipsis"></i>
       </div>
       <div class="caller-details">
         <img class="profile-picture" src="/img/profile.jpg" alt="">
-        <p class="username">Juwon33</p>
+        <div class="username-box">
+          <p class="username">Juwon33</p>
+          <i data-lucide="mic-off"></i>
+        </div>
         <p class="call-status">Ringing</p>
       </div>
       
@@ -303,7 +306,6 @@
   
   <script>
     lucide.createIcons()
-
   </script>
 </body>
 

@@ -15,17 +15,16 @@ class CallRoom {
 	constructor(type) {
 		this.room = new Room()
 		this.type = type
-		this.callStarted = false
+		this.callStarted = true
 		this.onTrackSubsribed = null
+		this.onConnected = null
 		this.onReconnecting = null
 		this.onDisconnected = null
 		this.onReconnected = null
 		this.onVideoMuted = null
 		this.onAudioMuted = null
-		this.onVideoUnMuted = null
+		this.onVideoUnMuted = nul
 		this.onAudioUnMuted = null
-		this.onCallEnd = null
-		this.onCallStart = null
 		this.onAnswered = null
 	}
 	
@@ -42,6 +41,7 @@ class CallRoom {
 	}
 	
 	connectEventListeners() {
+		this.room.on(RoomEvent.Connected, () => this.onConnected?.())
 		this.room.on(RoomEvent.TrackSubscribed, () => this.onTrackSubsribed?.(track, publication, participant))
 		this.room.on(RoomEvent.Reconnecting, () => this.onReconnecting?.())
 		this.room.on(RoomEvent.Disconnected, () => this.onDisconnected?.())
@@ -68,13 +68,11 @@ class CallRoom {
 		await this.room.connect(wsUrl, token)
 		this.localUser = this.room.localParticipant
 		await this.createTracks()
-		this.onCallStart?.()
 	}
 	
 	async endCall() {
 		if (!this.callStarted) return
 		await this.room.disconnect()
-		this.onCallEnd?.()
 	}
 	
 	async openCamera() {
@@ -92,7 +90,7 @@ class CallRoom {
 	async openScreenSharing() {
 		if (this.localScreenTrack) return await this.localScreenTrack.enable()
 		
-		const screenTracks = createLocalScreenTracks()
+		const screenTracks = await createLocalScreenTracks()
 		for (let track of screenTracks) {
 			if (track.kind === 'video') {
 				this.localScreenTrack = track

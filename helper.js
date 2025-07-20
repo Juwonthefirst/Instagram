@@ -148,4 +148,6 @@ const getReadableTime = (date) => {
     return hours + ':' + minutes
 }
 
+const getTimePassed
+
 export { google_client_id, onLoginError, onLoginSuccess, FormValidator, getTimePassed, getReadableTime }

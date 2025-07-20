@@ -29,7 +29,7 @@ const friendPreview = (friendObject) => {
 	const videoBtn = lucideIcon('video')
 	videoBtn.addEventListener('click', () => router.render('call', { room_name, type: 'video'}))
 	const callBtn = lucideIcon('phone')
-	callBtn.addEventListener('click', () => router.render('call', { room_name, type: 'voice'}))
+	callBtn.addEventListener('click', () => router.render('call', { room_name, type: 'audio'}))
 	
 	friendIconDiv.append(messageIcon, videoBtn, callBtn)
 	friendPreviewDiv.appendChild(friendIconDiv)
