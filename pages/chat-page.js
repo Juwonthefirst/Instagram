@@ -80,7 +80,7 @@ usernameTag.textContent = friend_username
 
 const statusTag = document.createElement('p')
 statusTag.className = 'status'
-statusTag.textContent = ''
+statusTag.textContent = 'Calling'
 
 nameAndStatusDiv.append(usernameTag, statusTag)
 chatDetailsDiv.appendChild(nameAndStatusDiv)
