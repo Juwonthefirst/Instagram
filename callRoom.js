@@ -23,7 +23,7 @@ class CallRoom {
 		this.onReconnected = null
 		this.onVideoMuted = null
 		this.onAudioMuted = null
-		this.onVideoUnMuted = nul
+		this.onVideoUnMuted = null
 		this.onAudioUnMuted = null
 		this.onAnswered = null
 	}

@@ -1293,13 +1293,23 @@ form>.submit-btn>iconify-icon {
     font-size: 18px;
 }
 
+.call-page>.caller-details > .username-box {
+    display: flex;
+    gap: var(--sm);
+    align-items: center;
+}
+
 .call-page>.caller-details>.username-box svg {
     color: red;
     width: var(--md);
     height: var(--md);
 }
 
-.call-page>.caller-details>.username-box > .muted {
+.call-page>.caller-details>.username-box svg {
+    display: none;
+}
+
+.call-page>.caller-details>.username-box > .muted svg {
     display: block;
 }
 

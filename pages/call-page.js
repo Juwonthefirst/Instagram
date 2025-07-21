@@ -1,6 +1,9 @@
 import { lucideIcon } from '../components/icon.js';
 import { CallRoom } from '../callRoom.js';
-console.log(navigator.mediaDevices.getUserMedia === undefined)
+import { socket } from '../server.js';
+import { formatSeconds } from '../helper.js';
+import { router } from '../router.js';
+
 
 const callPageDiv = document.createElement('div')
 callPageDiv.className = 'call-page'
@@ -44,11 +47,11 @@ usernameTag.className = 'username'
 usernameTag.textContent = 'Juwon33'
 usernameBoxDiv.appendChild(usernameTag)
 
-const mutedAudioIcon = lucideIcon('mic-off', 'muted audio', true)
-const mutedVideoIcon = lucideIcon('video-off', 'muted video', true)
+const mutedAudioIcon = lucideIcon('mic-off', '', true)
+const mutedVideoIcon = lucideIcon('video-off', '', true)
 usernameBoxDiv.append(mutedAudioIcon, mutedVideoIcon)
+callDetailsDiv.appendChild(usernameBoxDiv)
 
-callPageDiv.appendChild(usernameBoxDiv)
 const callStatusTag = document.createElement('p')
 callStatusTag.className = 'status'
 callStatusTag.textContent = 'Beeping'
@@ -68,7 +71,7 @@ const cameraSwitchBtn = lucideIcon('switch-camera')
 navigationBtnsDiv.append(voiceMicBtn, hangUpBtn, videoSwitchBtn)
 callPageDiv.appendChild(navigationBtnsDiv)
 
-const handleTrackSubsribed = function(track, publication, participant) {
+const handleTrackSubsribed = (track, publication, participant) => {
 	track.attach(outputVideoTag)
 }
 
@@ -81,14 +84,19 @@ export default async function callPage({ room_name, type }) {
 	(async () => {
 		const callRoom = new CallRoom(type)
 		callRoom.onTrackSubsribed = handleTrackSubsribed
-		callRoom.onConnected = () => callStatusTag.textContent = 'Connected'
+		callRoom.onConnected = () => {
+			callStatusTag.textContent = 'Calling...'
+			
+		}
 		callRoom.onReconnecting = () => callStatusTag.textContent = 'Reconnecting'
 		callRoom.onReconnected = () => callStatusTag.textContent = 'Connected'
-		callRoom.onDisconnected = () => callStatusTag.textContent = 'Disconnected'
+		callRoom.onDisconnected = () => router.route()
 		callRoom.onAnswered = () => {
 			if (type === 'video') callPageDiv.classList.add('video')
 			setInterval(() => {
-				
+				const currentTime = new Date.now()
+				const callDuration = currentTime - callRoom.callStartedAt
+				callStatusTag.textContent = formatSeconds(callDuration)
 			}, 1000)
 		}
 		callRoom.onAudioMuted = () => mutedAudioIcon.classList.add('muted')
