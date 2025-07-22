@@ -809,7 +809,7 @@ form>.submit-btn>iconify-icon {
     align-items: center;
 }
 
-.chat-details>.name-and-status {
+.chat-details > .name-and-status {
     display: flex;
     flex-direction: column;
     gap: var(--vsm);
@@ -870,24 +870,25 @@ form>.submit-btn>iconify-icon {
 }
 
 .message-main>.input-area {
-    padding: var(--sub) 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: var(--sm);
     position: fixed;
     bottom: 0%;
+    width: 90%;
+    padding: var(--vsm);
 }
 
 
 
 .message-main>.input-area>.input-box {
     display: flex;
-    justify-content: space-between;
     align-items: center;
     background-color: black;
     border-radius: var(--sub);
-    padding: 8px;
-    gap: var(--sm);
+    padding: var(--sm);
+    gap: var(--sub);
     background: var(--light-main);
     max-height: 100px;
     width: 100%;
@@ -910,7 +911,7 @@ form>.submit-btn>iconify-icon {
     padding: 12px;
     margin: 0 var(--sm);
     border-radius: 50%;
-    /*background-color: var(--light-main);*/
+    background-color: var(--light-main);
     color: var(--link-color);
 }
 

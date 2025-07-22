@@ -356,7 +356,7 @@ class Socket {
 				alert(data.error)
 			}
 			else if (data.typing) {
-				if (data.sender_username !== memory.getCurrentUser({ field: 'username' })) this.onTyping?.()
+				if (data.sender_username !== memory.getCurrentUser({ field: 'username' })) this.onTyping?.(data)
 			}
 			else if (memory.currentRoom === data.room) {
 				this.onRoomMessage?.(data)
@@ -369,7 +369,7 @@ class Socket {
 					timestamp: data.timestamp
 				})
 			}
-			if (!data.error) this.onPreviewMessage?.(data)
+			if (!(data.error ||  data.typing)) this.onPreviewMessage?.(data)
 		}
 		
 	}
@@ -476,6 +476,13 @@ class Socket {
 		})
 		
 		return temporary_id
+	}
+	
+	call(isVideoCall, room_name){
+		this.send({
+			room_name: room_name || memory.currentRoom,
+			is_video_call: isVideoCall
+		})
 	}
 	
 	ping() {

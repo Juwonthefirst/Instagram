@@ -175,7 +175,7 @@ export default function homePage() {
         }
     }
     
-    socket.onTyping = () => {
+    socket.onTyping = (data) => {
         if (data.room in domManager.chatPreviewDom) {
             domManager.updateChatPreviewDom(data.room, (element) => {
                 const messageTag = element.querySelector('.message')
@@ -185,7 +185,6 @@ export default function homePage() {
                     messageTag.textContent = last_message
                 }, 3000)
             })
-            
         }
     }
     
