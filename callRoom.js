@@ -30,14 +30,16 @@ class CallRoom {
 	
 	async createTracks() {
 		this.localAudioTrack = await createLocalAudioTrack()
-		this.localVideoTrack = await createLocalVideoTrack()
-		if (this.type !== 'video') {
-			this.localVideoTrack.disable()
+		
+		if (this.type === 'video') {
+			this.localVideoTrack = await createLocalVideoTrack()
+			await this.localUser.publishTrack(this.localVideoTrack)
+			this.videoActive = true
+			
 		}
 		await this.localUser.publishTrack(this.localAudioTrack, {
 			stopMicTrackOnMute: true
 		})
-		await this.localUser.publishTrack(this.localVideoTrack)
 	}
 	
 	connectEventListeners() {
@@ -55,11 +57,11 @@ class CallRoom {
 			await this.room.disconnect()
 		})
 		this.room.on(RoomEvent.TrackMuted, (participant, track, publication) => {
-			if (participant.isLocal) return 
+			if (participant.isLocal) return
 			track.kind === 'audio' ? this.onAudioMuted?.() : this.onVideoMuted?.()
 		})
 		this.room.on(RoomEvent.TrackUnmuted, (participant, track, publication) => {
-			if (participant.isLocal) return 
+			if (participant.isLocal) return
 			track.kind === 'audio' ? this.onAudioUnMuted?.() : this.onVideoUnMuted?.()
 		})
 	}
@@ -74,18 +76,19 @@ class CallRoom {
 	
 	async endCall() {
 		if (!this.callStarted) return
+		await this.localVideoTrack?.stop()
 		await this.room.disconnect()
 	}
 	
 	async openCamera() {
 		if (!this.callStarted) return
-		await this.localVideoTrack.enable()
+		await this.localVideoTrack.unmute()
 		this.videoActive = true
 	}
 	
 	async closeCamera() {
 		if (!this.callStarted) return
-		await this.localVideoTrack.disable()
+		await this.localVideoTrack.unmute()
 		this.videoActive = false
 	}
 	
@@ -111,7 +114,7 @@ class CallRoom {
 	
 	async muteVideo() {
 		if (!this.callStarted) return
-		await this.localVideoTrack.mute()
+		await this.localVideoTrack?.mute()
 		this.videoActive = false
 	}
 	async muteAudio() {
@@ -122,6 +125,10 @@ class CallRoom {
 	
 	async unMuteVideo() {
 		if (!this.callStarted) return
+		if (this.localVideoTrack === undefined) {
+			this.localVideoTrack = await createLocalVideoTrack()
+			await this.localUser.publishTrack(this.localVideoTrack)
+		}
 		await this.localVideoTrack.unmute()
 		this.videoActive = true
 	}

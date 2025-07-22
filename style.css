@@ -846,8 +846,8 @@ form>.submit-btn>iconify-icon {
 
 .message-main>.chat-bubble {
     border-radius: var(--icon);
-    padding: var(--sm);
-    width: 40%;
+    padding: 12px;
+    max-width: 80%;
     text-align: left;
 }
 
@@ -1313,6 +1313,22 @@ form>.submit-btn>iconify-icon {
     display: block;
 }
 
+.call-page > .call-details{
+    display: none;
+    flex-direction: column;
+    gap: var(--vsm);
+    justify-content: center;
+    align-items: center;
+}
+
+.call-page > .call-details > .callee-username{
+    font-size: var(--sub);
+}
+
+.call-page > .call-details > .video-call-status{
+    font-size: 10px;
+}
+
 .call-page>.buttons {
     position: absolute;
     bottom: 5%;
@@ -1384,6 +1400,10 @@ form>.submit-btn>iconify-icon {
 
 .video.call-page > .caller-details{
     display: none;
+}
+
+.video.call-page > .call-details{
+    display: flex;
 }
 
 @keyframes dropDown {

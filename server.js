@@ -5,6 +5,8 @@ import { router } from './router.js';
 const access_token_lifetime = 60 * 30 * 1000
 const backendUrl = 'https://beep-me-api.onrender.com/api/'
 
+//Todo try to put this function in helper file
+
 const refreshAccessTokenErrorHandler = async (context, response, initial) => {
 	
 	if ((response.status >= 500 && response.status < 600 || response.status === 429) && context.retryCount <= context.maxRetry) {

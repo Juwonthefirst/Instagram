@@ -15,11 +15,13 @@ let googleClient;
 		ux_mode: 'popup',
 		code_challenge_method: 'S256',
 		callback: async (code) => {
+			loginBtn.innerHTML = loadingLoopIcon
 			await server.googleLoginByCode({
 				googleTokenObject: code,
 				onError: (data) => onLoginError(errorTag, data),
 				onSuccess: (data) => onLoginSuccess( data, router, server, memory, socket )
 			})
+			loginBtn.textContent = 'Log in'
 		}
 	})
 })();

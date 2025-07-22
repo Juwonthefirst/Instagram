@@ -8,18 +8,21 @@ import { router } from '../router.js';
 import { getTimePassed, getReadableTime } from '../helper.js';
 
 const fetchChatMessages = async () => {
-    
+    let friendObject
     /*if (Object.keys(domManager.chatDom).length) {
     	const chatDomElements = domManager.getChatDom(friend_username)
     	return messageMainDiv.append(...chatDomElements)
     }*/
     
-    const room = await server.getRoomAndMessage({
+    await server.getRoomAndMessage({
         friend_username,
         onSuccess: (data) => {
             const chatBubbleElements = []
             memory.currentRoom = data.name
-            usernameTag.textContent = (data.is_group) ? data.parent.name : data.parent.username
+            voiceCallBtn.onclick = () => router.render('call', { room_name: memory.currentRoom, type: 'audio', calleeObject: data.parent })
+            videoCallBtn.onclick = () => router.render('call', { room_name: memory.currentRoom, type: 'video', calleeObject: data.parent })
+
+            usernameTag.textContent = data.parent.username
             const messages = data.messages
             for (const message of messages) {
                 const isSender = message.sender === currentUser.id
@@ -90,9 +93,7 @@ const iconDiv = document.createElement('div')
 iconDiv.className = 'icons'
 
 const videoCallBtn = lucideIcon('video', 'video-icon')
-videoCallBtn.addEventListener('click', () => router.render('call', { room_name: memory.currentRoom, type: 'video' }))
 const voiceCallBtn = lucideIcon('phone', 'phone-icon')
-voiceCallBtn.addEventListener('click', () => router.render('call', { room_name: memory.currentRoom, type: 'audio' }))
 const menuBtn = lucideIcon('ellipsis-vertical')
 
 iconDiv.append(videoCallBtn, voiceCallBtn, menuBtn)
@@ -118,7 +119,7 @@ messageInputDiv.appendChild(messageBoxDiv)
 const sendBtn = lucideIcon('mic', 'send-btn')
 sendBtn.addEventListener('click', () => {
     const message = messageInput.value.trim()
-    if (!message) { return }
+    if (!message) return
     
     const temporary_id = socket.sendMessage(message)
     
@@ -162,7 +163,6 @@ export default function chatPage() {
             const newMessageBubbleDiv = chatBubble(false, data.message, data.timestamp)
             domManager.updateChatDom(memory.currentRoom, (domElementsList) => {
                 domElementsList?.push(newMessageBubbleDiv)
-                alert(JSON.stringify(domElementsList))
             })
             messageMainDiv.insertBefore(newMessageBubbleDiv, messageMainDiv.children[0])
         }

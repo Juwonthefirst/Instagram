@@ -4,7 +4,7 @@ import { router } from '../router.js';
 import { memory } from '../appMemory.js';
 import { iconifyIcon } from '../components/icon.js';
 
-let usernameInput;
+let usernameTimeout;
 	
 const pickUsernameDiv = document.createElement('div')
 const form = document.createElement('form')
