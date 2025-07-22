@@ -846,7 +846,7 @@ form>.submit-btn>iconify-icon {
 
 .message-main>.chat-bubble {
     border-radius: var(--icon);
-    padding: 12px;
+    padding: 10px;
     max-width: 80%;
     text-align: left;
 }
@@ -889,6 +889,8 @@ form>.submit-btn>iconify-icon {
     padding: 8px;
     gap: var(--sm);
     background: var(--light-main);
+    max-height: 100px;
+    width: 100%;
 }
 
 .message-main>.input-area>.input-box svg {
@@ -916,10 +918,11 @@ form>.submit-btn>iconify-icon {
     font: inherit;
     caret-color: var(--link-color);
     background: var(--light-main);
-    height: var(--md);
+    max-height: 100px;
     width: 100%;
     resize: none;
     overflow: hidden;
+    flex: 1;
 }
 
 .friends-list {
