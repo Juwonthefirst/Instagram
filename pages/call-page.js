@@ -131,6 +131,7 @@ export default async function callPage({ room_name, type }) {
 		
 		videoSwitchBtn.addEventListener('click', async () => {
 			if (type === 'audio') {
+				console.log(callRoom.videoActive)
 				if (callRoom.videoActive) await callRoom.closeCamera()
 				else await callRoom.openCamera()
 			}
