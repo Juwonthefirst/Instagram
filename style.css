@@ -1410,6 +1410,88 @@ form>.submit-btn>iconify-icon {
     display: flex;
 }
 
+.settings{
+    flex: 1;
+    align-self: flex-start;
+}
+
+.settings > .header{
+    display: flex;
+    /*justify-content: space-between;*/
+    align-items: center;
+    padding: var(--sm) var(--sub);
+    /*border-bottom: 1px solid rgba(255, 255, 255, .5);*/
+}
+.settings > .header > h2{
+    font-weight: 400;
+}
+
+.settings > .user-details{
+    display: flex;
+    flex-direction: column;
+    gap: var(--sm);
+    padding: var(--sm);
+    align-items: center;
+    margin: var(--lg) 0;
+}
+
+
+
+.settings > .user-details > .profile-picture{
+    position: relative;
+}
+
+.settings>.user-details>.profile-picture img{
+    width: 128px;
+    height: 128px;
+    border-radius: 50%;
+}
+
+.settings > .user-details > .profile-picture > .camera-btn{
+    position: absolute;
+    bottom: 5%;
+    right: 5%;
+    padding: var(--sm);
+    border-radius: 50%;
+    background-color: black;
+    color: var(--link-color);
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.settings > .user-details > .profile-picture{
+    position: relative;
+}
+
+.settings > .user-details > .username{
+    font-size: 18px;
+}
+
+.settings > .user-details > .email{
+    font-size: var(--sub);
+}
+
+.settings > .group{
+    border: 0px solid rgba(255, 255, 255, .8);
+    border-width: 1px 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--sm);
+    padding: var(--sm) var(--md);
+}
+
+.logout{
+    padding: var(--icon);
+    display: flex;
+    align-items: center;
+    gap: var(--sm);
+    font-size: 18px;
+    color: red;
+}
+
+
 @keyframes dropDown {
     from {
         opacity: 0;
