@@ -845,8 +845,8 @@ form>.submit-btn>iconify-icon {
 }
 
 .message-main>.chat-bubble {
-    border-radius: var(--icon);
-    padding: 10px;
+    border-radius: var(--md);
+    padding: 12px;
     max-width: 80%;
     text-align: left;
 }
