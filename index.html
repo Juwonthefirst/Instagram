@@ -11,16 +11,17 @@
   <link rel="stylesheet" href="/style.css">
   <link rel="preload" href="https://accounts.google.com/gsi/client" as="script" crossorigin="anonymous" />
   <script src="https://accounts.google.com/gsi/client" async defer></script>
-  <script type="module" src="/main.js">
-    </script>
+  <script type="module" src="/mai.js">
+  </script>
 </head>
 
 <body>
   <div class="root">
-    <div class="settings">
+    <!--<div class="settings-page">
       <div class="header">
         <i data-lucide="chevron-left"></i>
-        <h2>Settings</h2>
+        <h2>Beep</h2>
+        <p></p>
       </div>
       <div class="user-details">
         <div class="profile-picture">
@@ -33,20 +34,23 @@
         <p class="email">ajibolajuwon57@gmail.com</p>
       </div>
       <div class="profile-settings group">
-        <p class="">profile settings</p>
+        <div class="group-header">
+          <i data-lucide="user"></i>
+          <p>Profile settings</p>
+        </div>
         <div class="change-email settings-tab">
           <p>Change your email</p>
-          <p class="extra"></p>
+          <i data-lucide="chevron-right"></i>
         </div>
         <div class="change-password settings-tab">
           <p>Change your password</p>
-          <p class="extra"></p>
+          <i data-lucide="chevron-right"></i>
         </div>
       </div>
-        <div class="logout settings-tab">
-          <i data-lucide="log-out"></i>
-          <p>Log out</p>
-        </div>
+      <button class="logout settings-tab">
+        <i data-lucide="log-out"></i>
+        <p>Log out</p>
+      </button>
       <!--<video class="user-output" preload="none" playsinline></video>
       <video class="call-output" preload="none" autoplay muted playsinline></video>
       <div class="call-header">

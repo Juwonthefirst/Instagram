@@ -577,6 +577,10 @@ form>.submit-btn>iconify-icon {
     color: white;
 }
 
+.basic-popup > .choice-btns {
+    display: flex;
+}
+
 .verify-email {
     position: absolute;
     top: 10%;
@@ -724,21 +728,28 @@ form>.submit-btn>iconify-icon {
 .chat-preview-details {
     display: grid;
     grid-row-gap: var(--sm);
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: repeat(7, 1fr);
     grid-template-rows: 1fr 1fr;
+    height: 54px;
+    width: 100%;
 }
 
 .chat-preview-details>.message {
     grid-row-start: 2;
-    grid-column: span 3;
+    grid-column: span 6;
     font-size: var(--sub);
     opacity: .7;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .chat-preview-details>.timestamp {
-    grid-column-start: 4;
+    grid-column-start: -1;
+    grid-column-end: -4;
     font-size: 11px;
     opacity: .7;
+    justify-self: right;
 }
 
 .chats-main>.chat-preview .profile-picture {
@@ -809,7 +820,7 @@ form>.submit-btn>iconify-icon {
     align-items: center;
 }
 
-.chat-details > .name-and-status {
+.chat-details>.name-and-status {
     display: flex;
     flex-direction: column;
     gap: var(--vsm);
@@ -833,22 +844,22 @@ form>.submit-btn>iconify-icon {
 }
 
 .message-main {
-    
     max-height: calc(100dvh - 116px);
     position: relative;
     padding: var(--sub);
     display: flex;
     flex-direction: column-reverse;
     gap: var(--md);
-    overflow-x: auto;
+    overflow-y: auto;
     margin-bottom: var(--profile);
 }
 
 .message-main>.chat-bubble {
-    border-radius: var(--md);
-    padding: 12px;
+    border-radius: 20px;
+    padding: 10px;
     max-width: 80%;
     text-align: left;
+    line-height: 22px;
 }
 
 
@@ -872,7 +883,7 @@ form>.submit-btn>iconify-icon {
 .message-main>.input-area {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-end;
     gap: var(--sm);
     position: fixed;
     bottom: 0%;
@@ -884,13 +895,12 @@ form>.submit-btn>iconify-icon {
 
 .message-main>.input-area>.input-box {
     display: flex;
-    align-items: center;
+    align-items: flex-end;
     background-color: black;
     border-radius: var(--sub);
     padding: var(--sm);
     gap: var(--sub);
     background: var(--light-main);
-    max-height: 100px;
     width: 100%;
 }
 
@@ -907,7 +917,8 @@ form>.submit-btn>iconify-icon {
 .message-main>.input-area>.send-btn {
     display: flex;
     justify-content: center;
-    align-self: center;
+    align-items: center;
+    align-self: flex-end;
     padding: 12px;
     margin: 0 var(--sm);
     border-radius: 50%;
@@ -917,12 +928,15 @@ form>.submit-btn>iconify-icon {
 
 .message-main>.input-area>.input-box textarea {
     font: inherit;
+    align-self: center;
     caret-color: var(--link-color);
     background: var(--light-main);
     max-height: 100px;
     width: 100%;
     resize: none;
-    overflow: hidden;
+    overflow-y: auto;
+    height: auto;
+    word-break: break-all;
     flex: 1;
 }
 
@@ -1297,7 +1311,7 @@ form>.submit-btn>iconify-icon {
     font-size: 18px;
 }
 
-.call-page>.caller-details > .username-box {
+.call-page>.caller-details>.username-box {
     display: flex;
     gap: var(--sm);
     align-items: center;
@@ -1313,11 +1327,11 @@ form>.submit-btn>iconify-icon {
     display: none;
 }
 
-.call-page>.caller-details>.username-box > .muted svg {
+.call-page>.caller-details>.username-box>.muted svg {
     display: block;
 }
 
-.call-page > .call-details{
+.call-page>.call-details {
     display: none;
     flex-direction: column;
     gap: var(--vsm);
@@ -1325,11 +1339,11 @@ form>.submit-btn>iconify-icon {
     align-items: center;
 }
 
-.call-page > .call-details > .callee-username{
+.call-page>.call-details>.callee-username {
     font-size: var(--sub);
 }
 
-.call-page > .call-details > .video-call-status{
+.call-page>.call-details>.video-call-status {
     font-size: 10px;
 }
 
@@ -1402,52 +1416,62 @@ form>.submit-btn>iconify-icon {
     transition: all 1s;
 }
 
-.video.call-page > .caller-details{
+.video.call-page>.caller-details {
     display: none;
 }
 
-.video.call-page > .call-details{
+.video.call-page>.call-details {
     display: flex;
 }
 
-.settings{
+.settings-page {
     flex: 1;
     align-self: flex-start;
 }
 
-.settings > .header{
+.settings-page > .header {
     display: flex;
-    /*justify-content: space-between;*/
+    justify-content: space-between;
     align-items: center;
-    padding: var(--sm) var(--sub);
+    padding: var(--vsm) var(--sub);
     /*border-bottom: 1px solid rgba(255, 255, 255, .5);*/
-}
-.settings > .header > h2{
-    font-weight: 400;
+    text-align: center;
 }
 
-.settings > .user-details{
+.settings-page>.header>h2 {
+    font-family: "Grand Hotel";
+    letter-spacing: .3px;
+    font-weight: 400;
+    font-size: var(--lg);
+}
+
+.settings-page > .header > .back-btn svg{
+    width: var(--icon);
+    height: var(--icon);
+}
+
+.settings-page>.user-details {
     display: flex;
     flex-direction: column;
     gap: var(--sm);
     padding: var(--sm);
     align-items: center;
-    margin: var(--lg) 0;
+    margin: var(--lg) 0 var(--vlg);
 }
 
 
 
-.settings > .user-details > .profile-picture{
+.settings-page>.user-details>.profile-picture {
     position: relative;
 }
 
-.settings>.user-details>.profile-picture img{
+.settings-page>.user-details>.profile-picture img {
     width: 128px;
     height: 128px;
     border-radius: 50%;
 }
 
-.settings > .user-details > .profile-picture > .camera-btn{
+.settings-page>.user-details>.profile-picture>.camera-btn {
     position: absolute;
     bottom: 5%;
     right: 5%;
@@ -1461,20 +1485,20 @@ form>.submit-btn>iconify-icon {
     align-items: center;
 }
 
-.settings > .user-details > .profile-picture{
+.settings-page>.user-details>.profile-picture {
     position: relative;
 }
 
-.settings > .user-details > .username{
+.settings-page>.user-details>.username {
     font-size: 18px;
 }
 
-.settings > .user-details > .email{
+.settings-page>.user-details>.email {
     font-size: var(--sub);
 }
 
-.settings > .group{
-    border: 0px solid rgba(255, 255, 255, .8);
+.settings-page>.group {
+    border: 0px solid rgba(255, 255, 255, .3);
     border-width: 1px 0;
     display: flex;
     flex-direction: column;
@@ -1482,7 +1506,31 @@ form>.submit-btn>iconify-icon {
     padding: var(--sm) var(--md);
 }
 
-.logout{
+.settings-page > .group > .group-header{
+    display: flex;
+    gap: var(--vsm);
+    padding: var(--sm);
+    padding-top: 0;
+    opacity: .7;
+    font-weight: 600;
+    font-size: var(--sub);
+    align-items: center;
+}
+
+.settings-page> .group > .settings-tab{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: var(--vlg);
+    box-sizing: border-box;
+    padding: var(--sm);
+}
+
+.settings-page> .group > .settings-tab svg{
+    
+}
+
+.logout {
     padding: var(--icon);
     display: flex;
     align-items: center;

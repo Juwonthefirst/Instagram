@@ -83,7 +83,7 @@ usernameTag.textContent = friend_username
 
 const statusTag = document.createElement('p')
 statusTag.className = 'status'
-statusTag.textContent = 'Calling'
+statusTag.textContent = ''
 
 nameAndStatusDiv.append(usernameTag, statusTag)
 chatDetailsDiv.appendChild(nameAndStatusDiv)
@@ -128,7 +128,9 @@ sendBtn.addEventListener('click', () => {
         domElementsList?.push(newMessageBubbleDiv)
     })
     messageMainDiv.insertBefore(newMessageBubbleDiv, messageMainDiv.children[0])
-    messageInput.value = ''
+    //messageInput.value = ''
+    messageInput.style.height = 'auto'
+    messageInput.focus()
 })
 
 messageInputDiv.appendChild(sendBtn)

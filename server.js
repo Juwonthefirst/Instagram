@@ -112,6 +112,15 @@ class Server {
 		})
 	}
 	
+	async logout({onSuccess, onError}) {
+		return await this.#baseFetch({
+			path: 'auth/logout/',
+			cred: true,
+			onError,
+			onSuccess
+		})
+	}
+	
 	async signup({ username, email, password, onError = null, onSuccess = null }) {
 		return await this.#baseFetch({
 			path: 'auth/users/',

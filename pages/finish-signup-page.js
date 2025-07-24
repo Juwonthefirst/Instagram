@@ -57,7 +57,7 @@ form.addEventListener('submit', async (event) => {
 		})
 	}
 })
-form.appendChild(usernameField, usernameErrorTag, signupBtn)
+form.append(usernameField, usernameErrorTag, signupBtn)
 
 export default function pickUsername() {
 	return pickUsernameDiv

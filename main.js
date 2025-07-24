@@ -23,5 +23,5 @@ window.addEventListener('load', async () => {
 		socket.listenForNotifications()
 	}
 	
-	await router.navigateTo('/')
+	await router.route()
 })
