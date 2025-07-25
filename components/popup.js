@@ -19,7 +19,6 @@ const confirmationPopup = (text, onConfirm, confirmText) => {
 	const popup = document.createElement('dialog')
 	popup.className = 'basic-popup'
 	
-	
 	const popupText = document.createElement('p')
 	popupText.className = 'main-text'
 	popupText.textContent = text
@@ -30,7 +29,7 @@ const confirmationPopup = (text, onConfirm, confirmText) => {
 	
 	const cancelBtn = document.createElement('button')
 	cancelBtn.textContent = 'Cancel'
-	cancelBtn.addEventListener('click', popup.close)
+	cancelBtn.addEventListener('click',() =>  popup.close())
 	
 	const confirmBtn = document.createElement('button')
 	confirmBtn.textContent = confirmText || 'Confirm'

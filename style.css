@@ -538,7 +538,7 @@ form>.submit-btn>iconify-icon {
     display: none;
     width: 80%;
     color: red;
-    margin: calc(var(--sub) * -1) 0 0;
+    margin-top: calc(var(--sub) * -1);
     font-size: var(--sub);
     overflow-wrap: break-word;
     text-align: center;
@@ -548,14 +548,14 @@ form>.submit-btn>iconify-icon {
     padding: 0;
     color: inherit;
     font: inherit;
-    font-weight: 400;
-    width: 65%;
+    width: 50%;
     max-width: 200px;
     border-radius: var(--sub);
     /*border: 2px solid white;*/
-    font-size: var(--sub);
     background: var(--light-main);
     border: 0;
+    line-height: 20px;
+    
 }
 
 .basic-popup .main-text {
@@ -569,16 +569,16 @@ form>.submit-btn>iconify-icon {
     color: var(--accent-color);
     padding: var(--sm);
     outline: 0;
-    font-size: var(--md);
-}
-
-.basic-popup button:hover {
-    background: var(--accent-color);
-    color: white;
+    font-size: var(--sub);
 }
 
 .basic-popup > .choice-btns {
     display: flex;
+}
+
+.basic-popup > .choice-btns > * {
+    flex: 1;
+    text-align: center;
 }
 
 .verify-email {
@@ -622,6 +622,33 @@ form>.submit-btn>iconify-icon {
     background: inherit;
     margin: var(--md);
     border: 0;
+}
+
+.finish-signup-page > form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--vsm);
+}
+
+.finish-signup-page > form > .input-result{
+    max-width: 70%;
+    color: red;
+    font-size: var(--sub);
+    overflow-wrap: break-word;
+    flex-grow: 0;
+}
+
+.finish-signup-page > form > .input-result.success{
+    color: green;
+}
+
+.finish-signup-page > form > .submit-btn{
+    margin-top: var(--sub);
+}
+
+.finish-signup-page > form > .submit-btn:disabled {
+    opacity: .7;
 }
 
 /**

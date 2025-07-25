@@ -11,12 +11,21 @@
   <link rel="stylesheet" href="/style.css">
   <link rel="preload" href="https://accounts.google.com/gsi/client" as="script" crossorigin="anonymous" />
   <script src="https://accounts.google.com/gsi/client" async defer></script>
-  <script type="module" src="/mai.js">
+  <script type="module" src="/main.js">
   </script>
 </head>
 
 <body>
   <div class="root">
+    <dialog open class="basic-popup">
+      <p class="main-text">
+        are you sure you want to log out
+      </p>
+      <div class="choice-btns">
+        <button>Close</button>
+        <button>Log out</button>
+      </div>
+    </dialog>
     <!--<div class="settings-page">
       <div class="header">
         <i data-lucide="chevron-left"></i>

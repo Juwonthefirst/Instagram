@@ -3,7 +3,7 @@ import { showNotification } from './components/notification.js';
 import { basicPopUp } from './components/popup.js';
 import { router } from './router.js';
 const access_token_lifetime = 60 * 30 * 1000
-const backendUrl = 'https://beep-me-api.onrender.com/api/'
+const backendUrl = 'https://beep-me-backend.onrender.com/api/'
 
 //Todo try to put this function in helper file
 
@@ -220,7 +220,7 @@ class Server {
 	
 	async updateUserField({ fields, onError, onSuccess }) {
 		const data = await this.#baseFetch({
-			path: 'auth/users/me/',
+			path: 'auth/user/update/username/',
 			method: 'PATCH',
 			auth: true,
 			body: fields,
@@ -335,7 +335,7 @@ class Socket {
 	get notificationSocket() { return this.#notificationSocket }
 	
 	connectChatSocket() {
-		this.#chatsocket = new WebSocket(`wss://beep-me-api.onrender.com/ws/chat/?token=${server.getAccessToken()}`)
+		this.#chatsocket = new WebSocket(`wss://beep-me-backend.onrender.com/ws/chat/?token=${server.getAccessToken()}`)
 		this.#chatsocket.onclose = (event) => {
 			clearInterval(this.pingInterval)
 			if (!(event.code === 1000 || event.code === 1001) && this.chatRetryCount < this.maxRetry) {
@@ -384,7 +384,7 @@ class Socket {
 	}
 	
 	connectNotificationSocket() {
-		this.#notificationSocket = new WebSocket(`wss://beep-me-api.onrender.com/ws/notification/?token=${server.getAccessToken()}`)
+		this.#notificationSocket = new WebSocket(`wss://beep-me-backend.onrender.com/ws/notification/?token=${server.getAccessToken()}`)
 		this.#notificationSocket.onclose = (event) => {
 			if (!(event.code === 1000 || event.code === 1001) && this.notificationRetryCount < this.maxRetry) {
 				this.notificationRetryCount++

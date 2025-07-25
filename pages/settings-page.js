@@ -80,8 +80,8 @@ changeEmailSettingsDiv.className = 'change-email settings-tab'
 const changeEmailSettingsTag = document.createElement('p')
 changeEmailSettingsTag.textContent = 'Change your email'
 
-const nextButton = lucideIcon('chevron-right')
-changeEmailSettingsDiv.append(changeEmailSettingsTag, nextButton)
+const emailNextButton = lucideIcon('chevron-right')
+changeEmailSettingsDiv.append(changeEmailSettingsTag, emailNextButton)
 profileSettingGroupDiv.appendChild(changeEmailSettingsDiv)
 
 const changePasswordSettingsDiv = document.createElement('div')
@@ -90,20 +90,22 @@ changePasswordSettingsDiv.className = 'change-password settings-tab'
 const changePasswordSettingsTag = document.createElement('p')
 changePasswordSettingsTag.textContent = 'Change your password'
 
-changePasswordSettingsDiv.append(changePasswordSettingsTag, nextButton)
+const passwordNextButton = lucideIcon('chevron-right')
+
+changePasswordSettingsDiv.append(changePasswordSettingsTag, passwordNextButton)
 profileSettingGroupDiv.appendChild(changePasswordSettingsDiv)
 
 settingsPageDiv.appendChild(profileSettingGroupDiv)
 
 const logoutBtn = document.createElement('button')
 logoutBtn.className = 'logout settings-tab'
-logoutBtn.addEventListener('click', logoutConfirmationPopup.showModal)
+logoutBtn.addEventListener('click', () => logoutConfirmationPopup.showModal())
 const logoutIcon = lucideIcon('log-out', '', true)
 const logoutTextTag = document.createElement('p')
 logoutTextTag.textContent = 'Log out'
 
 logoutBtn.append(logoutIcon, logoutTextTag)
-settingsPageDiv.appendChild(logoutBtn)
+settingsPageDiv.append(logoutBtn, logoutConfirmationPopup)
 
 export default function settingsPage() {
    const currentUser = memory.getCurrentUser()

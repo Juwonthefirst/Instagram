@@ -30,7 +30,7 @@ const searchBar = document.createElement('div')
 searchBar.className = 'search-bar'
 
 
-const backIcon = lucideIcon('arrow-left', 'back-btn')
+const backIcon = lucideIcon('chevron-left', 'back-btn')
 searchBar.appendChild(backIcon)
 const searchInput = document.createElement('input')
 searchInput.className = 'search-input'
@@ -40,8 +40,9 @@ const searchIcon = lucideIcon('search', 'search-btn', true)
 searchBar.appendChild(searchIcon)
 const logoHeader = document.createElement('h2')
 logoHeader.textContent = 'Beep'
-const settingsIcon = lucideIcon('settings', 'settings')
-homeHeaderDiv.append(searchBar, logoHeader, settingsIcon)
+const settingsBtn = lucideIcon('settings', 'settings')
+settingsBtn.addEventListener('click', () => router.navigateTo('/settings'))
+homeHeaderDiv.append(searchBar, logoHeader, settingsBtn)
 
 homeDiv.appendChild(homeHeaderDiv)
 
@@ -198,7 +199,7 @@ backIcon.addEventListener('click', (event) => {
     searching = false
     searchBar.classList.remove('opened');
     logoHeader.style.display = 'block'
-    settingsIcon.style.display = 'block'
+    settingsBtn.style.display = 'block'
     searchResultDiv.replaceWith(currentSubPage)
 })
 
@@ -206,7 +207,7 @@ searchBar.addEventListener('click', () => {
     if (searchBar.classList.contains('opened')) return
     searchBar.classList.add('opened');
     logoHeader.style.display = 'none'
-    settingsIcon.style.display = 'none'
+    settingsBtn.style.display = 'none'
     currentSubPage = homeDiv.children[1]
     currentSubPage.replaceWith(searchResultDiv)
     searching = true

@@ -8,6 +8,8 @@ const routes = {
 	'chat': () => import('/pages/chat-page.js'),
 	'search': () => import('/pages/search-page.js'),
 	'call': () => import('/pages/call-page.js'),
+	'settings': () => import('/pages/settings-page.js'),
+	
 }
 
 
@@ -17,7 +19,7 @@ class PageRouter {
 		this.routes = routes
 		this.invalidRoutes = ['finish-signup']
 		this.blockedRoutes = ['login', 'signup']
-		this.protectedRoutes = ['/', 'chat', 'search']
+		//this.protectedRoutes = ['/', 'chat', 'search', 'settings', ]
 		this.main = document.querySelector('.root')
 	}
 	
@@ -28,7 +30,7 @@ class PageRouter {
 			path = ''
 		}
 		
-		else if (this.protectedRoutes.includes(path) && !memory.getCurrentUser()) {
+		else if (!this.blockedRoutes.includes(path) && !memory.getCurrentUser()) {
 			path = 'login'
 			history.pushState(null, '', '/login')
 		}
