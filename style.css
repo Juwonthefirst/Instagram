@@ -623,9 +623,6 @@ form>.submit-btn>iconify-icon {
     margin: var(--md);
     border: 0;
 }
-.finish-signup-page{
-    
-}
 
 .finish-signup-page > form{
     display: flex;
@@ -636,7 +633,7 @@ form>.submit-btn>iconify-icon {
 }
 
 .finish-signup-page > form > .input-result{
-    max-width: 200px;
+    max-width: 80%;
     color: red;
     font-size: var(--sub);
     overflow-wrap: break-word;

@@ -57,7 +57,7 @@ form.addEventListener('submit', async (event) => {
 			username,
 			onError: (data) => { usernameErrorTag.textContent = data.error.username },
 			onSuccess: (data) => {
-				memory.setCurrentUser(data.user)
+				memory.setCurrentUser(data)
 				router.navigateTo('/')
 				localStorage.removeItem('new_user')
 			}
