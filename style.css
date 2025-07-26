@@ -624,6 +624,9 @@ form>.submit-btn>iconify-icon {
     border: 0;
 }
 
+.finish-signup-page{
+    flex-grow: 0;
+}
 .finish-signup-page > form{
     display: flex;
     flex-direction: column;
@@ -637,7 +640,6 @@ form>.submit-btn>iconify-icon {
     color: red;
     font-size: var(--sub);
     overflow-wrap: break-word;
-    flex-grow: 0;
 }
 
 .finish-signup-page > form > .input-result.success{

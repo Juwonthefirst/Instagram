@@ -95,8 +95,8 @@ addFriendIcon.addEventListener('click', () => {
     localStorage.setItem('previousRoute', previousRoute)
     router.navigateTo('/search')
 })
-domManager.friendListDom = friendDiv
 friendDiv.appendChild(addFriendIcon)
+domManager.friendListDom = friendDiv
 
 
 

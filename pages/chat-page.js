@@ -126,9 +126,10 @@ sendBtn.addEventListener('click', () => {
     const newMessageBubbleDiv = chatBubble(true, message, 'pending', temporary_id)
     domManager.updateChatDom(memory.currentRoom, (domElementsList) => {
         domElementsList?.push(newMessageBubbleDiv)
+        console.log(domElementsList)
     })
     messageMainDiv.insertBefore(newMessageBubbleDiv, messageMainDiv.children[0])
-    //messageInput.value = ''
+    messageInput.value = ''
     messageInput.style.height = 'auto'
     messageInput.focus()
 })
