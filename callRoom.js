@@ -50,11 +50,11 @@ class CallRoom {
 		this.room.on(RoomEvent.Reconnected, () => this.onReconnected?.())
 		this.room.on(RoomEvent.ParticipantConnected, () => {
 			this.callStarted = true;
-			this.callStartedAt = new Date.now()
+			this.callStartedAt = Date.now()
 			this.onAnswered?.()
 		})
 		this.room.on(RoomEvent.ParticipantDisconnected, async () => {
-			//await this.room.disconnect()
+			await this.room.disconnect()
 		})
 		this.room.on(RoomEvent.TrackMuted, (participant, track, publication) => {
 			if (participant.isLocal) return
