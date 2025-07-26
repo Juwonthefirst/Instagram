@@ -54,7 +54,7 @@ class CallRoom {
 			this.onAnswered?.()
 		})
 		this.room.on(RoomEvent.ParticipantDisconnected, async () => {
-			await this.room.disconnect()
+			//await this.room.disconnect()
 		})
 		this.room.on(RoomEvent.TrackMuted, (participant, track, publication) => {
 			if (participant.isLocal) return
