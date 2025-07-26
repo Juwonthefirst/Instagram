@@ -52,18 +52,18 @@ class Server {
 		
 		try {
 			const response = await fetch(backendUrl + path, fetchData)
-			const data = (response.status === 204) ? '' : await response.json()
+			const data = (response.status === 204 || response.status === 205)? '' : await response.json()
 			if (!response.ok) {
 				const error_data = { error: data, status: response.status }
-				if (onError) onError(error_data)
+				onError?.(error_data)
 				return error_data
 			}
 			
-			if (onSuccess) onSuccess(data)
+			onSuccess?.(data)
 			return data
 			
 		} catch (e) {
-			if (onError) onError({ error: e.message })
+			onError?.({ error: e.message })
 		}
 	}
 	
@@ -218,12 +218,12 @@ class Server {
 		return data
 	}
 	
-	async updateUserField({ fields, onError, onSuccess }) {
+	async updateUsername({ username, onError, onSuccess }) {
 		const data = await this.#baseFetch({
 			path: 'auth/user/update/username/',
 			method: 'PATCH',
 			auth: true,
-			body: fields,
+			body: { username },
 			onError,
 			onSuccess
 		})

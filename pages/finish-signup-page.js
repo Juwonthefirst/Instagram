@@ -19,6 +19,11 @@ usernameErrorTag.className = 'input-error'
 const loadingLoopDiv = document.createElement('div')
 loadingLoopDiv.innerHTML = loadingLoopIcon
 
+const signupBtn = document.createElement('button')
+signupBtn.type = 'submit'
+signupBtn.className = 'submit-btn'
+signupBtn.textContent = 'All set'
+signupBtn.disabled = true
 
 usernameInput.addEventListener('input', () => {
 	clearTimeout(usernameTimeout)
@@ -42,19 +47,14 @@ usernameInput.addEventListener('input', () => {
 		usernameField.removeChild(loadingLoopDiv)
 	}, 300)
 })
-const signupBtn = document.createElement('button')
-signupBtn.type = 'submit'
-signupBtn.className = 'submit-btn'
-signupBtn.textContent = 'All set'
-signupBtn.disabled = true
 
 form.addEventListener('submit', async (event) => {
 	event.preventDefault()
 	const username = usernameInput.value.trim()
 	if (username) {
-		const data = { username }
-		await server.updateUserField({
-			data,
+		signupBtn.innerHTML = loadingLoopIcon
+		await server.updateUsername({
+			username,
 			onError: (data) => { usernameErrorTag.textContent = data.error.username },
 			onSuccess: (data) => {
 				memory.setCurrentUser(data.user)
@@ -62,8 +62,10 @@ form.addEventListener('submit', async (event) => {
 				localStorage.removeItem('new_user')
 			}
 		})
+		signupBtn.textContent = 'All set'
 	}
 })
+
 form.append(usernameField, usernameErrorTag, signupBtn)
 
 export default function pickUsername() {

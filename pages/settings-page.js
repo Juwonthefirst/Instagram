@@ -13,7 +13,7 @@ const logoutConfirmationPopup = confirmationPopup(
                location.pathname = '/login'
             }
          },
-         onSuccess: () => { location.pathname = '/login' }
+         onSuccess: (data) => { location.pathname = '/login' }
       })
    },
    'Log out'
@@ -100,6 +100,7 @@ settingsPageDiv.appendChild(profileSettingGroupDiv)
 const logoutBtn = document.createElement('button')
 logoutBtn.className = 'logout settings-tab'
 logoutBtn.addEventListener('click', () => logoutConfirmationPopup.showModal())
+
 const logoutIcon = lucideIcon('log-out', '', true)
 const logoutTextTag = document.createElement('p')
 logoutTextTag.textContent = 'Log out'
