@@ -84,7 +84,6 @@ export default async function callPage({ calleeObject, room_name, type }) {
 	callPageDiv.appendChild(navigationBtnsDiv)
 	
 	const handleTrackSubsribed = (track, publication, participant) => {
-		console.log('track are being subscribed')
 		track.attach(outputVideoTag)
 	}
 	

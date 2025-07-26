@@ -44,15 +44,19 @@ class CallRoom {
 	
 	connectEventListeners() {
 		this.room.on(RoomEvent.Connected, () => this.onConnected?.())
-		this.room.on(RoomEvent.TrackSubscribed, (track, publication, participant) => this.onTrackSubsribed?.(track, publication, participant))
-		this.room.on(RoomEvent.Reconnecting, () => this.onReconnecting?.())
-		this.room.on(RoomEvent.Disconnected, () => this.onDisconnected?.())
-		this.room.on(RoomEvent.Reconnected, () => this.onReconnected?.())
-		this.room.on(RoomEvent.ParticipantConnected, () => {
+		this.room.on(RoomEvent.TrackSubscribed, (track, publication, participant) => {
 			this.callStarted = true;
 			this.callStartedAt = Date.now()
 			console.log('call started')
 			this.onAnswered?.()
+			this.onTrackSubsribed?.(track, publication, participant)
+			
+		})
+		this.room.on(RoomEvent.Reconnecting, () => this.onReconnecting?.())
+		this.room.on(RoomEvent.Disconnected, () => this.onDisconnected?.())
+		this.room.on(RoomEvent.Reconnected, () => this.onReconnected?.())
+		this.room.on(RoomEvent.ParticipantConnected, () => {
+			
 		})
 		this.room.on(RoomEvent.ParticipantDisconnected, async () => {
 			await this.room.disconnect()
