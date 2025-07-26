@@ -26,7 +26,7 @@ const settingsPageHeaderDiv = document.createElement('div')
 settingsPageHeaderDiv.className = 'header'
 
 const backBtn = lucideIcon('chevron-left')
-backBtn.addEventListener('click', () => router.navigateTo('/'))
+backBtn.addEventListener('click', () => history.back())
 
 const headerTag = document.createElement('h2')
 headerTag.textContent = 'Beep'

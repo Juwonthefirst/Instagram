@@ -1376,7 +1376,14 @@ form>.submit-btn>iconify-icon {
 
 .call-page>.call-details>.video-call-status {
     font-size: 10px;
+    display: none;
 }
+
+.video.call-page>.call-details>.video-call-status {
+    display: block;
+}
+
+
 
 .call-page>.buttons {
     position: absolute;

@@ -66,7 +66,7 @@ export default async function callPage({ calleeObject, room_name, type }) {
 	
 	const callStatusTag = document.createElement('p')
 	callStatusTag.className = 'status'
-	callStatusTag.textContent = 'Beeping'
+	callStatusTag.textContent = 'Beeping...'
 	callerDetailsDiv.appendChild(callStatusTag)
 	callPageDiv.appendChild(callerDetailsDiv)
 	
@@ -93,7 +93,7 @@ export default async function callPage({ calleeObject, room_name, type }) {
 		const callRoom = new CallRoom(type)
 		callRoom.onTrackSubsribed = handleTrackSubsribed
 		callRoom.onConnected = () => {
-			callStatusTag.textContent = 'Calling...'
+			callStatusTag.textContent = 'Beeping...'
 		}
 		callRoom.onReconnecting = () => callStatusTag.textContent = 'Reconnecting'
 		callRoom.onReconnected = () => callStatusTag.textContent = 'Connected'
