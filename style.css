@@ -777,7 +777,7 @@ form>.submit-btn>iconify-icon {
 
 .chat-preview-details>.timestamp {
     grid-column-start: -1;
-    grid-column-end: -4;
+    grid-column-end: -5;
     font-size: 11px;
     opacity: .7;
     justify-self: right;
