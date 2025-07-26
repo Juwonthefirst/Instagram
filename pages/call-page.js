@@ -101,7 +101,7 @@ export default async function callPage({ calleeObject, room_name, type }) {
 		callRoom.onAnswered = () => {
 			if (type === 'video') callPageDiv.classList.add('video')
 			setInterval(() => {
-				const currentTime = new Date.now()
+				const currentTime = Date.now()
 				const callDuration = currentTime - callRoom.callStartedAt
 				callStatusTag.textContent = formatSeconds(callDuration)
 				videoCallStatusTag.textContent = formatSeconds(callDuration)
