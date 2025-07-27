@@ -876,7 +876,6 @@ form>.submit-btn>iconify-icon {
 
 .message-main {
     max-height: calc(100dvh - 116px);
-    position: relative;
     padding: var(--sub);
     display: flex;
     flex-direction: column-reverse;
@@ -916,8 +915,6 @@ form>.submit-btn>iconify-icon {
     justify-content: space-between;
     align-items: flex-end;
     gap: var(--sm);
-    position: fixed;
-    bottom: 0%;
     width: 90%;
     padding: var(--vsm);
 }
@@ -1362,7 +1359,7 @@ form>.submit-btn>iconify-icon {
     display: block;
 }
 
-.call-page>.call-details {
+.call-page > .call-header > .video-call-details {
     display: none;
     flex-direction: column;
     gap: var(--vsm);
@@ -1370,16 +1367,15 @@ form>.submit-btn>iconify-icon {
     align-items: center;
 }
 
-.call-page>.call-details>.callee-username {
+.call-page > .call-header >.video-call-details>.callee-username {
     font-size: var(--sub);
 }
 
-.call-page>.call-details>.video-call-status {
+.call-page> .call-header >.video-call-details>.video-call-status {
     font-size: 10px;
-    display: none;
 }
 
-.video.call-page>.call-details>.video-call-status {
+.video.call-page> .call-header >.video-call-details{
     display: block;
 }
 

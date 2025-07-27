@@ -29,7 +29,7 @@ export default async function callPage({ calleeObject, room_name, type }) {
 	const menuBtn = lucideIcon('ellipsis')
 	
 	const videoCallDetailsDiv = document.createElement('div')
-	videoCallDetailsDiv.className = 'call-details'
+	videoCallDetailsDiv.className = 'video-call-details'
 	
 	const calleeUsernameTag = document.createElement('p')
 	calleeUsernameTag.className = 'callee-username'
@@ -74,11 +74,11 @@ export default async function callPage({ calleeObject, room_name, type }) {
 	const navigationBtnsDiv = document.createElement('div')
 	navigationBtnsDiv.className = 'buttons'
 	
-	const screenShareBtn = lucideIcon('screen-share')
+	//const screenShareBtn = lucideIcon('screen-share')
 	const voiceMicBtn = lucideIcon('mic-off')
 	const hangUpBtn = lucideIcon('phone', 'cancel-call')
 	const videoSwitchBtn = (type === 'video') ? lucideIcon('video-off') : lucideIcon('video')
-	const cameraSwitchBtn = lucideIcon('switch-camera')
+	//const cameraSwitchBtn = lucideIcon('switch-camera')
 	
 	navigationBtnsDiv.append(voiceMicBtn, hangUpBtn, videoSwitchBtn)
 	callPageDiv.appendChild(navigationBtnsDiv)
@@ -114,7 +114,7 @@ export default async function callPage({ calleeObject, room_name, type }) {
 		await callRoom.startCall(room_name)
 		if (type === 'video') callRoom.localVideoTrack.attach(userOutputVideoTag)
 		
-		screenShareBtn.addEventListener('click', async () => {
+		/*screenShareBtn.addEventListener('click', async () => {
 			if (callRoom.localScreenTrack) {
 				await callRoom.closeScreenSharing()
 				screenShareBtn.classList.remove('active')
@@ -122,7 +122,7 @@ export default async function callPage({ calleeObject, room_name, type }) {
 			}
 			await callRoom.openScreenSharing()
 			screenShareBtn.classList.add('active')
-		})
+		})*/
 		
 		voiceMicBtn.addEventListener('click', async () => {
 			if (callRoom.audioMuted) {

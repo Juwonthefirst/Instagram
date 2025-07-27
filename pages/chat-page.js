@@ -135,8 +135,8 @@ sendBtn.addEventListener('click', () => {
 })
 
 messageInputDiv.appendChild(sendBtn)
-messageMainDiv.appendChild(messageInputDiv)
 messagesDiv.appendChild(messageMainDiv)
+messagesDiv.appendChild(messageInputDiv)
 
 let typingSignalSent = false
 messageInput.addEventListener('input', () => {
