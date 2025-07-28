@@ -308,6 +308,15 @@ class Server {
 			
 		})
 	}
+	
+	async getRoomMessages({room_id, pageNumber}){
+		await this.#baseFetch({
+			path: `chats/${room_id}/messages/?page=${pageNumber}`,
+			auth: true,
+			onSuccess,
+			onError
+		})
+	}
 }
 
 const server = new Server()

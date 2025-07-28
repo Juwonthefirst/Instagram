@@ -7,7 +7,16 @@ import { showNotification } from '../components/notification.js';
 import { router } from '../router.js';
 import { getTimePassed, getReadableTime } from '../helper.js';
 
-const fetchChatMessages = async (friend_username, currentUser) => {
+const appendMessageBubbles = (messages) => {
+    for (const message of messages) {
+        const isSender = message.sender === currentUser.id
+        const chatBubbleDiv = chatBubble(isSender, message.body, message.timestamp)
+        chatBubbleElements.push(chatBubbleDiv)
+        messageMainDiv.appendChild(chatBubbleDiv)
+    }
+}
+
+const fetchRoomAndDisplayMessages = async (friend_username, currentUser) => {
     let friendObject
     /*if (Object.keys(domManager.chatDom).length) {
     	const chatDomElements = domManager.getChatDom(friend_username)
@@ -23,13 +32,8 @@ const fetchChatMessages = async (friend_username, currentUser) => {
             videoCallBtn.onclick = () => router.render('call', { room_name: memory.currentRoom, type: 'video', calleeObject: data.parent })
             usernameTag.textContent = data.parent.username
             const messages = data.messages
-            for (const message of messages) {
-                const isSender = message.sender === currentUser.id
-                const chatBubbleDiv = chatBubble(isSender, message.body, message.timestamp)
-                chatBubbleElements.push(chatBubbleDiv)
-                messageMainDiv.appendChild(chatBubbleDiv)
-            }
-
+            appendMessageBubbles(messages)
+            
             domManager.createChatDom(memory.currentRoom, chatBubbleElements)
             socket.groupJoin(data.name)
             
@@ -42,11 +46,11 @@ const fetchChatMessages = async (friend_username, currentUser) => {
                 statusTag.textContent = 'was online ' + getTimePassed(data.parent.last_online)
             }
             
-        },
-        onError: (data) => console.log(data)
+        }
         
     })
 }
+
 
 const messagesDiv = document.createElement('div')
 messagesDiv.className = 'chat-message'
@@ -150,8 +154,20 @@ messageInput.addEventListener('input', () => {
     setTimeout(() => typingSignalSent = false, 3000)
 })
 
+
+const onScrollUp = async (event) => {
+    const currentScrollHeight = (-messageMainDiv.scrollTop) + messageMainDiv.clientHeight
+    const maxScrollHeight = messageMainDiv.scrollHeight
+    
+    if (currentScrollHeight > (maxScrollHeight - 300) && !fetchingMoreMessages) {
+        fetchingMoreMessages = false
+        await server.getRoomMessages({room_id, })
+    }
+}
+
 export default function chatPage() {
     let typingTimeout
+    let fetchingMoreMessages = false
     const currentUser = memory.getCurrentUser()
     const urlPath = location.pathname.split('/')
     const friend_username = urlPath.at(-1) || urlPath.at(-2);
@@ -162,7 +178,7 @@ export default function chatPage() {
     messageMainDiv.innerHTML = ''
     messageInput.value = ''
     
-    fetchChatMessages(friend_username, currentUser)
+    fetchRoomAndDisplayMessages(friend_username, currentUser)
     socket.onRoomMessage = (data) => {
         if (data.sender_username !== currentUser.username) {
             const newMessageBubbleDiv = chatBubble(false, data.message, data.timestamp)
@@ -183,6 +199,6 @@ export default function chatPage() {
         }, 3000)
         
     }
-    
+    messageMainDiv.addEventListener('scroll', onScrollUp)
     return messagesDiv
 }

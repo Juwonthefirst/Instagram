@@ -58,4 +58,6 @@ class DomManager{
 	
 }
 
-export default new DomManager()
+const domManager = new DomManager()
+
+export default domManager
