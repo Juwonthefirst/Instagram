@@ -875,13 +875,12 @@ form>.submit-btn>iconify-icon {
 }
 
 .message-main {
-    max-height: calc(100dvh - 116px);
+    height: calc(100dvh - 116px);
     padding: var(--sub);
     display: flex;
     flex-direction: column-reverse;
     gap: var(--md);
     overflow-y: auto;
-    margin-bottom: var(--profile);
 }
 
 .message-main>.chat-bubble {
@@ -910,18 +909,18 @@ form>.submit-btn>iconify-icon {
     border-bottom-left-radius: 0;
 }
 
-.message-main>.input-area {
+.input-area {
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
     gap: var(--sm);
-    width: 90%;
-    padding: var(--vsm);
+   /* width: 100%;*/
+    padding: var(--sm);
 }
 
 
 
-.message-main>.input-area>.input-box {
+.input-area>.input-box {
     display: flex;
     align-items: flex-end;
     background-color: black;
@@ -932,7 +931,7 @@ form>.submit-btn>iconify-icon {
     width: 100%;
 }
 
-.message-main>.input-area>.input-box svg {
+.input-area>.input-box svg {
     min-height: 22px;
     min-width: 22px;
     border-radius: 50%;
@@ -942,7 +941,7 @@ form>.submit-btn>iconify-icon {
     margin: -4px 0;
 }
 
-.message-main>.input-area>.send-btn {
+.input-area>.send-btn {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -954,7 +953,7 @@ form>.submit-btn>iconify-icon {
     color: var(--link-color);
 }
 
-.message-main>.input-area>.input-box textarea {
+.input-box textarea {
     font: inherit;
     align-self: center;
     caret-color: var(--link-color);
@@ -968,14 +967,18 @@ form>.submit-btn>iconify-icon {
     flex: 1;
 }
 
+
+/* Friend sub page*/
 .friends-list {
-    height: calc(100dvh - 118px);
+    height: calc(100dvh - 108px);
     display: flex;
     flex-direction: column;
+    align-items: center;
     overflow-y: auto;
-    padding: var(--sub);
+    padding: var(--sml);
     gap: var(--vsm);
     position: relative;
+    box-sizing: border-box;
 }
 
 .friends-list>.friend {

@@ -489,6 +489,7 @@ class Socket {
 	
 	call(isVideoCall, room_name){
 		this.send({
+			action: 'call',
 			room_name: room_name || memory.currentRoom,
 			is_video_call: isVideoCall
 		})

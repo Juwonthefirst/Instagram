@@ -7,7 +7,7 @@ import { showNotification } from '../components/notification.js';
 import { router } from '../router.js';
 import { getTimePassed, getReadableTime } from '../helper.js';
 
-const fetchChatMessages = async () => {
+const fetchChatMessages = async (friend_username, currentUser) => {
     let friendObject
     /*if (Object.keys(domManager.chatDom).length) {
     	const chatDomElements = domManager.getChatDom(friend_username)
@@ -21,7 +21,6 @@ const fetchChatMessages = async () => {
             memory.currentRoom = data.name
             voiceCallBtn.onclick = () => router.render('call', { room_name: memory.currentRoom, type: 'audio', calleeObject: data.parent })
             videoCallBtn.onclick = () => router.render('call', { room_name: memory.currentRoom, type: 'video', calleeObject: data.parent })
-
             usernameTag.textContent = data.parent.username
             const messages = data.messages
             for (const message of messages) {
@@ -30,7 +29,7 @@ const fetchChatMessages = async () => {
                 chatBubbleElements.push(chatBubbleDiv)
                 messageMainDiv.appendChild(chatBubbleDiv)
             }
-            
+
             domManager.createChatDom(memory.currentRoom, chatBubbleElements)
             socket.groupJoin(data.name)
             
@@ -43,14 +42,11 @@ const fetchChatMessages = async () => {
                 statusTag.textContent = 'was online ' + getTimePassed(data.parent.last_online)
             }
             
-        }
+        },
+        onError: (data) => console.log(data)
         
     })
 }
-
-const currentUser = memory.getCurrentUser()
-const urlPath = location.pathname.split('/')
-const friend_username = urlPath.at(-1) || urlPath.at(-2);
 
 const messagesDiv = document.createElement('div')
 messagesDiv.className = 'chat-message'
@@ -71,7 +67,6 @@ chatDetailsDiv.className = 'chat-details'
 const chatPictureTag = document.createElement('img')
 chatPictureTag.src = '/img/profile.jpg'
 chatPictureTag.className = 'chat-picture'
-chatPictureTag.alt = `${friend_username} profile`
 chatDetailsDiv.appendChild(chatPictureTag)
 
 const nameAndStatusDiv = document.createElement('div')
@@ -79,7 +74,6 @@ nameAndStatusDiv.className = 'name-and-status'
 
 const usernameTag = document.createElement('p')
 usernameTag.className = 'username'
-usernameTag.textContent = friend_username
 
 const statusTag = document.createElement('p')
 statusTag.className = 'status'
@@ -157,10 +151,18 @@ messageInput.addEventListener('input', () => {
 })
 
 export default function chatPage() {
+    let typingTimeout
+    const currentUser = memory.getCurrentUser()
+    const urlPath = location.pathname.split('/')
+    const friend_username = urlPath.at(-1) || urlPath.at(-2);
+    
     usernameTag.textContent = friend_username
+    chatPictureTag.alt = `${friend_username} profile`
+    
     messageMainDiv.innerHTML = ''
-    messageMainDiv.appendChild(messageInputDiv);
-    fetchChatMessages()
+    messageInput.value = ''
+    
+    fetchChatMessages(friend_username, currentUser)
     socket.onRoomMessage = (data) => {
         if (data.sender_username !== currentUser.username) {
             const newMessageBubbleDiv = chatBubble(false, data.message, data.timestamp)
@@ -173,12 +175,12 @@ export default function chatPage() {
     }
     
     socket.onTyping = () => {
-        if (statusTag.textContent === 'typing...') return
+        clearTimeout(typingTimeout)
         const statusTagTextContent = statusTag.textContent
         statusTag.textContent = 'typing...'
-        setTimeout(() => {
+        typingTimeout = setTimeout(() => {
             statusTag.textContent = statusTagTextContent
-        }, 2000)
+        }, 3000)
         
     }
     
