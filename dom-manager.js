@@ -36,8 +36,8 @@ class DomManager{
 	}
 	
 	updateChatDom(domKey, callback){
-		const domElement = this.chatDom[domKey]
-		callback(domElement)
+		const domElementList = this.chatDom[domKey]
+		callback(domElementList)
 	}
 	
 	deleteChatPreviewDomElement(key){

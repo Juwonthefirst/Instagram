@@ -101,6 +101,15 @@ class Server {
 		return this.access_token
 	}
 	
+	async get({path, onSuccess, onError}){
+		await this.#baseFetch({
+			path,
+			auth: true,
+			onError,
+			onSuccess
+		})
+	}
+	
 	async login({ username = '', email = '', password = '', onSuccess = null, onError = null }) {
 		return await this.#baseFetch({
 			path: 'auth/login/',
@@ -309,9 +318,9 @@ class Server {
 		})
 	}
 	
-	async getRoomMessages({room_id, pageNumber}){
+	async getRoomMessages({room_name, pageNumber, onError, onSuccess}){
 		await this.#baseFetch({
-			path: `chats/${room_id}/messages/?page=${pageNumber}`,
+			path: `chats/${room_name}/messages/?page=${pageNumber}`,
 			auth: true,
 			onSuccess,
 			onError
