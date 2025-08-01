@@ -198,7 +198,7 @@ export default function chatPage() {
     }
     
     
-    let typingTimeout = false
+    let typingTimeout
     const currentUser = memory.getCurrentUser()
     const urlPath = location.pathname.split('/')
     const friend_username = urlPath.at(-1) || urlPath.at(-2);
